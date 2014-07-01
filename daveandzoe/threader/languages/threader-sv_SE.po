@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: comments.php:13
+#@ threader
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr "Det här inlägget är lösenordsskyddat. För att se det måste du ange ditt lösenord."
+
+#: comments.php:19
+#: comments.php:29
+#@ threader
+msgid "&larr; Older Comments"
+msgstr "&larr; Äldre kommentarer"
+
+#: comments.php:20
+#: comments.php:30
+#@ threader
+msgid "Newer Comments &rarr;"
+msgstr "Nyare kommentarer &rarr;"
+
+#: comments.php:34
+#@ threader
+msgid "Comments are closed."
+msgstr "Kommentarer är inaktiverade."
+
+#: comments.php:39
+#@ threader
+msgid "Comment"
+msgstr "Kommentar"
+
+#: index.php:122
+#@ threader
+msgid "Spam"
+msgstr "Spam"
+
+#: index.php:123
+#@ threader
+msgid "Delete"
+msgstr "Radera"
+
+#: index.php:144
+#, php-format
+#@ threader
+msgid "%1$s on %2$s <span class=\"says\">said:</span>"
+msgstr "Den %2$s <span class=\"says\">skrev</span> %1$s:"
+
+#: index.php:149
+#, php-format
+#@ threader
+msgid "%1$s at %2$s"
+msgstr "%1$s kl. %2$s"
+
+#: index.php:152
+#@ threader
+msgid "Edit"
+msgstr "Redigera"
+
+#: index.php:158
+#@ threader
+msgid "Your comment is awaiting moderation."
+msgstr "Din kommentar väntar på granskning."
+
+#: index.php:164
+#@ threader
+msgid "Reply <span>&darr;</span>"
+msgstr "Svara <span>&darr;</span>"
+
