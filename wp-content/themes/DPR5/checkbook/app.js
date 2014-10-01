@@ -226,7 +226,6 @@
 		});
 		// Add data with the given name to the remote collection.
         function addData( check_number, date, desc, payment, deposit, balance ) {
-        	console.log(desc);
             var request = $http({
                 method: 'post',
                 url: 'wp-content/themes/DPR5/checkbook/insertTrans.php',
@@ -239,7 +238,6 @@
                     balance: balance
                 }
             });
-            console.log(request);
             return( request.then( handleSuccess, handleError ) );
         }
 		// Get all of the data in the remote collection.

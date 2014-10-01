@@ -1,11 +1,11 @@
 <?php
-$data = json_decode(file_get_contents("php://input"));
-$check = mysql_real_escape_string($data->check_number);
-$date = mysql_real_escape_string($data->date);
-$desc = mysql_real_escape_string($data->desc);
-$pay = mysql_real_escape_string($data->payment);
-$dep = mysql_real_escape_string($data->deposit);
-$bal = mysql_real_escape_string($data->balance);
+$trans_data = json_decode(file_get_contents("php://input"));
+$check = mysql_real_escape_string($trans_data->check_number);
+$date = mysql_real_escape_string($trans_data->date);
+$desc = mysql_real_escape_string($trans_data->desc);
+$pay = mysql_real_escape_string($trans_data->payment);
+$dep = mysql_real_escape_string($trans_data->deposit);
+$bal = mysql_real_escape_string($trans_data->balance);
 $hilite = 0;
 
 // ...Call the database connection settings
