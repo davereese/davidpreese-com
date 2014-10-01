@@ -1,11 +1,11 @@
 <?php
-$trans_data = json_decode(file_get_contents("php://input"));
-$check = mysql_real_escape_string($trans_data->check_number);
-$date = mysql_real_escape_string($trans_data->date);
-$desc = mysql_real_escape_string($trans_data->desc);
-$pay = mysql_real_escape_string($trans_data->payment);
-$dep = mysql_real_escape_string($trans_data->deposit);
-$bal = mysql_real_escape_string($trans_data->balance);
+$data = json_decode(file_get_contents("php://input"));
+$check = mysql_real_escape_string($data->check_number);
+$date = mysql_real_escape_string($data->date);
+$desc = mysql_real_escape_string($data->desc);
+$pay = mysql_real_escape_string($data->payment);
+$dep = mysql_real_escape_string($data->deposit);
+$bal = mysql_real_escape_string($data->balance);
 $hilite = 0;
 
 // ...Call the database connection settings
@@ -18,7 +18,7 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		INSERT INTO checkbook (`Check_Number`, `Date`, `Description`, `Payment`, `Deposit`, `Balance`, `Highlight`)
+		INSERT INTO checkbook (`check_number`, `date`, `description`, `payment`, `deposit`, `balance`, `highlight`)
 		VALUES ('$check', '$date', '$desc', '$pay', '$dep', '$bal', '$hilite')
 SQL;
 if(!$result = $dbc->query($query)){
