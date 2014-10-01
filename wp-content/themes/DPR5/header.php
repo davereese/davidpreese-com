@@ -16,7 +16,11 @@
 <html class="ie ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html <?php language_attributes(); ?>>
+<?php if( is_page('checkbook') ) { ?>
+    <html <?php language_attributes(); ?> ng-app="checkbook">
+<?php } else { ?>
+    <html <?php language_attributes(); ?>>
+<?php } ?>
 <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -29,6 +33,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.js" type="text/javascript"></script>
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/easing.js" type="text/javascript"></script>
 <!--[if gte IE 9]>

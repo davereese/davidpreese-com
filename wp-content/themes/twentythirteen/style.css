@@ -2999,7 +2999,7 @@ footer.entry-meta {
 @media print,
 	(-o-min-device-pixel-ratio: 5/4),
 	(-webkit-min-device-pixel-ratio: 1.25),
-	(min-resolution: 120dpi) {
+	{
 
 	.site-header .search-field {
 		background-image: url(images/search-icon-2x.png);

@@ -52,16 +52,16 @@ Template: twentythirteen
 	background:#FFF;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: 0px 3px 10px 0px #999;
-  	box-shadow: 0px 3px 10px 0px #999;
+	-webkit-box-shadow: 0 3px 10px 0 #999;
+  	box-shadow: 0 3px 10px 0 #999;
 	line-height:0px;
 	text-align:center;
 
 	img, .videoWrapper, .center {
 		-webkit-border-radius: 3px;
 		border-radius: 3px;
-		-webkit-box-shadow: 0px 0px 5px 0px #CCC;
-  		box-shadow: 0px 0px 5px 0px #CCC;
+		-webkit-box-shadow: 0 0 5px 0 #CCC;
+  		box-shadow: 0 0 5px 0 #CCC;
   		border:fadeout(#CCC, 35%) 1px solid;
 
   		img {
@@ -74,6 +74,21 @@ Template: twentythirteen
   			border: none;
   		}
 	}
+}
+
+.transition1(@attr1, @secs) {
+	-webkit-transition: @attr1 @secs;
+   -moz-transition: @attr1 @secs;
+   -ms-transition: @attr1 @secs;
+   -o-transition: @attr1 @secs;
+   transition: @attr1 @secs;
+}
+.transition2(@attr1, @attr2, @secs) {
+	-webkit-transition: @attr1 @secs, @attr2 @secs;
+   -moz-transition: @attr1 @secs, @attr2 @secs;
+   -ms-transition: @attr1 @secs, @attr2 @secs;
+   -o-transition: @attr1 @secs, @attr2 @secs;
+   transition: @attr1 @secs, @attr2 @secs;
 }
 
 /* -------------------------------------------------------------------- / MIXINS ------------------------------------------------------------------------ */
@@ -122,20 +137,20 @@ Template: twentythirteen
 	margin:0 auto;
 	text-align:center;
 	
-	#red .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
-	#red .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
-	#green .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
+	#red .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
+	#red .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
+	#orange .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
+	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
+	#yellow .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
+	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
+	#green .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
+	#green .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
+	#blue .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
+	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
+	#purple .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
+	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
+	#brown .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
+	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
 
 	  .dpr {
 		color:white;
@@ -246,8 +261,8 @@ Template: twentythirteen
 	position:fixed;
 	top:0px;
 	width:100%;
-	-webkit-box-shadow:  0px 0px 10px 0px rgba(0, 0, 0, .5);
-    box-shadow:  0px 0px 10px 0px rgba(0, 0, 0, .5);
+	-webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, .5);
+    box-shadow:  0 0 10px 0 rgba(0, 0, 0, .5);
 	z-index:4;
 	
 	h1 {
@@ -255,7 +270,7 @@ Template: twentythirteen
 		font-family: @font_allura;
 		font-size:3.2em;
 		font-weight:200;
-		padding:3px 0px 0px 10px;
+		padding:3px 0 0 10px;
 		margin:0px;
 		line-height:1em;
 		width:50%;
@@ -321,7 +336,7 @@ Template: twentythirteen
 			font-size:2em;
 			line-height:1em;
 			color:#333;
-			margin:15px 0px 10px 0px;
+			margin:15px 0 10px 0;
 			clear:none;
 		}
 		
@@ -332,7 +347,7 @@ Template: twentythirteen
 		p {
 			font-size:1.1em;
 			color:#333;
-			padding:0px 0px 10px 0px;
+			padding:0px 0 10px 0;
 		}
 		
 		.tags_wrap {
@@ -404,7 +419,7 @@ Template: twentythirteen
 			font-size:2em;
 			line-height:1em;
 			color:#333;
-			margin:10px 0px 10px 0px;
+			margin:10px 0 10px 0;
 			clear:none;
 		}
 		
@@ -428,7 +443,7 @@ Template: twentythirteen
 		p {
 			font-size:1em;
 			color:#333;
-			padding:0px 0px 10px 0px;
+			padding:0px 0 10px 0;
 		}
 		.portland {
 			a, a:link, a:visited {
@@ -448,8 +463,8 @@ Template: twentythirteen
 			margin-top:20px;
 			-webkit-border-radius: 5px;
 			border-radius: 5px;
-			-webkit-box-shadow: 0px 0px 30px 0px #999;
-          	box-shadow: 0px 0px 30px 0px #999;
+			-webkit-box-shadow: 0 0 30px 0 #999;
+          	box-shadow: 0 0 30px 0 #999;
 			
 			a, a:link, a:visited {
 				color:white;
@@ -531,8 +546,8 @@ Template: twentythirteen
 					border:none;
 					-webkit-border-radius: 5px;
 					border-radius: 5px;
-					-webkit-box-shadow: 0px 3px 10px 0px #999;
-		      		box-shadow: 0px 3px 10px 0px #999;
+					-webkit-box-shadow: 0 3px 10px 0 #999;
+		      		box-shadow: 0 3px 10px 0 #999;
 		      		-webkit-transition: color .5s;
 		      		-moz-transition: color .5s;
 		      		-ms-transition: color .5s;
@@ -615,37 +630,37 @@ Template: twentythirteen
 }
 
 #red {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #E83F00; filter: dropshadow(color=#E83F00, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #E83F00; filter: dropshadow(color=#E83F00, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_red; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#fd4800, #d53800); }
 }
 #orange {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #EB7816; filter: dropshadow(color=#EB7816, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #EB7816; filter: dropshadow(color=#EB7816, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_orange; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#fe871f, #db6b0f); }
 }
 #yellow {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #E8D100; filter: dropshadow(color=#E8D100, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #E8D100; filter: dropshadow(color=#E8D100, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:#E0B502; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#ebde00, #e5c700); }
 }
 #green {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #9BC700; filter: dropshadow(color=#9BC700, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #9BC700; filter: dropshadow(color=#9BC700, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_green; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#abd000, #8cbe00); }
 }
 #blue {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #0D86E7; filter: dropshadow(color=#0D86E7, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #0D86E7; filter: dropshadow(color=#0D86E7, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_blue; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#009bfe, #1875d5); }
 }
 #purple {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #9112E3; filter: dropshadow(color=#9112E3, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #9112E3; filter: dropshadow(color=#9112E3, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_purple; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#a405f7, #7f1dd0); }
 }
 #brown {
-	.dpr_header h1 { text-shadow: 0px 2px 0px #9B7145; filter: dropshadow(color=#9B7145, offx=0, offy=2); }
+	.dpr_header h1 { text-shadow: 0 2px 0 #9B7145; filter: dropshadow(color=#9B7145, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_brown; }}
 	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#ab8154, #8d6338); }
 }
@@ -655,20 +670,20 @@ Template: twentythirteen
 -------------------------------------------------------------------------------------------------------------- */
 /* Minimum width of 320 pixels. */
 @media screen and (min-width: 320px) {	
-	#red .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=1); }
-	#red .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=1); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=1); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=1); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=1); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=1); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0px 1px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=1); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0px 2px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
+	#red .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=1); }
+	#red .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
+	#orange .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=1); }
+	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
+	#yellow .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=1); }
+	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
+	#green .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=1); }
+	#green .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
+	#blue .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=1); }
+	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
+	#purple .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=1); }
+	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
+	#brown .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=1); }
+	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
 
   .main .onward_to_awesome {
     .dpr {
@@ -713,7 +728,7 @@ Template: twentythirteen
 			
 			h2 {
 				font-size:1.4em;
-				margin:10px 0px 5px 0px;
+				margin:10px 0 5px 0;
 			}
 						
 			p {
@@ -756,7 +771,7 @@ Template: twentythirteen
 		
 		h2 {
 				font-size:1.4em;
-				margin:10px 0px 5px 0px;
+				margin:10px 0 5px 0;
 			}
 		
 		p {
@@ -769,8 +784,8 @@ Template: twentythirteen
 			margin-top:10px;
 			-webkit-border-radius: 4px;
 			border-radius: 4px;
-			-webkit-box-shadow: 0px 0px 15px 0px #999;
-			box-shadow: 0px 0px 15px 0px #999;
+			-webkit-box-shadow: 0 0 15px 0 #999;
+			box-shadow: 0 0 15px 0 #999;
 			
 			.arrow {
 				width:22px;
@@ -793,7 +808,7 @@ Template: twentythirteen
 		left:auto;
 		right:-25px;
 		font-size:1.5em;
-		text-shadow: 0px 0px 10px #666;
+		text-shadow: 0 0 10px #666;
 	
 		.out_of {
 			padding-left:22px;
@@ -877,7 +892,7 @@ Template: twentythirteen
 			
 			h2 {
 				font-size:2em;
-				margin:10px 0px 10px 0px;
+				margin:10px 0 10px 0;
 			}
 			
 			p {
@@ -920,7 +935,7 @@ Template: twentythirteen
 		
 		h2 {
 				font-size:2em;
-				margin:10px 0px 10px 0px;
+				margin:10px 0 10px 0;
 			}
 		
 		p {
@@ -933,8 +948,8 @@ Template: twentythirteen
 			margin-top:12px;
 			-webkit-border-radius: 4px;
 			border-radius: 4px;
-			-webkit-box-shadow: 0px 0px 20px 0px #999;
-			box-shadow: 0px 0px 20px 0px #999;
+			-webkit-box-shadow: 0 0 20px 0 #999;
+			box-shadow: 0 0 20px 0 #999;
 			
 			.arrow {
 				width:30px;
@@ -1000,20 +1015,20 @@ Template: twentythirteen
 
 /* ------------------------------------------------- Minimum width of 960 pixels. ---------------------------------------------- */
 @media screen and (min-width: 960px) {
-	#red .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
-	#red .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
-	#green .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0px 2px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0px 3px 0px @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
+	#red .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
+	#red .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
+	#orange .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
+	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
+	#yellow .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
+	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
+	#green .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
+	#green .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
+	#blue .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
+	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
+	#purple .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
+	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
+	#brown .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
+	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
 
   .main .onward_to_awesome {
     .dpr {
@@ -1048,7 +1063,7 @@ Template: twentythirteen
 			
 			h2 {
 				font-size:2em;
-				margin:15px 0px 10px 0px;
+				margin:15px 0 10px 0;
 			}
 			
 			p {
@@ -1091,7 +1106,7 @@ Template: twentythirteen
 		
 		h2 {
 				font-size:2em;
-				margin:10px 0px 10px 0px;
+				margin:10px 0 10px 0;
 			}
 		
 		p {
@@ -1104,8 +1119,8 @@ Template: twentythirteen
 			margin-top:20px;
 			-webkit-border-radius: 5px;
 			border-radius: 5px;
-			-webkit-box-shadow: 0px 0px 30px 0px #999;
-			box-shadow: 0px 0px 30px 0px #999;
+			-webkit-box-shadow: 0 0 30px 0 #999;
+			box-shadow: 0 0 30px 0 #999;
 			
 			.arrow {
 				width:38px;
@@ -1174,5 +1189,483 @@ Template: twentythirteen
 		.project_wrap {
 			//max-width:900px;
 		}
+	}
+}
+
+/* ---------------------Checkbook Register-------------------- */
+html.ng-scope {
+	background-color: #00D9A3;
+	body {
+		background: transparent;
+		font-family: 'Lato', sans-serif;
+		a {
+			color: #fff;
+			.transition1(color, .5s);
+			&:hover {
+				color: fadeOut(#fff, 35%);
+				cursor: pointer;
+			}
+		}
+	}
+	.dpr_footer {
+		display: none;
+	}
+	.logout-btn {
+		position: absolute;
+		right: 25px;
+		top: 0;
+		padding: 5px 12px 7px;
+		background: darken(#00D9A3, 15%);
+		.transition1(background, .3s);
+		-webkit-border-bottom-right-radius: 3px;
+		-webkit-border-bottom-left-radius: 3px;
+		-moz-border-radius-bottomright: 3px;
+		-moz-border-radius-bottomleft: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+		&:hover {
+			background: darken(#00D9A3, 20%);
+			color: #fff;
+			text-decoration: none;
+		}
+	}
+}
+#error-page {
+	background-color: #00D9A3;
+	font-family: 'Lato', sans-serif;
+}
+.checkbook {
+	margin-top: 20px;
+	padding: 0 15px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	.checkbook-content {
+		padding: 0 15px;
+	}
+	input[type="text"], input[type="date"] {
+		width: 100%;
+	}
+	input {
+		background-color: #00D9A3;
+		border: darken(#00D9A3, 15%) 3px solid;
+		height: auto;
+		font-size: 1.3em;
+		color: darken(#00D9A3, 15%);
+		padding: 10px;
+		line-height: 1;
+		.transition1(background-color, .3s);
+		&::-webkit-input-placeholder {
+		   color: darken(#00D9A3, 15%);
+		   padding-top: 2px;
+		}
+		&::-moz-placeholder {
+		   color: darken(#00D9A3, 15%);
+		   padding-top: 2px;
+		}
+		&:-ms-input-placeholder {  
+		   color: darken(#00D9A3, 15%);
+		   padding-top: 2px;
+		}
+		&:focus {
+			box-shadow: none;
+			border: darken(#00D9A3, 15%) 3px solid;
+			background-color: lighten(#00D9A3, 15%);
+		}
+	}
+	.filters {
+		margin: 20px -15px 30px;
+		font-size: .7em;
+		label, input {
+			margin: 0;
+		}
+		label {
+			color: #fff;
+			text-transform: uppercase;
+			font-weight: 400;
+			padding: 0 0 5px 13px;
+		}
+		div {
+			padding: 0 5px;
+		}
+	}
+	.details {
+		font-size: .8em;
+		color: darken(#00D9A3, 28%);
+		font-weight: 400;
+		.row {
+			div {
+				padding: 0 5px;
+			}
+		}
+		.description {
+			font-size: 1.3em;
+			margin-bottom: 4px;
+		}
+	}
+	.headers {
+		color: darken(#00D9A3, 15%);
+		text-transform: uppercase;
+		font-size: .7em;
+		margin-bottom: 10px;
+	}
+	.trans.highlighted {
+		background-color: lighten(#00D9A3, 3%);
+	}
+	.trans {
+		border-bottom: darken(#00D9A3, 3%) 1px solid;
+		padding: 5px 0;
+		border-radius: 4px;
+		.transition1(background-color, .3s);
+		.hilighter {
+			text-align: right;
+			div {
+				padding: 0;
+			}
+		}
+		&:hover {
+			background-color: lighten(#00D9A3, 7%);
+		}
+	}
+	.trans.ng-leave {
+		display: none;
+	}
+	.draft {
+		padding: 5px 0;
+	}
+	.ng-invalid.ng-dirty {
+		.ng-invalid {
+			border-color: #3F3F3F;
+		}
+	}
+	form {
+		.inputs {
+			padding-top: 30px;
+		}
+		input {
+			font-size: 1.05em;
+		}
+		input[type="submit"] {
+			color: #fff;
+			border: #fff 3px solid;
+			background: #00D9A3;
+			padding-top: 11px;
+			padding-bottom: 12px;
+			margin-top: 12px;
+			.transition2(background, color, .3s);
+			&:hover {
+				color: darken(#00D9A3, 15%);
+				background: #fff;
+				box-shadow: none;
+			}
+		}
+		.description_input {
+			margin-bottom: 12px;
+		}
+	}
+	.text-center {
+		text-align: center;
+		margin: 20px 0 100px;
+		.pagination {
+			font-size: .8em;
+			li.active {
+				a, a:hover {
+					background: #fff;
+					color: darken(#00D9A3, 15%);
+				}
+			}
+			li.disabled {
+				a, a:hover {
+					background: darken(#00D9A3, 5%);
+					color: lighten(#00D9A3, 15%);
+				}
+			}
+			li {
+				a {
+					border: none !important;
+					background: darken(#00D9A3, 15%);
+					color: #fff;
+					margin: 0 3px;
+					border-radius: 4px;
+					.transition2(color, background, .3s);
+					&:hover {
+						color: darken(#00D9A3, 15%);
+						background: lighten(#00D9A3, 15%);
+					}
+				}
+			}
+		}
+	}
+	.tracker-controller {
+		margin: 0 0 100px 0;
+		h4 {
+			color: darken(#00D9A3, 28%);
+			font-size: 1.1em;
+		}
+		.tracker-bg {
+			display: block;
+			height: 20px;
+			width: 100%;
+			background: #3F3F3F;
+			border-radius: 4px;
+			margin-bottom: 35px;
+		}
+		.tracker-fill {
+			display: block;
+			height: 20px;
+			width: 100%;
+			background: darken(#00D9A3, 10%);
+			border-radius: 4px;
+			.transition1(width, 1.5s);
+		}
+	}
+}
+.datepicker.am-fade  {
+	opacity: 1;
+	transition: opacity .3s ease;
+	&.ng-enter {
+    	opacity: 0;
+    	&.ng-enter-active {
+      		opacity: 1;
+    	}
+  	}
+  	&.ng-leave {
+    	opacity: 1;
+    	&.ng-leave-active {
+      		opacity: 0;
+    	}
+  	}
+}
+#datepicker {
+	background: #00D9A3 !important;
+	&:focus {
+		background-color: lighten(#00D9A3, 15%) !important;
+	}
+}
+.datepicker {
+	background: #3F3F3F !important;
+	border-radius: 4px;
+	width: 220px;
+	padding: 0 10px 10px 10px !important;
+	button, .btn {
+		background: transparent;
+		color: #fff;
+		border: none;
+		padding: 5px;
+		.transition2(background, color, .3s) !important;
+		&:hover {
+			background: #00D9A3;
+		}
+	}
+	.btn-today {
+		background: darken(#00D9A3, 10%);
+	}
+	thead {
+		color: #00D9A3;
+		font-size: .85em;
+		button, .btn {
+			&:hover {
+				background: transparent;
+			}
+		}
+		.btn-block {
+			&:hover {
+				color: #00D9A3;
+			}
+			strong {
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.pull-left, .pull-right {
+			font-size: 1.65em;
+			display: inline-block !important;
+			height: 28px;
+			&:hover {
+				text-decoration: none !important;
+				color: #00D9A3;
+			}
+		}
+		.pull-left:hover {
+			top: 2px !important;
+			left: 2px !important;
+		}
+		.pull-right:hover {
+			top: 2px !important;
+			right: 2px !important;
+		}
+		.pull-left {
+			&:before {
+      			font-family: FontAwesome !important;
+      			content: '\f137' !important;
+      			width: 18px;
+      			float: left !important;
+			}
+		}
+		.pull-right {
+			&:before {
+      			font-family: FontAwesome !important;
+      			content: '\f138' !important;
+      			width: 18px !important;
+      			float: right !important;
+			}
+		}
+	}
+}
+.tooltip.bottom .tooltip-arrow { 
+	border-bottom-color: #3F3F3F !important;
+}
+.tooltip .tooltip-inner  {
+	background: #3F3F3F;
+}
+.modal-dialog {
+	width: 350px !important;
+	margin: 120px auto !important;
+}
+.modal-content {
+	background: #3F3F3F !important;
+	width: 350px;
+	.modal-header {
+		border-bottom: lighten(#3F3F3F, 10%) 1px solid;
+		padding: 15px;
+		.modal-title {
+			display: inline-block;
+			width: 290px;
+			color: #00D9A3;
+		}
+		.close {
+			color: #fff;
+			text-shadow: 0 3px 2px #000;
+			display: inline;
+			opacity: .5;
+			.transition1(opacity, .3s);
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+	.modal-body {
+		padding: 15px;
+		color: #fff;
+		display: inline-block;
+		float: left;
+	}
+	.login-body {
+		width: 100%;
+		#loginform {
+			width: 100%;
+			label {
+				margin-top: 7px;
+			}
+			input[type=text], input[type=password] {
+				color: #fff;
+				width: 100%;
+				margin-bottom: 10px;
+				padding: 6px 8px;
+				border: 0;
+				font-size: 1.05em;
+				background: lighten(#3F3F3F, 20%);
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+				.transition1(background-color, .3s);
+				&:focus {
+					background: lighten(#3F3F3F, 28%);
+				}
+			}
+			input[type=submit] {
+				background: darken(#00D9A3, 5%);
+				color: #004a38;
+				border: none;
+				outline: 0;
+				padding: 6px 12px;
+				float: right;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+				.transition1(background-color, .3s);
+				&:hover {
+					background: lighten(#00D9A3, 15%) !important;
+				}
+			}
+		}
+	}
+	.modal-footer {
+		border-top: none;
+		display: inline-block;
+		line-height: 1;
+		padding: 15px;
+		float: right;
+		.btn-default {
+			background: darken(#00D9A3, 5%);
+			color: #004a38;
+			border: none;
+			outline: 0;
+			.transition1(background-color, .3s);
+			&:hover {
+				background: lighten(#00D9A3, 15%) !important;
+			}
+			&:active {
+				outline: 0;
+				padding: 6px 12px;
+			}
+		}
+	}
+	.clearfix {
+		clear: both;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	html.ng-scope {
+		.logout-btn {
+			position: absolute;
+			right: 25px;
+			top: 15px;
+			padding: 0;
+			background: transparent;
+			.transition1(color, .3s);
+			&:hover {
+				background: transparent;
+				color: fadeOut(#fff, 25%);
+				text-decoration: underline;
+			}
+		}
+	}
+	.checkbook {
+		margin-top: 10px;
+		.filters {
+			font-size: 1em;
+		}
+		.details {
+			font-size: 1.1em;
+			.description {
+				font-size: 1em;
+				margin-bottom: 0 !important;
+			}
+		}
+		.headers {
+			font-size: 1em;
+		}
+		form {
+			.inputs {
+				padding-top: 30px;
+			}
+			input {
+				font-size: 1.2em;
+			}
+			input[type="submit"] {
+				margin-top: 0;
+			}
+			.description_input {
+				margin-bottom: 0;
+			}
+		}
+		.text-center {
+			.pagination {
+				font-size: 1em;
+			}
+		}
+	}
+	.datepicker {
+		width: 260px;
 	}
 }
