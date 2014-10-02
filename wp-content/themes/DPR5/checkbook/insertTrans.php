@@ -1,5 +1,6 @@
 <?php
-$data = json_decode(file_get_contents("php://input"));
+$request_body = file_get_contents("php://input");
+$data = json_decode($request_body);
 $check = mysql_real_escape_string($data->check_number);
 $date = mysql_real_escape_string($data->date);
 $desc = mysql_real_escape_string($data->desc);
