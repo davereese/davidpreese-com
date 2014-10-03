@@ -230,7 +230,7 @@
             var request = $http({
                 method: 'post',
                 url: 'wp-content/themes/DPR5/checkbook/insertTrans.php',
-                data: {
+                params: {
 					check_number: check_number,
                     date: date,
                     desc: desc,
