@@ -6,7 +6,7 @@
         <h4 class="modal-title" ng-bind="title"></h4>
       </div>
       <div class="modal-body login-body">
-        <form name="loginform" id="loginform" action="../wp-login.php" method="post" class="ng-pristine ng-valid">
+        <form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>/wp-login.php" method="post" class="ng-pristine ng-valid">
           <div class="row">
             <div class="col-xs-3">
               <label for="user_login">Username</label>
@@ -24,7 +24,7 @@
             </div>
           </div>
             <input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In">
-            <input type="hidden" name="redirect_to" value="/?page_id=203">
+            <input type="hidden" name="redirect_to" value="<?php echo esc_url( home_url( '/' ) ); ?>/checkbook">
         </form>
       </div>
       <div class="clearfix"></div>
