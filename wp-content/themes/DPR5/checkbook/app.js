@@ -259,7 +259,8 @@
                 method: 'delete',
                 url: 'wp-content/themes/DPR5/checkbook/removeTrans.php',
                 params: {
-                    action: 'delete'
+                    action: 'delete',
+                    id: id
                 },
                 data: {
                     id: id
@@ -273,7 +274,10 @@
                 method: 'update',
                 url: 'wp-content/themes/DPR5/checkbook/updateTrans.php',
                 params: {
-                    action: 'set'
+                    action: 'set',
+                    id: id,
+                    balance: balance,
+                    highlight: highlight
                 },
                 data: {
                     id: id,

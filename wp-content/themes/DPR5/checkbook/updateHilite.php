@@ -1,7 +1,9 @@
 <?php
-$data = json_decode(file_get_contents("php://input"));
-$ID = mysql_real_escape_string($data->id);
-$hilite = mysql_real_escape_string($data->hilite);
+// $data = json_decode(file_get_contents("php://input"));
+// $ID = mysql_real_escape_string($data->id);
+// $hilite = mysql_real_escape_string($data->hilite);
+$ID = $_GET['id'];
+$hilite = $_GET['hilite'];
 
 // ...Call the database connection settings
 require_once '../../../../wp-config.php';
