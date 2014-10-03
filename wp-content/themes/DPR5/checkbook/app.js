@@ -229,7 +229,7 @@
         	console.log(desc);
             var request = $http({
                 method: 'post',
-                url: 'wp-content/themes/DPR5/checkbook/insertTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/insertTrans.php',
                 params: {
 					check_number: check_number,
                     date: date,
@@ -246,7 +246,7 @@
 		function getData() {
 			var request = $http({
 				method: 'get',
-				url: 'wp-content/themes/DPR5/checkbook/getTrans.php',
+				url: '../wp-content/themes/DPR5/checkbook/getTrans.php',
 				params: {
 					action: 'get'
 				}
@@ -257,7 +257,7 @@
         function removeData( id ) {
             var request = $http({
                 method: 'delete',
-                url: 'wp-content/themes/DPR5/checkbook/removeTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/removeTrans.php',
                 params: {
                     action: 'delete',
                     id: id
@@ -272,7 +272,7 @@
         function updateData( id, balance, highlight ) {
             var request = $http({
                 method: 'update',
-                url: 'wp-content/themes/DPR5/checkbook/updateTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/updateTrans.php',
                 params: {
                     action: 'set',
                     id: id,
