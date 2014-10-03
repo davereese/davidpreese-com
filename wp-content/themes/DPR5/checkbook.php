@@ -135,7 +135,7 @@ if(is_user_logged_in()) { ?>
 	</div>
 	<div ng-controller="pagiController" class="other-controller">
 		<div class="text-center">
-			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="wp-content/themes/DPR5/checkbook/dirPagination.tpl.html"></dir-pagination-controls>
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="../wp-content/themes/DPR5/checkbook/dirPagination.tpl.html"></dir-pagination-controls>
 			<p><a href="https://secure.ally.com/allyWebClient/login.do" target="_blank">Ally Bank Login</a></p>
 		</div>
 	</div>

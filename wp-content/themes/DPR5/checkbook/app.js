@@ -123,7 +123,7 @@
 				title: ''+trans.description+'',
 				content: 'Remove transaction?',
 				scope: $scope,
-				template: 'wp-content/themes/DPR5/checkbook/removeModal.tpl.html',
+				template: '../wp-content/themes/DPR5/checkbook/removeModal.tpl.html',
 				show: false
 			});
 				myModal.$promise.then(myModal.show);
@@ -140,7 +140,7 @@
 			var loginModal = $modal({
 				title: 'Login',
 				scope: $scope,
-				template: 'wp-content/themes/DPR5/checkbook/loginModal.tpl.html',
+				template: '../wp-content/themes/DPR5/checkbook/loginModal.tpl.html',
 				show: false
 			});
 			loginModal.$promise.then(loginModal.show);
