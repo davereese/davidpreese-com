@@ -26,7 +26,7 @@ function scripts() {
 		wp_enqueue_script('angularstrapjs');
 		wp_enqueue_script('angularstraptpljs');
 		wp_enqueue_script('app');
-		wp_enqueue_style('angularMotion', '//rawgithub.com/mgcrea/angular-motion/master/dist/angular-motion.min.css', false, null);
+		wp_enqueue_style('angularMotion', get_stylesheet_directory_uri() . '/css/angular-motion.min.css', false, null);
 		wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', false, null);
 		wp_enqueue_style('lato', 'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', false, null);
 	}
