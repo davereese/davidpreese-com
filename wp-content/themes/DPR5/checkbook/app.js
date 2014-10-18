@@ -140,6 +140,7 @@
 			var loginModal = $modal({
 				title: 'Login',
 				scope: $scope,
+				container: 'section',
 				template: '../wp-content/themes/DPR5/checkbook/loginModal.tpl.html',
 				show: false
 			});

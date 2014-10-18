@@ -1525,6 +1525,20 @@ html.ng-scope {
 .modal-dialog {
 	width: 350px !important;
 	margin: 120px auto !important;
+	p.fail-text {
+		color: lighten(#00D9A3, 25%);
+		font-size: 16px;
+		font-style: italic;
+		display: none;
+		margin: 0 0 17px 0;
+	}
+}
+.failed {
+	.modal-dialog {
+		p.fail-text {
+			display: block;
+		}
+	}
 }
 .modal-content {
 	background: #3F3F3F !important;

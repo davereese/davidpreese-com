@@ -165,9 +165,13 @@ if(is_user_logged_in()) { ?>
 
 <?php
 } else { ?>
-	<div ng-controller="loginController" class="login-controller">
+	<section ng-controller="loginController" class="login-controller <?php 
+		if ( 'failed' == $_GET['login'] ) {
+			echo 'failed';
+		} 
+		?>">
 		<div bs-modal="loginModal"></div>
-	</div>
+	</section>
 <?php } 
 get_footer();
 ?>
