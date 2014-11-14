@@ -1193,16 +1193,20 @@ Template: twentythirteen
 }
 
 /* ---------------------Checkbook Register-------------------- */
+@green: #00D991;
+@gray: #3F3F3F;
+@white: #f3efe0;
+
 html.ng-scope {
-	background-color: #00D9A3;
+	background-color: @green;
 	body {
 		background: transparent;
 		font-family: 'Lato', sans-serif;
 		a {
-			color: #fff;
+			color: @white;
 			.transition1(color, .5s);
 			&:hover {
-				color: fadeOut(#fff, 35%);
+				color: fadeOut(@white, 35%);
 				cursor: pointer;
 			}
 		}
@@ -1215,7 +1219,7 @@ html.ng-scope {
 		right: 25px;
 		top: 0;
 		padding: 5px 12px 7px;
-		background: darken(#00D9A3, 15%);
+		background: darken(@green, 15%);
 		.transition1(background, .3s);
 		-webkit-border-bottom-right-radius: 3px;
 		-webkit-border-bottom-left-radius: 3px;
@@ -1224,14 +1228,14 @@ html.ng-scope {
 		border-bottom-right-radius: 3px;
 		border-bottom-left-radius: 3px;
 		&:hover {
-			background: darken(#00D9A3, 20%);
-			color: #fff;
+			background: darken(@green, 20%);
+			color: @white;
 			text-decoration: none;
 		}
 	}
 }
 #error-page {
-	background-color: #00D9A3;
+	background-color: @green;
 	font-family: 'Lato', sans-serif;
 }
 .checkbook {
@@ -1247,30 +1251,30 @@ html.ng-scope {
 		width: 100%;
 	}
 	input {
-		background-color: #00D9A3;
-		border: darken(#00D9A3, 15%) 3px solid;
+		background-color: @green;
+		border: darken(@green, 15%) 3px solid;
 		height: auto;
 		font-size: 1.3em;
-		color: darken(#00D9A3, 15%);
+		color: darken(@green, 15%);
 		padding: 10px;
 		line-height: 1;
 		.transition1(background-color, .3s);
 		&::-webkit-input-placeholder {
-		   color: darken(#00D9A3, 15%);
+		   color: darken(@green, 15%);
 		   padding-top: 2px;
 		}
 		&::-moz-placeholder {
-		   color: darken(#00D9A3, 15%);
+		   color: darken(@green, 15%);
 		   padding-top: 2px;
 		}
 		&:-ms-input-placeholder {  
-		   color: darken(#00D9A3, 15%);
+		   color: darken(@green, 15%);
 		   padding-top: 2px;
 		}
 		&:focus {
 			box-shadow: none;
-			border: darken(#00D9A3, 15%) 3px solid;
-			background-color: lighten(#00D9A3, 15%);
+			border: darken(@green, 15%) 3px solid;
+			background-color: lighten(@green, 15%);
 		}
 	}
 	.filters {
@@ -1280,7 +1284,7 @@ html.ng-scope {
 			margin: 0;
 		}
 		label {
-			color: #fff;
+			color: @white;
 			text-transform: uppercase;
 			font-weight: 400;
 			padding: 0 0 5px 13px;
@@ -1291,7 +1295,7 @@ html.ng-scope {
 	}
 	.details {
 		font-size: .8em;
-		color: darken(#00D9A3, 28%);
+		color: darken(@green, 28%);
 		font-weight: 400;
 		.row {
 			div {
@@ -1308,16 +1312,16 @@ html.ng-scope {
 		}
 	}
 	.headers {
-		color: darken(#00D9A3, 15%);
+		color: darken(@green, 15%);
 		text-transform: uppercase;
 		font-size: .7em;
 		margin-bottom: 10px;
 	}
 	.trans.highlighted {
-		background-color: lighten(#00D9A3, 3%);
+		background-color: lighten(@green, 4%);
 	}
 	.trans {
-		border-bottom: darken(#00D9A3, 3%) 1px solid;
+		border-bottom: darken(@green, 3%) 1px solid;
 		padding: 5px 0;
 		border-radius: 4px;
 		.transition1(background-color, .3s);
@@ -1328,7 +1332,7 @@ html.ng-scope {
 			}
 		}
 		&:hover {
-			background-color: lighten(#00D9A3, 7%);
+			background-color: lighten(@green, 8%);
 		}
 	}
 	.trans.ng-leave {
@@ -1339,7 +1343,7 @@ html.ng-scope {
 	}
 	.ng-invalid.ng-dirty {
 		.ng-invalid {
-			border-color: #3F3F3F;
+			border-color: @gray;
 		}
 	}
 	form {
@@ -1350,16 +1354,16 @@ html.ng-scope {
 			font-size: 1.05em;
 		}
 		input[type="submit"] {
-			color: #fff;
-			border: #fff 3px solid;
-			background: #00D9A3;
+			color: @white;
+			border: @white 3px solid;
+			background: @green;
 			padding-top: 11px;
 			padding-bottom: 12px;
 			margin-top: 12px;
 			.transition2(background, color, .3s);
 			&:hover {
-				color: darken(#00D9A3, 15%);
-				background: #fff;
+				color: darken(@green, 15%);
+				background: @white;
 				box-shadow: none;
 			}
 		}
@@ -1374,27 +1378,27 @@ html.ng-scope {
 			font-size: .8em;
 			li.active {
 				a, a:hover {
-					background: #fff;
-					color: darken(#00D9A3, 15%);
+					background: @white;
+					color: darken(@green, 15%);
 				}
 			}
 			li.disabled {
 				a, a:hover {
-					background: darken(#00D9A3, 5%);
-					color: lighten(#00D9A3, 15%);
+					background: darken(@green, 5%);
+					color: lighten(@green, 15%);
 				}
 			}
 			li {
 				a {
 					border: none !important;
-					background: darken(#00D9A3, 15%);
-					color: #fff;
+					background: darken(@green, 15%);
+					color: @white;
 					margin: 0 3px 6px;
 					border-radius: 4px;
 					.transition2(color, background, .3s);
 					&:hover {
-						color: darken(#00D9A3, 15%);
-						background: lighten(#00D9A3, 15%);
+						color: darken(@green, 18%);
+						background: lighten(@green, 8%);
 					}
 				}
 			}
@@ -1403,14 +1407,14 @@ html.ng-scope {
 	.tracker-controller {
 		margin: 0 0 100px 0;
 		h4 {
-			color: darken(#00D9A3, 28%);
+			color: darken(@green, 28%);
 			font-size: 1.1em;
 		}
 		.tracker-bg {
 			display: block;
 			height: 20px;
 			width: 100%;
-			background: #3F3F3F;
+			background: @gray;
 			border-radius: 4px;
 			margin-bottom: 35px;
 		}
@@ -1418,7 +1422,7 @@ html.ng-scope {
 			display: block;
 			height: 20px;
 			width: 100%;
-			background: darken(#00D9A3, 10%);
+			background: darken(@green, 10%);
 			border-radius: 4px;
 			.transition1(width, 1.5s);
 		}
@@ -1441,31 +1445,31 @@ html.ng-scope {
   	}
 }
 #datepicker {
-	background: #00D9A3 !important;
+	background: @green !important;
 	&:focus {
-		background-color: lighten(#00D9A3, 15%) !important;
+		background-color: lighten(@green, 15%) !important;
 	}
 }
 .datepicker {
-	background: #3F3F3F !important;
+	background: @gray !important;
 	border-radius: 4px;
 	width: 220px;
 	padding: 0 10px 10px 10px !important;
 	button, .btn {
 		background: transparent;
-		color: #fff;
+		color: @white;
 		border: none;
 		padding: 5px;
 		.transition2(background, color, .3s) !important;
 		&:hover {
-			background: #00D9A3;
+			background: @green;
 		}
 	}
 	.btn-today {
-		background: darken(#00D9A3, 10%);
+		background: darken(@green, 10%);
 	}
 	thead {
-		color: #00D9A3;
+		color: @green;
 		font-size: .85em;
 		button, .btn {
 			&:hover {
@@ -1474,7 +1478,7 @@ html.ng-scope {
 		}
 		.btn-block {
 			&:hover {
-				color: #00D9A3;
+				color: @green;
 			}
 			strong {
 				margin: 0;
@@ -1487,7 +1491,7 @@ html.ng-scope {
 			height: 28px;
 			&:hover {
 				text-decoration: none !important;
-				color: #00D9A3;
+				color: @green;
 			}
 		}
 		.pull-left:hover {
@@ -1517,10 +1521,10 @@ html.ng-scope {
 	}
 }
 .tooltip.bottom .tooltip-arrow { 
-	border-bottom-color: #3F3F3F !important;
+	border-bottom-color: @gray !important;
 }
 .tooltip .tooltip-inner  {
-	background: #3F3F3F;
+	background: @gray;
 }
 .tooltip.in {
 	opacity: 1 !important;
@@ -1529,7 +1533,7 @@ html.ng-scope {
 	width: 350px !important;
 	margin: 120px auto !important;
 	p.fail-text {
-		color: lighten(#00D9A3, 25%);
+		color: lighten(@green, 25%);
 		font-size: 16px;
 		font-style: italic;
 		display: none;
@@ -1544,20 +1548,20 @@ html.ng-scope {
 	}
 }
 .modal-content {
-	background: #3F3F3F !important;
+	background: @gray !important;
 	width: 290px;
 	margin-left: 4%;
 	.modal-header {
-		border-bottom: lighten(#3F3F3F, 10%) 1px solid;
+		border-bottom: lighten(@gray, 10%) 1px solid;
 		padding: 15px;
 		.modal-title {
 			display: inline-block;
 			width: 290px;
-			color: #00D9A3;
+			color: @green;
 		}
 		.close {
-			color: #fff;
-			text-shadow: 0 3px 2px #000;
+			color: @white;
+			text-shadow: 0 3px 2px darken(@gray, 50%);
 			display: inline;
 			opacity: .5;
 			.transition1(opacity, .3s);
@@ -1568,7 +1572,7 @@ html.ng-scope {
 	}
 	.modal-body {
 		padding: 15px;
-		color: #fff;
+		color: @white;
 		display: inline-block;
 		float: left;
 	}
@@ -1580,23 +1584,23 @@ html.ng-scope {
 				margin-top: 7px;
 			}
 			input[type=text], input[type=password] {
-				color: #fff;
+				color: @white;
 				width: 100%;
 				margin-bottom: 10px;
 				padding: 6px 8px;
 				border: 0;
 				font-size: 1.05em;
-				background: lighten(#3F3F3F, 20%);
+				background: lighten(@gray, 20%);
 				-webkit-border-radius: 3px;
 				border-radius: 3px;
 				.transition1(background-color, .3s);
 				&:focus {
-					background: lighten(#3F3F3F, 28%);
+					background: lighten(@green, 28%);
 				}
 			}
 			input[type=submit] {
-				background: darken(#00D9A3, 5%);
-				color: #004a38;
+				background: darken(@green, 5%);
+				color: darken(@green, 28%);
 				border: none;
 				outline: 0;
 				padding: 6px 12px;
@@ -1605,7 +1609,7 @@ html.ng-scope {
 				border-radius: 3px;
 				.transition1(background-color, .3s);
 				&:hover {
-					background: lighten(#00D9A3, 15%) !important;
+					background: lighten(@green, 15%) !important;
 				}
 			}
 		}
@@ -1617,13 +1621,13 @@ html.ng-scope {
 		padding: 15px;
 		float: right;
 		.btn-default {
-			background: darken(#00D9A3, 5%);
-			color: #004a38;
+			background: darken(@green, 5%);
+			color: darken(@green, 28%);
 			border: none;
 			outline: 0;
 			.transition1(background-color, .3s);
 			&:hover {
-				background: lighten(#00D9A3, 15%) !important;
+				background: lighten(@green, 15%) !important;
 			}
 			&:active {
 				outline: 0;
@@ -1647,7 +1651,7 @@ html.ng-scope {
 			.transition1(color, .3s);
 			&:hover {
 				background: transparent;
-				color: fadeOut(#fff, 25%);
+				color: fadeOut(@white, 25%);
 				text-decoration: underline;
 			}
 		}
