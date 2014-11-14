@@ -166,10 +166,11 @@ if(is_user_logged_in()) { ?>
 <?php
 } else { ?>
 	<section ng-controller="loginController" class="login-controller <?php 
+	if ( isset($_GET['login']) ) {
 		if ( 'failed' == $_GET['login'] ) {
 			echo 'failed';
 		} 
-		?>">
+	} ?>">
 		<div bs-modal="loginModal"></div>
 	</section>
 <?php } 

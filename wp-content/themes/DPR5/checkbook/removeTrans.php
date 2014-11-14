@@ -1,6 +1,4 @@
 <?php
-//$data = json_decode(file_get_contents("php://input"));
-//$ID = mysql_real_escape_string($data->id);
 $ID = $_GET['id'];
 
 // ...Call the database connection settings
