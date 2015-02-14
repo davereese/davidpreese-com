@@ -1,6 +1,5 @@
 <?php
 $ID = $_GET['id'];
-$bal = $_GET['balance'];
 $hilite = $_GET['highlight'];
 
 // ...Call the database connection settings
@@ -13,8 +12,7 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		UPDATE checkbook SET Balance = $bal,
-		Highlight = $hilite
+		UPDATE checkbook SET Highlight = $hilite
 		WHERE ID = $ID
 SQL;
 if(!$result = $dbc->query($query)){

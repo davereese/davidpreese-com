@@ -4,7 +4,6 @@ $date = $_GET['date'];
 $desc = $_GET['desc'];
 $pay = $_GET['payment'];
 $dep = $_GET['deposit'];
-$bal = $_GET['balance'];
 $hilite = 0;
 
 // ...Call the database connection settings
@@ -17,8 +16,8 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		INSERT INTO checkbook (`Check_Number`, `Date`, `Description`, `Payment`, `Deposit`, `Balance`, `Highlight`)
-		VALUES ('$check', '$date', '$desc', '$pay', '$dep', '$bal', '$hilite')
+		INSERT INTO checkbook (`Check_Number`, `Date`, `Description`, `Payment`, `Deposit`, `Highlight`)
+		VALUES ('$check', '$date', '$desc', '$pay', '$dep', '$hilite')
 SQL;
 if(!$result = $dbc->query($query)){
     die('There was an error running the query [' . $dbc->error . ']');

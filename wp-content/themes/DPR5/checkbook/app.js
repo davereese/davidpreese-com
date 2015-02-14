@@ -15,19 +15,7 @@
 		// Process the transactionForm form.
         $scope.addData = function(entries) {
 			// TODO - if new transaction adds a new page, go to the new page
-			var prevBalance = null;
-			var balance = '';
-			if ( undefined === entries[entries.length - 1] ) {
-				prevBalance = '0';
-			} else {
-				prevBalance = entries[entries.length - 1].balance;
-			}
-			if ( undefined !== $scope.newTrans.payment && null !== $scope.newTrans.payment ) {
-				balance = parseFloat(prevBalance) - parseFloat($scope.newTrans.payment);
-			} else if ( undefined !== $scope.newTrans.deposit && null !== $scope.newTrans.deposit ) {
-				balance = parseFloat(prevBalance) + parseFloat($scope.newTrans.deposit);
-			}
-            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.payment, $scope.newTrans.deposit, balance )
+            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.payment, $scope.newTrans.deposit)
                 .then( loadTransData, function( errorMessage ) {
                     console.warn( errorMessage );
                 }
@@ -38,42 +26,16 @@
             $scope.newTrans.desc = null;
             $scope.newTrans.payment = null;
             $scope.newTrans.deposit = null;
-            $scope.newTrans.balance = null;
         };
 
         // Remove the given transaction from the current collection.
         $scope.removeData = function( trans, entries, thisModal ) {
 			thisModal.$hide();
 
-			getTransDataService.removeData( trans.id );
-			// Remove selected frow from model
-			var transIndex = entries.indexOf(trans);
-			entries.splice(transIndex, 1);
-
-			var i = 0;
-			for (i = 0; i < entries.length; i++) {
-				if ( undefined === entries[i - 1] ) {
-					entries[i].balance = '0';
-				} else {
-					entries[i].balance = entries[i - 1].balance;
-				}
-				if ( '0.00' !== entries[i].payment ) {
-					entries[i].balance = entries[i].balance - entries[i].payment;
-					getTransDataService.updateData( entries[i].id, entries[i].balance, entries[i].highlight )
-						.then( loadTransData, function( errorMessage ) {
-							console.warn( errorMessage );
-						}
-					);
-				}
-				if ( '0.00' !== entries[i].deposit ) {
-					entries[i].balance = parseFloat(entries[i].balance) + parseFloat(entries[i].deposit);
-					getTransDataService.updateData( entries[i].id, entries[i].balance, entries[i].highlight )
-						.then( loadTransData, function( errorMessage ) {
-							console.warn( errorMessage );
-						}
-					);
-				}
-			}
+			getTransDataService.removeData( trans.id )
+				.then( loadTransData, function( errorMessage ) {
+					console.warn( errorMessage );
+				});
 		};
 
 		// Apply the remote data to the local scope.
@@ -83,17 +45,22 @@
 				if ( '0' === newTrans[i].check_number ) {
 					newTrans[i].check_number = '';
 				}
+				if ( 0 === i ) {
+					newTrans[i].balance = parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment)
+				} else {
+					newTrans[i].balance = parseFloat(newTrans[i - 1].balance)+parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment);
+				}
 			}
             $scope.transactions = newTrans;
 
             var entriesNum = $scope.transactions.length;
             var pageSize = $scope.pageSize;
             if ( undefined === pageSize ) {
-            	pageSize = 20;
+				pageSize = 20;
             }
             var lastPage = $scope.currentPage;
             if ( undefined === lastPage ) {
-            	lastPage = Math.ceil(entriesNum / pageSize);
+				lastPage = Math.ceil(entriesNum / pageSize);
             }
             $scope.pageSize = pageSize;
 			$scope.currentPage = lastPage;
@@ -104,8 +71,8 @@
             // The getTransDataService returns a promise.
             getTransDataService.getData()
                 .then(function( trans ) {
+                	$scope.showCtrl1();
                     applyRemoteData( trans );
-                    $scope.showCtrl1();
                 });
         }
 
@@ -116,7 +83,7 @@
 			} else if ( '1' === entries[transIndex].highlight ) {
 				entries[transIndex].highlight = 0;
 			}
-			getTransDataService.updateData( entries[transIndex].id, entries[transIndex].balance, entries[transIndex].highlight )
+			getTransDataService.updateData( entries[transIndex].id, entries[transIndex].highlight )
 						.then( loadTransData, function( errorMessage ) {
 							console.warn( errorMessage );
 						}
@@ -164,9 +131,11 @@
 			$scope.loanAmount1 = 11204.84;
 			var loanPayments1 = [];
 			var loanTransactions1 = $filter('filter')(newTrans, $scope.transFilter1);
+
             for (i = 0; i < loanTransactions1.length; i++) {
 				loanPayments1.push(parseFloat(loanTransactions1[i].payment));
 			}
+			$scope.payments1 = $scope.loanAmount1;
 			if (0 < loanPayments1.length) {
 				$scope.payments1 = $scope.loanAmount1-loanPayments1.reduce(function(prev, cur) {
 					return prev + cur;
@@ -181,6 +150,7 @@
 			for (i = 0; i < loanTransactions2.length; i++) {
 				loanPayments2.push(parseFloat(loanTransactions2[i].payment));
 			}
+			$scope.payments2 = $scope.loanAmount2;
 			if (0 < loanPayments2.length) {
 				$scope.payments2 = $scope.loanAmount2-loanPayments2.reduce(function(prev, cur) {
 					return prev + cur;
@@ -197,6 +167,7 @@
 			for (i = 0; i < loanTransactions3.length; i++) {
 				loanPayments3.push(parseFloat(loanTransactions3[i].payment));
 			}
+			$scope.payments3 = $scope.loanAmount3;
 			if (0 < loanPayments3.length) {
 				$scope.payments3 = $scope.loanAmount3-loanPayments3.reduce(function(prev, cur) {
 					return prev + cur;
@@ -233,7 +204,7 @@
 			updateData: updateData,
 		});
 		// Add data with the given name to the remote collection.
-        function addData( check_number, date, desc, payment, deposit, balance ) {
+        function addData( check_number, date, desc, payment, deposit ) {
             var request = $http({
                 method: 'post',
                 url: '../wp-content/themes/DPR5/checkbook/insertTrans.php',
@@ -243,7 +214,6 @@
                     desc: desc,
                     payment: payment,
                     deposit: deposit,
-                    balance: balance
                 },
                 responseType: 'json'
             });
@@ -276,19 +246,17 @@
             return( request.then( handleSuccess, handleError ) );
         }
 		// Update the data with the given id from the remote collection.
-        function updateData( id, balance, highlight ) {
+        function updateData( id, highlight ) {
             var request = $http({
                 method: 'update',
                 url: '../wp-content/themes/DPR5/checkbook/updateTrans.php',
                 params: {
                     action: 'set',
                     id: id,
-                    balance: balance,
                     highlight: highlight
                 },
                 data: {
                     id: id,
-                    balance: balance,
                     highlight: highlight
                 }
             });

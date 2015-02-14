@@ -9,7 +9,7 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		SELECT id, check_number, date, description, payment, deposit, balance, highlight 
+		SELECT id, check_number, date, description, payment, deposit, highlight 
 		FROM checkbook
 		WHERE id > 0
 		ORDER BY ID ASC
