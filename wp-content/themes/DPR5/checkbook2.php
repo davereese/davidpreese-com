@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Checkbook
+ * Template Name: Checkbook 2
  *
  * The template for displaying all pages.
  *
@@ -135,11 +135,11 @@ if(is_user_logged_in()) { ?>
 	</div>
 	<div ng-controller="pagiController" class="other-controller">
 		<div class="text-center">
-			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="../wp-content/themes/DPR5/checkbook/dirPagination.tpl.html"></dir-pagination-controls>
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="../wp-content/themes/DPR5/checkbook2/dirPagination.tpl.html"></dir-pagination-controls>
 			<p><a href="https://secure.ally.com/allyWebClient/login.do" target="_blank">Ally Bank Login</a></p>
 		</div>
 	</div>
-	<div ng-controller="trackerController" class="tracker-controller">
+	<!--<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
 			<div class="col-sm-4">
 				<h4><i class="fa fa-align-left"></i> {{transFilter1}} - ${{loanAmount1}}</h4>
@@ -160,7 +160,7 @@ if(is_user_logged_in()) { ?>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </div>
 
 <?php

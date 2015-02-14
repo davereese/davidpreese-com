@@ -1,3 +1,4 @@
+/* global angular:false */
 (function() {
 	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination']);
 
@@ -5,6 +6,11 @@
 		$scope.transactions = [];
 
 		loadTransData();
+
+		// broadcast that event happened
+		$scope.showCtrl1 = function () {
+			$scope.$root.$broadcast("myEvent", {});
+		};
 
 		// Process the transactionForm form.
         $scope.addData = function(entries) {
@@ -99,6 +105,7 @@
             getTransDataService.getData()
                 .then(function( trans ) {
                     applyRemoteData( trans );
+                    $scope.showCtrl1();
                 });
         }
 
@@ -148,7 +155,9 @@
 	});
 
 	app.controller('trackerController', function($scope, getTransDataService, $filter, $tooltip) {
-		loadTransData();
+		$scope.$on("myEvent", function (event, args) {
+			loadTransData();
+		});
 
         function applyRemoteData( newTrans ) {
 			$scope.transFilter1 = 'SAF Student Loan';
@@ -158,9 +167,11 @@
             for (i = 0; i < loanTransactions1.length; i++) {
 				loanPayments1.push(parseFloat(loanTransactions1[i].payment));
 			}
-			$scope.payments1 = $scope.loanAmount1-loanPayments1.reduce(function(prev, cur) {
-				return prev + cur;
-			});
+			if (0 < loanPayments1.length) {
+				$scope.payments1 = $scope.loanAmount1-loanPayments1.reduce(function(prev, cur) {
+					return prev + cur;
+				});
+			}
 			$scope.loanPaymentSum1 = $scope.payments1/$scope.loanAmount1*100;
 
 			$scope.transFilter2 = 'GL Student Loan';
@@ -170,9 +181,13 @@
 			for (i = 0; i < loanTransactions2.length; i++) {
 				loanPayments2.push(parseFloat(loanTransactions2[i].payment));
 			}
-			$scope.payments2 = $scope.loanAmount2-loanPayments2.reduce(function(prev, cur) {
-				return prev + cur;
-			});
+			if (0 < loanPayments2.length) {
+				$scope.payments2 = $scope.loanAmount2-loanPayments2.reduce(function(prev, cur) {
+					return prev + cur;
+				});
+			} else {
+				$scope.payments2 = $scope.loanAmount2;
+			}
 			$scope.loanPaymentSum2 = $scope.payments2/$scope.loanAmount2*100;
 
 			$scope.transFilter3 = 'CP Student Loan';
@@ -182,9 +197,13 @@
 			for (i = 0; i < loanTransactions3.length; i++) {
 				loanPayments3.push(parseFloat(loanTransactions3[i].payment));
 			}
-			$scope.payments3 = $scope.loanAmount3-loanPayments3.reduce(function(prev, cur) {
-				return prev + cur;
-			});
+			if (0 < loanPayments3.length) {
+				$scope.payments3 = $scope.loanAmount3-loanPayments3.reduce(function(prev, cur) {
+					return prev + cur;
+				});
+			} else {
+				$scope.payments3 = $scope.loanAmount3;
+			}
 			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
         }
 
@@ -206,18 +225,6 @@
 		};
 	});
 
-	function hilightClass(entries) {
-		for (i = 0; i < entries.length; i++) {
-			var selectedRow = document.getElementByid('row_'+i);
-			if ( '1' === entries[i].highlight ) {
-				selectedRow.className = selectedRow.className + ' highlighted';
-			} else if ( '0' === entries[i].highlight ) {
-				selectedRow.className = selectedRow.className = ' ng-scope';
-			}
-		}
-	}
-
-
 	app.service('getTransDataService', function($http, $q) {
 		return({
 			addData: addData,
@@ -227,7 +234,6 @@
 		});
 		// Add data with the given name to the remote collection.
         function addData( check_number, date, desc, payment, deposit, balance ) {
-        	console.log(desc);
             var request = $http({
                 method: 'post',
                 url: '../wp-content/themes/DPR5/checkbook/insertTrans.php',

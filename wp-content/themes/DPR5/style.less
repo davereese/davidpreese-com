@@ -1319,12 +1319,15 @@ html.ng-scope {
 	}
 	.trans.highlighted {
 		background-color: lighten(@green, 4%);
+		z-index: 200;
 	}
 	.trans {
 		border-bottom: darken(@green, 3%) 1px solid;
 		padding: 5px 0;
 		border-radius: 4px;
-		.transition1(background-color, .3s);
+		z-index: 200;
+		box-shadow: 0 0 1px darken(fadeout(@green, 100%), 30%);
+		.transition2(background-color, box-shadow, .5s);
 		.hilighter {
 			text-align: right;
 			div {
@@ -1333,6 +1336,9 @@ html.ng-scope {
 		}
 		&:hover {
 			background-color: lighten(@green, 8%);
+			box-shadow: 0 3px 20px darken(fadeout(@green, 90%), 35%);
+			z-index: 300;
+			position: relative;
 		}
 	}
 	.trans.ng-leave {
