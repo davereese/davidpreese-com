@@ -121,14 +121,47 @@
 			loginModal.$promise.then(loginModal.show);
 	});
 
-	app.controller('trackerController', function($scope, getTransDataService, $filter, $tooltip) {
+	app.controller('trackerController', function($scope, getTransDataService, $filter, $tooltip, $http) {
+		$scope.transTrackers = [];
+
 		$scope.$on("myEvent", function (event, args) {
 			loadTransData();
 		});
 
-        function applyRemoteData( newTrans ) {
-			$scope.transFilter1 = 'SAF Student Loan';
-			$scope.loanAmount1 = 11204.84;
+		// TODO - Figure this out
+		// function applyRemoteData2( trackers, newTrans ) {
+		// 	var count = 0;
+		// 	for (count = 0; count < trackers.length; count++) {
+		// 		trackerArray = [];trackers, 
+
+		// 		var transFilter = trackers[count]['Transaction Filter'];
+		// 		var loanAmount = trackers[count]['Tracker Ammount'];
+		// 		var loanPayments = [];
+		// 		var loanTransactions = $filter('filter')(newTrans, transFilter);
+
+	 //            for (i = 0; i < loanTransactions.length; i++) {
+		// 			loanPayments.push(parseFloat(loanTransactions[i].payment));
+		// 		}
+		// 		var payments = loanAmount;
+		// 		if (0 < loanPayments.length) {
+		// 			payments = loanAmount-loanPayments.reduce(function(prev, cur) {
+		// 				return prev + cur;
+		// 			});
+		// 		}
+		// 		var loanPaymentSum = payments/loanAmount*100;
+
+		// 		trackerArray['transFilter'] = transFilter;
+		// 		trackerArray['loanAmount'] = loanAmount;
+		// 		trackerArray['loanPaymentSum'] = loanPaymentSum;
+		// 		trackerArray['payments'] = payments;
+
+		// 		$scope.transTrackers.push(trackerArray);
+		// 	}
+		// }
+
+        function applyRemoteData( trackers, newTrans ) {
+			$scope.transFilter1 = trackers[0]['Transaction Filter'];
+			$scope.loanAmount1 = trackers[0]['Tracker Ammount'];
 			var loanPayments1 = [];
 			var loanTransactions1 = $filter('filter')(newTrans, $scope.transFilter1);
 
@@ -143,8 +176,8 @@
 			}
 			$scope.loanPaymentSum1 = $scope.payments1/$scope.loanAmount1*100;
 
-			$scope.transFilter2 = 'GL Student Loan';
-			$scope.loanAmount2 = 1889.47;
+			$scope.transFilter2 = trackers[1]['Transaction Filter'];
+			$scope.loanAmount2 = trackers[1]['Tracker Ammount'];
 			var loanPayments2 = [];
 			var loanTransactions2 = $filter('filter')(newTrans, $scope.transFilter2);
 			for (i = 0; i < loanTransactions2.length; i++) {
@@ -160,8 +193,8 @@
 			}
 			$scope.loanPaymentSum2 = $scope.payments2/$scope.loanAmount2*100;
 
-			$scope.transFilter3 = 'CP Student Loan';
-			$scope.loanAmount3 = 4144.40;
+			$scope.transFilter3 = trackers[2]['Transaction Filter'];
+			$scope.loanAmount3 = trackers[2]['Tracker Ammount'];
 			var loanPayments3 = [];
 			var loanTransactions3 = $filter('filter')(newTrans, $scope.transFilter3);
 			for (i = 0; i < loanTransactions3.length; i++) {
@@ -178,10 +211,18 @@
 			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
         }
 
+        function loadFilters(trans) {
+			$http.get('/wp-content/themes/DPR5/checkbook/trackers.json')
+				.then(function( trackers ) {
+					applyRemoteData(trackers.data['Trackers'], trans);
+				});
+        }
+
         function loadTransData() {
             getTransDataService.getData()
                 .then(function( trans ) {
-                    applyRemoteData( trans );
+                    loadFilters(trans);
+                    //applyRemoteData(trans);
                 });
         }
 	});

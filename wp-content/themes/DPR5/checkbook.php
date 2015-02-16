@@ -81,7 +81,6 @@ if(is_user_logged_in()) { ?>
 				</div>
 			</div>
 		</div>
-		<!-- TODO: Change tab index -->
 		<form name="transactionForm" ng-submit="transactionForm.$valid && addData(transactions)" novalidate>
 			<div class="row details draft">
 				<div class="col-sm-4 col-xs-12 col-sm-push-3">
@@ -139,6 +138,16 @@ if(is_user_logged_in()) { ?>
 			<p><a href="https://secure.ally.com/allyWebClient/login.do" target="_blank">Ally Bank Login</a></p>
 		</div>
 	</div>
+	<!-- <div ng-controller="trackerController" class="tracker-controller">
+		<div class="row tracker" ng-repeat="tracker in transTrackers">
+			<div class="col-sm-4">
+				<h4><i class="fa fa-align-left"></i> {{tracker.transFilter}} - ${{tracker.loanAmount}}</h4>
+				<div class="tracker-bg">
+					<div class="tracker-fill" style="width:{{tracker.loanPaymentSum}}%;" data-placement="bottom" data-title="${{tracker.payments}}" bs-tooltip></div>
+				</div>
+			</div>
+		</div>
+	</div> -->
 	<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
 			<div class="col-sm-4">

@@ -1,0 +1,10 @@
+{
+	"Trackers": [
+		{ "Transaction Filter": "SAF Student Loan",
+		"Tracker Ammount": "10148.94" },
+		{ "Transaction Filter": "GL Student Loan",
+		"Tracker Ammount": "3929.21" },
+		{ "Transaction Filter": "CP Student Loan",
+		"Tracker Ammount": "1696.16" }
+	]
+}
