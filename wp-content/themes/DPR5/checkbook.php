@@ -18,15 +18,15 @@ if(is_user_logged_in()) { ?>
 <div class="checkbook container">
 	<div ng-controller="RegisterController as register" repeater-directive class="checkbook-content">
 		<div class="row filters">
-			<div class="col-sm-4 col-sm-offset-2 col-xs-7">
+			<div class="col-sm-4 col-sm-offset-2 col-xs-6">
 	        	<label for="search">Search:</label>
 	        	<input type="text" autocomplete="off" ng-model="q" id="search" class="form-control" placeholder="check, desc, amount, etc.">
 	        </div>
-	        <div class="col-sm-2 col-xs-1">
+	        <div class="col-sm-2 col-xs-3">
 				<label for="search">Year:</label>
 				<input type="text" id="yearpicker" class="form-control" placeholder="Date" ng-model="transYear" bs-datepicker data-placement="bottom" data-date-format="yyyy" data-min-view="2">
 			</div>
-			<div class="col-sm-2 col-xs-4">
+			<div class="col-sm-2 col-xs-3">
 	        	<label for="search"> Per page:</label>
 	        	<input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
 			</div>
