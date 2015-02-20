@@ -4,6 +4,7 @@
 
 	app.controller('RegisterController', function($scope, getTransDataService, $modal) {
 		$scope.transactions = [];
+		var year_var = new Date().getFullYear();
 
 		loadTransData();
 
@@ -53,6 +54,7 @@
 			}
             $scope.transactions = newTrans;
 
+            $scope.transYear = year_var;
             var entriesNum = $scope.transactions.length;
             var pageSize = $scope.pageSize;
             if ( undefined === pageSize ) {
@@ -129,35 +131,26 @@
 		});
 
 		// TODO - Figure this out
-		// function applyRemoteData2( trackers, newTrans ) {
-		// 	var count = 0;
-		// 	for (count = 0; count < trackers.length; count++) {
-		// 		trackerArray = [];trackers, 
+		function applyRemoteData2( trackers, newTrans ) {
+			var count = 1;
+			for (count = 1; count < trackers.length; count++) {
+				// $scope[transFilter+count] = trackers[count-1]['Transaction Filter'];
+				// $scope[loanAmount+count] = trackers[count-1]['Tracker Ammount'];
+				// var loanPayments[count] = [];
+				// var loanTransactions[count] = $filter('filter')(newTrans, $scope.transFilter[count]);
 
-		// 		var transFilter = trackers[count]['Transaction Filter'];
-		// 		var loanAmount = trackers[count]['Tracker Ammount'];
-		// 		var loanPayments = [];
-		// 		var loanTransactions = $filter('filter')(newTrans, transFilter);
-
-	 //            for (i = 0; i < loanTransactions.length; i++) {
-		// 			loanPayments.push(parseFloat(loanTransactions[i].payment));
-		// 		}
-		// 		var payments = loanAmount;
-		// 		if (0 < loanPayments.length) {
-		// 			payments = loanAmount-loanPayments.reduce(function(prev, cur) {
-		// 				return prev + cur;
-		// 			});
-		// 		}
-		// 		var loanPaymentSum = payments/loanAmount*100;
-
-		// 		trackerArray['transFilter'] = transFilter;
-		// 		trackerArray['loanAmount'] = loanAmount;
-		// 		trackerArray['loanPaymentSum'] = loanPaymentSum;
-		// 		trackerArray['payments'] = payments;
-
-		// 		$scope.transTrackers.push(trackerArray);
-		// 	}
-		// }
+	   //          for (i = 0; i < loanTransactions[count].length; i++) {
+				// 	loanPayments[count].push(parseFloat(loanTransactions[count][i].payment));
+				// }
+				// $scope.payments[count] = $scope.loanAmount[count];
+				// if (0 < loanPayments[count].length) {
+				// 	$scope.payments[count] = $scope.loanAmount[count]-loanPayments[count].reduce(function(prev, cur) {
+				// 		return prev + cur;
+				// 	});
+				// }
+				// $scope.loanPaymentSum[count] = $scope.payments[count]/$scope.loanAmount[count]*100;
+			}
+		}
 
         function applyRemoteData( trackers, newTrans ) {
 			$scope.transFilter1 = trackers[0]['Transaction Filter'];
@@ -261,12 +254,13 @@
             return( request.then( handleSuccess, handleError ) );
         }
 		// Get all of the data in the remote collection.
-		function getData() {
+		function getData( year ) {
 			var request = $http({
 				method: 'get',
 				url: '../wp-content/themes/DPR5/checkbook/getTrans.php',
 				params: {
-					action: 'get'
+					action: 'get',
+					year: year
 				}
 			});
 			return( request.then( handleSuccess, handleError ) );
