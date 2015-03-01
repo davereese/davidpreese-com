@@ -154,25 +154,25 @@ if(is_user_logged_in()) { ?>
 	</div> -->
 	<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
-			<div class="col-sm-3">
+			<div class="col-lg-3 col-md-6 col-sm-6">
 				<h4><i class="fa fa-bar-chart"></i> {{transFilter1}} - ${{loanAmount1}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum1}}%;" data-placement="bottom" data-title="${{payments1}}" bs-tooltip></div>
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-lg-3 col-md-6 col-sm-6">
 				<h4><i class="fa fa-area-chart"></i> {{transFilter2}} - ${{loanAmount2}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum2}}%;" data-placement="bottom" data-title="${{payments2}}" bs-tooltip></div>
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-lg-3 col-md-6 col-sm-6">
 				<h4><i class="fa fa-pie-chart"></i> {{transFilter3}} - ${{loanAmount3}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum3}}%;" data-placement="bottom" data-title="${{payments3}}" bs-tooltip></div>
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-lg-3 col-md-6 col-sm-6">
 				<h4><i class="fa fa-line-chart"></i> {{transFilterTotals}} - ${{loanAmountTotals}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSumTotals}}%;" data-placement="bottom" data-title="${{paymentsTotals}}" bs-tooltip></div>
