@@ -4,13 +4,12 @@
 
 	app.controller('RegisterController', function($scope, getTransDataService, $modal) {
 		$scope.transactions = [];
-		var year_var = new Date().getFullYear();
 
 		loadTransData();
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
-			$scope.$root.$broadcast("myEvent", {});
+			$scope.$root.$broadcast('transEvent', {});
 		};
 
 		// Process the transactionForm form.
@@ -39,7 +38,11 @@
 				});
 		};
 
+		// Apply current year filter to transactions list
+		var year_var = new Date().getFullYear();
+
 		// Apply the remote data to the local scope.
+		// TODO Allow for special characters in description field (',",!, etc.)
         function applyRemoteData( newTrans ) {
 			var i = 0;
 			for (i = 0; i < newTrans.length; i++) {
@@ -47,7 +50,7 @@
 					newTrans[i].check_number = '';
 				}
 				if ( 0 === i ) {
-					newTrans[i].balance = parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment)
+					newTrans[i].balance = parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment);
 				} else {
 					newTrans[i].balance = parseFloat(newTrans[i - 1].balance)+parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment);
 				}
@@ -73,7 +76,7 @@
             // The getTransDataService returns a promise.
             getTransDataService.getData()
                 .then(function( trans ) {
-                	$scope.showCtrl1();
+					$scope.showCtrl1();
                     applyRemoteData( trans );
                 });
         }
@@ -126,7 +129,7 @@
 	app.controller('trackerController', function($scope, getTransDataService, $filter, $tooltip, $http) {
 		$scope.transTrackers = [];
 
-		$scope.$on("myEvent", function (event, args) {
+		$scope.$on("transEvent", function (event, args) {
 			loadTransData();
 		});
 
@@ -202,6 +205,23 @@
 				$scope.payments3 = $scope.loanAmount3;
 			}
 			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
+
+			$scope.transFilterTotals = 'Student Loan';
+			$scope.loanAmountTotals = Math.round((parseFloat($scope.loanAmount1)+parseFloat($scope.loanAmount3)+parseFloat($scope.loanAmount2))*100)/100;
+			var loanPaymentsTotals = [];
+			var loanTransactionsTotals = $filter('filter')(newTrans, $scope.transFilterTotals);
+			for (i = 0; i < loanTransactionsTotals.length; i++) {
+				loanPaymentsTotals.push(parseFloat(loanTransactionsTotals[i].payment));
+			}
+			$scope.paymentsTotals = $scope.loanAmountTotals;
+			if (0 < loanPaymentsTotals.length) {
+				$scope.paymentsTotals = Math.round(($scope.loanAmountTotals-loanPaymentsTotals.reduce(function(prev, cur) {
+					return prev + cur;
+				}))*100)/100;
+			} else {
+				$scope.paymentsTotals = $scope.loanAmountTotals;
+			}
+			$scope.loanPaymentSumTotals = $scope.paymentsTotals/$scope.loanAmountTotals*100;
         }
 
         function loadFilters(trans) {
@@ -254,13 +274,12 @@
             return( request.then( handleSuccess, handleError ) );
         }
 		// Get all of the data in the remote collection.
-		function getData( year ) {
+		function getData() {
 			var request = $http({
 				method: 'get',
 				url: '../wp-content/themes/DPR5/checkbook/getTrans.php',
 				params: {
-					action: 'get',
-					year: year
+					action: 'get'
 				}
 			});
 			return( request.then( handleSuccess, handleError ) );
@@ -324,13 +343,13 @@
 			iconLeft: '',
 			iconRight: '',
 		});
-	})
+	});
 
 	angular.module('checkbook').config(function($tooltipProvider) {
 		angular.extend($tooltipProvider.defaults, {
 			animation: 'am-fade',
 			trigger: 'hover'
 		});
-	})
+	});
 
 })();
