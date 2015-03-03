@@ -126,3 +126,22 @@ $('nav a').hover(function() {
 }, function() {
 	$(this).stop().animate({ 'opacity' : '1' }, 300, 'swing');
 });
+
+// ------------------------- Checkbook -------------------------- //
+$('.fa-tags').on('click', function() {
+	if ( $('.tags_input').hasClass('tags-on') ) {
+		$('.description_input').removeClass('tags-on');
+		$('.tags_input').removeClass('tags-on');
+	} else {
+		$('.description_input').addClass('tags-on');
+		$('.tags_input').addClass('tags-on');
+		$('.tags_input').focus();
+	}
+});
+
+$('.description_input').on('click', function() {
+	if ( $('.tags_input').hasClass('tags-on') ) {
+		$('.description_input').removeClass('tags-on');
+		$('.tags_input').removeClass('tags-on');
+	}
+});

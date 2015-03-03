@@ -20,7 +20,7 @@ if(is_user_logged_in()) { ?>
 		<div class="row filters">
 			<div class="col-sm-4 col-sm-offset-2 col-xs-6">
 	        	<label for="search">Search:</label>
-	        	<input type="text" autocomplete="off" ng-model="q" id="search" class="form-control" placeholder="check, desc, amount, etc.">
+	        	<input type="text" autocomplete="off" ng-model="q" id="search" class="form-control" placeholder="Check, desc, tag etc.">
 	        </div>
 	        <div class="col-sm-2 col-xs-3">
 				<label for="search">Year:</label>
@@ -61,7 +61,8 @@ if(is_user_logged_in()) { ?>
 			<div class="col-sm-4 col-xs-12 col-sm-push-3">
 				<div class="row">
 					<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)" data-animation="am-fade-and-scale" data-placement="center"><i class="fa fa-times"></i></a></div>
-					<div class="col-xs-10 description">{{transaction.description}}</div>
+					<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
+					<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags}}" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
 					<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
 				</div>
 			</div>
@@ -89,7 +90,8 @@ if(is_user_logged_in()) { ?>
 			<div class="row details draft">
 				<div class="col-sm-4 col-xs-12 col-sm-push-3">
 					<div class="row">
-						<div class="col-xs-12">{{newTrans.desc}}</div>
+						<div class="col-xs-11">{{newTrans.desc}}</div>
+						<div class="col-xs-1 tags" ng-class="{ 'has-tags': newTrans.transtags }"><i class="fa fa-tag" data-placement="top" data-title="{{newTrans.transtags}}" bs-tooltip></i></div>
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-5 col-sm-pull-4">
@@ -115,7 +117,8 @@ if(is_user_logged_in()) { ?>
 			<div class="row details inputs">
 				<div class="col-sm-4 col-xs-12 col-sm-push-3">
 					<div class="row">
-						<div class="col-xs-12"><input type="text" class="form-control description_input" placeholder="Transaction Description" ng-model="newTrans.desc" required tabindex=3></div>
+						<div class="col-xs-11"><input type="text" class="form-control description_input" placeholder="Transaction Description" ng-model="newTrans.desc" required tabindex=3><input type="text" class="form-control tags_input" placeholder="Tags (separate by comma)" ng-model="newTrans.transtags" tabindex=3></div>
+						<div class="col-xs-1 tags"><i class="fa fa-tags" title="Tags"></i></div>
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-6 col-sm-pull-4">

@@ -7,6 +7,8 @@
 
 		loadTransData();
 
+		// TODO - Add transaction editing capability
+
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
 			$scope.$root.$broadcast('transEvent', {});
@@ -15,7 +17,7 @@
 		// Process the transactionForm form.
         $scope.addData = function(entries) {
 			// TODO - if new transaction adds a new page, go to the new page
-            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.payment, $scope.newTrans.deposit)
+            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.transtags, $scope.newTrans.payment, $scope.newTrans.deposit)
                 .then( loadTransData, function( errorMessage ) {
                     console.warn( errorMessage );
                 }
@@ -24,6 +26,7 @@
             $scope.newTrans.check_number = '';
             $scope.newTrans.date = '';
             $scope.newTrans.desc = null;
+            $scope.newTrans.transtags = null;
             $scope.newTrans.payment = null;
             $scope.newTrans.deposit = null;
         };
@@ -126,7 +129,7 @@
 			loginModal.$promise.then(loginModal.show);
 	});
 
-	app.controller('trackerController', function($scope, getTransDataService, $filter, $tooltip, $http) {
+	app.controller('trackerController', function($scope, getTransDataService, $filter, $http) {
 		$scope.transTrackers = [];
 
 		$scope.$on("transEvent", function (event, args) {
@@ -258,7 +261,7 @@
 			updateData: updateData,
 		});
 		// Add data with the given name to the remote collection.
-        function addData( check_number, date, desc, payment, deposit ) {
+        function addData( check_number, date, desc, transtags, payment, deposit ) {
             var request = $http({
                 method: 'post',
                 url: '../wp-content/themes/DPR5/checkbook/insertTrans.php',
@@ -266,6 +269,7 @@
 					check_number: check_number,
                     date: date,
                     desc: desc,
+                    transtags: transtags,
                     payment: payment,
                     deposit: deposit,
                 },
