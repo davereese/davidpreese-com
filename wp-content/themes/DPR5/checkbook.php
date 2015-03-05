@@ -60,7 +60,7 @@ if(is_user_logged_in()) { ?>
 		<div class="row details trans" dir-paginate="transaction in transactions | filter:q | filter:transYear | itemsPerPage: pageSize" current-page="currentPage" id="row_{{transaction.transnum}}" style-repeater>
 			<div class="col-sm-4 col-xs-12 col-sm-push-3">
 				<div class="row">
-					<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)" data-animation="am-fade-and-scale" data-placement="center"><i class="fa fa-times"></i></a></div>
+					<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)" data-animation="am-fade-and-scale" data-placement="center"><i class="fa fa-pencil"></i></a></div>
 					<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
 					<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags}}" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
 					<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
@@ -68,7 +68,7 @@ if(is_user_logged_in()) { ?>
 			</div>
 			<div class="col-sm-3 col-xs-5 col-sm-pull-4">
 				<div class="row">
-					<div class="col-xs-1 hidden-xs"><a ng-click="showModal(transaction)" data-animation="am-fade-and-scale" data-placement="center"><i class="fa fa-times"></i></a></div>
+					<div class="col-xs-1 hidden-xs"><a ng-click="showModal(transaction)" data-animation="am-fade-and-scale" data-placement="center"><i class="fa fa-pencil"></i></a></div>
 					<div class="col-sm-4 col-xs-4">{{transaction.check_number}}</div>
 					<div class="col-sm-7 col-xs-8">{{transaction.date}}</div>
 				</div>

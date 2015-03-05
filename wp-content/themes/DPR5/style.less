@@ -1664,11 +1664,36 @@ html.ng-scope {
 	.modal-body {
 		padding: 15px;
 		color: @white;
-		display: inline-block;
-		float: left;
+		div {
+			padding: 0 2px;
+		}
+		div.row {
+			padding: 0 13px;
+		}
+		input[type=text] {
+			width: 100%;
+			background-color: darken(@gray, 2%);
+			color: @green;
+			border: none;
+			font-size: 1.1em;
+			padding: 5px 10px;
+			margin: 0 0 10px 0;
+			border-radius: 4px;
+		}
+		label {
+			font-size: .9em;
+			color: lighten(@gray, 15%);
+			text-transform: uppercase;
+			margin: 0;
+			padding: 0 10px;
+		}
 	}
 	.login-body {
 		width: 100%;
+		padding-bottom: 55px;
+		div.row {
+			padding: 0 13px;
+		}
 		#loginform {
 			width: 100%;
 			label {
@@ -1716,7 +1741,7 @@ html.ng-scope {
 			color: darken(@green, 28%);
 			border: none;
 			outline: 0;
-			.transition1(background-color, .3s);
+			.transition2(background-color, color, .3s);
 			&:hover {
 				background: lighten(@green, 15%) !important;
 			}
@@ -1725,6 +1750,20 @@ html.ng-scope {
 				padding: 6px 12px;
 			}
 		}
+		.btn-default.delete {
+			background: darken(@gray, 10%);
+			color: #fff;
+			float: left;
+			&:hover {
+				background: fadeOut(darken(@green, 40%), 45%) !important;
+				color: lighten(@green, 10%) !important;
+			}
+		}
+	}
+	.modal-footer.edit-remove {
+		float: none;
+		border-top: lighten(@gray, 10%) 1px solid;
+		width: 100%;
 	}
 	.clearfix {
 		clear: both;

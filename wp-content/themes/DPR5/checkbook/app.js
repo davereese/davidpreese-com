@@ -7,7 +7,7 @@
 
 		loadTransData();
 
-		// TODO - Add transaction editing capability
+		// TODO - when filtering with text search, add sum of showing transactions
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -39,6 +39,17 @@
 				.then( loadTransData, function( errorMessage ) {
 					console.warn( errorMessage );
 				});
+		};
+
+		// Edit the given transaction from the current collection.
+        $scope.editData = function( trans, entries, thisModal ) {
+			thisModal.$hide();
+
+			getTransDataService.editData( trans.id, trans.check_number, trans.date, trans.description, trans.tags, trans.payment, trans.deposit)
+                .then( loadTransData, function( errorMessage ) {
+                    console.warn( errorMessage );
+                }
+            );
 		};
 
 		// Apply current year filter to transactions list
@@ -100,12 +111,12 @@
 
 		$scope.showModal = function( trans ) {
 			$scope.transaction = trans;
+
 			// Show a basic modal from a controller
 			var myModal = $modal({
-				title: ''+trans.description+'',
-				content: 'Remove transaction?',
+				title: 'Edit '+trans.description+'',
 				scope: $scope,
-				template: '../wp-content/themes/DPR5/checkbook/removeModal.tpl.html',
+				template: '../wp-content/themes/DPR5/checkbook/editModal.tpl.html',
 				show: false
 			});
 				myModal.$promise.then(myModal.show);
@@ -258,7 +269,8 @@
 			addData: addData,
 			getData: getData,
 			removeData: removeData,
-			updateData: updateData,
+			editData: editData,
+			updateData: updateData
 		});
 		// Add data with the given name to the remote collection.
         function addData( check_number, date, desc, transtags, payment, deposit ) {
@@ -299,6 +311,33 @@
                 },
                 data: {
                     id: id
+                }
+            });
+            return( request.then( handleSuccess, handleError ) );
+        }
+        // Edit the data with the given id from the remote collection.
+        function editData( id, check_number, date, desc, transtags, payment, deposit ) {
+            var request = $http({
+                method: 'update',
+                url: '../wp-content/themes/DPR5/checkbook/editTrans.php',
+                params: {
+					action: 'set',
+					id: id,
+					check_number: check_number,
+                    date: date,
+                    desc: desc,
+                    transtags: transtags,
+                    payment: payment,
+                    deposit: deposit
+                },
+                data: {
+					id: id,
+					check_number: check_number,
+                    date: date,
+                    desc: desc,
+                    transtags: transtags,
+                    payment: payment,
+                    deposit: deposit
                 }
             });
             return( request.then( handleSuccess, handleError ) );

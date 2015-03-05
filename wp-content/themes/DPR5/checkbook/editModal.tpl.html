@@ -1,0 +1,44 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title" ng-bind="title"></h4>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <label for="description">Description</label>
+              <input type="text" name="description" ng-model="transaction.description">
+            </div>
+            <div class="col-xs-6">
+              <label for="date">Date</label>
+              <input type="text" name="date" ng-model="transaction.date" bs-datepicker>
+            </div>
+            <div class="col-xs-6">
+              <label for="check">Check</label>
+              <input type="text" name="check" ng-model="transaction.check_number">
+            </div>
+            <div class="col-xs-6">
+              <label for="payment">Payment</label>
+              <input type="text" name="payment" ng-model="transaction.payment">
+            </div>
+            <div class="col-xs-6">
+              <label for="deposit">Deposit</label>
+              <input type="text" name="deposit" ng-model="transaction.deposit">
+            </div>
+            <div class="col-xs-12">
+              <label for="tags">Tags</label>
+              <input type="text" name="tags" ng-model="transaction.tags">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer edit-remove">
+          <button type="button" class="btn btn-default delete" ng-click="removeData(transaction, transactions, this)"><i class="fa fa-trash"></i> Delete</button> <button type="button" class="btn btn-default" ng-click="editData(transaction, transactions, this)"><i class="fa fa-send"></i> Update</button>
+        </div>
+      </form>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
