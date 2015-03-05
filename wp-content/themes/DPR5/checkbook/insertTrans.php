@@ -7,6 +7,9 @@ $pay = $_GET['payment'];
 $dep = $_GET['deposit'];
 $hilite = 0;
 
+$desc = addslashes($desc);
+$tags = addslashes($tags);
+
 // ...Call the database connection settings
 require_once '../../../../wp-config.php';
 

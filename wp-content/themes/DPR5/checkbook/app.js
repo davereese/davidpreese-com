@@ -8,6 +8,9 @@
 		loadTransData();
 
 		// TODO - when filtering with text search, add sum of showing transactions
+		// TODO - Parse tags, display as pills
+		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
+		// TODO - if new transaction adds a new page, go to the new page
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -16,7 +19,6 @@
 
 		// Process the transactionForm form.
         $scope.addData = function(entries) {
-			// TODO - if new transaction adds a new page, go to the new page
             getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.transtags, $scope.newTrans.payment, $scope.newTrans.deposit)
                 .then( loadTransData, function( errorMessage ) {
                     console.warn( errorMessage );
@@ -56,7 +58,6 @@
 		var year_var = new Date().getFullYear();
 
 		// Apply the remote data to the local scope.
-		// TODO Allow for special characters in description field (',",!, etc.)
         function applyRemoteData( newTrans ) {
 			var i = 0;
 			for (i = 0; i < newTrans.length; i++) {

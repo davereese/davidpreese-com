@@ -11,6 +11,9 @@ if ( '' == $check ) {
 	$check = 0;
 }
 
+$desc = addslashes($desc);
+$tags = addslashes($tags);
+
 // ...Call the database connection settings
 require_once '../../../../wp-config.php';
 
