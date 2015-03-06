@@ -10,7 +10,7 @@
 		// TODO - when filtering with text search, add sum of showing transactions
 		// TODO - Parse tags, display as pills
 		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
-		// TODO - if new transaction adds a new page, go to the new page
+		// TODO - add correct animation to modals and tooltips
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -71,17 +71,15 @@
 				}
 			}
             $scope.transactions = newTrans;
-
+			
             $scope.transYear = year_var;
             var entriesNum = $scope.transactions.length;
             var pageSize = $scope.pageSize;
             if ( undefined === pageSize ) {
 				pageSize = 20;
             }
-            var lastPage = $scope.currentPage;
-            if ( undefined === lastPage ) {
-				lastPage = Math.ceil(entriesNum / pageSize);
-            }
+            var lastPage = Math.ceil(entriesNum / pageSize);
+
             $scope.pageSize = pageSize;
 			$scope.currentPage = lastPage;
         }
@@ -378,7 +376,7 @@
 
 	angular.module('checkbook').config(function($datepickerProvider) {
 		angular.extend($datepickerProvider.defaults, {
-			animation: 'am-fade',
+			animation: 'am-fade-and-scale',
 			placement: 'top-left',
 			autoclose: 'true',
 			startWeek: 7,
