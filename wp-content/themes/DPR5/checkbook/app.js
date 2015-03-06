@@ -132,7 +132,7 @@
 	app.controller('loginController', function($scope, $modal) {
 			// Show a basic modal from a controller
 			var loginModal = $modal({
-				animation: 'am-fade-and-slide-bottom',
+				animation: 'am-fade',
 				title: 'Login',
 				scope: $scope,
 				container: 'section',
@@ -379,7 +379,7 @@
 
 	angular.module('checkbook').config(function($datepickerProvider) {
 		angular.extend($datepickerProvider.defaults, {
-			animation: 'am-fade-and-slide-bottom',
+			animation: 'am-fade-and-slide-right',
 			placement: 'top-left',
 			autoclose: 'true',
 			startWeek: 7,
