@@ -11,6 +11,7 @@
 		// TODO - Parse tags, display as pills
 		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
 		// TODO - add correct animation to modals and tooltips
+		// TODO - load and parse all trackers from json
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -113,6 +114,7 @@
 
 			// Show a basic modal from a controller
 			var myModal = $modal({
+				animation: 'am-fade-and-slide-bottom',
 				title: 'Edit '+trans.description+'',
 				scope: $scope,
 				template: '../wp-content/themes/DPR5/checkbook/editModal.tpl.html',
@@ -130,6 +132,7 @@
 	app.controller('loginController', function($scope, $modal) {
 			// Show a basic modal from a controller
 			var loginModal = $modal({
+				animation: 'am-fade-and-slide-bottom',
 				title: 'Login',
 				scope: $scope,
 				container: 'section',
@@ -376,7 +379,7 @@
 
 	angular.module('checkbook').config(function($datepickerProvider) {
 		angular.extend($datepickerProvider.defaults, {
-			animation: 'am-fade-and-scale',
+			animation: 'am-fade-and-slide-bottom',
 			placement: 'top-left',
 			autoclose: 'true',
 			startWeek: 7,
@@ -389,7 +392,7 @@
 
 	angular.module('checkbook').config(function($tooltipProvider) {
 		angular.extend($tooltipProvider.defaults, {
-			animation: 'am-fade',
+			animation: 'am-fade-and-scale',
 			trigger: 'hover'
 		});
 	});
