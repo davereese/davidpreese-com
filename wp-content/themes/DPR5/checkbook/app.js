@@ -7,11 +7,12 @@
 
 		loadTransData();
 
+		// TODO - when editing a transaction, stay on the page you are currently on
 		// TODO - when filtering with text search, add sum of showing transactions
 		// TODO - Parse tags, display as pills
 		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
-		// TODO - add correct animation to modals and tooltips
 		// TODO - load and parse all trackers from json
+		// TODO - possibly reverse order so newest transaction is first?
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {

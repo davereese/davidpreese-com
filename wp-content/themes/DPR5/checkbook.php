@@ -117,7 +117,9 @@ if(is_user_logged_in()) { ?>
 			<div class="row details inputs">
 				<div class="col-sm-4 col-xs-12 col-sm-push-3">
 					<div class="row">
-						<div class="col-xs-11"><input type="text" class="form-control description_input" placeholder="Transaction Description" ng-model="newTrans.desc" required tabindex=3><input type="text" class="form-control tags_input" placeholder="Tags (separate by comma)" ng-model="newTrans.transtags" tabindex=3></div>
+						<div class="col-xs-11"><input type="text" class="form-control description_input" placeholder="Transaction Description" ng-model="newTrans.desc" required tabindex=3>
+						<input type="text" class="form-control tags_input" placeholder="Tags (separate by comma)" ng-model="newTrans.transtags" tabindex=3>
+						</div>
 						<div class="col-xs-1 tags"><i class="fa fa-tags" title="Tags"></i></div>
 					</div>
 				</div>

@@ -16,10 +16,10 @@ function scripts() {
 	wp_register_script('angularstrapjs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.js', array(), null, true);
 	wp_register_script('angularstraptpljs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.tpl.js', array(), null, true);
 
-	if( !is_page('checkbook') || !is_page('checkbook2') ) {
+	if( !is_page('checkbook') ) {
 		wp_enqueue_script('main');
 	}
-	if( is_page('checkbook') || is_page('checkbook2') ) {
+	if( is_page('checkbook') ) {
 		wp_enqueue_script('angular');
 		wp_enqueue_script('angularPagination');
 		wp_enqueue_script('angularanimatejs');
