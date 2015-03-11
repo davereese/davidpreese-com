@@ -7,7 +7,6 @@
 
 		loadTransData();
 
-		// TODO - when editing a transaction, stay on the page you are currently on
 		// TODO - when filtering with text search, add sum of showing transactions
 		// TODO - Parse tags, display as pills
 		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
@@ -72,19 +71,35 @@
 					newTrans[i].balance = parseFloat(newTrans[i - 1].balance)+parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment);
 				}
 			}
-            $scope.transactions = newTrans;
-			
-            $scope.transYear = year_var;
-            var entriesNum = $scope.transactions.length;
-            var pageSize = $scope.pageSize;
-            if ( undefined === pageSize ) {
-				pageSize = 20;
-            }
-            var lastPage = Math.ceil(entriesNum / pageSize);
 
-            $scope.pageSize = pageSize;
-			$scope.currentPage = lastPage;
-        }
+			var pageSize = '';
+			var lastPage = '';
+			var initialLoad = 0;
+			var numChange = 0;
+			var entriesNum = newTrans.length;
+
+			if ( 0 === $scope.transactions.length ) {
+				initialLoad = 1;
+			}
+			if ( $scope.transactions.length !== entriesNum ) {
+				numChange = 1;
+			}
+
+			pageSize = $scope.pageSize;
+			if ( undefined === pageSize ) {
+				pageSize = 20;
+			}
+			lastPage = Math.ceil(entriesNum / pageSize);
+			$scope.transactions = newTrans;
+			$scope.transYear = year_var;
+			$scope.pageSize = pageSize;
+
+			if ( 0 === initialLoad && 0 === numChange ) {
+				$scope.currentPage = $scope.currentPage;
+			} else if ( 1 === initialLoad || 1 === numChange ) {
+				$scope.currentPage = lastPage;
+			}
+		}
 
         // Load the remote data from the server.
         function loadTransData() {
