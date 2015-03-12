@@ -404,7 +404,7 @@
 	app.filter('tagSplit', function() {
 		return function(input) {
 			var filtered = '';
-			if ( null === input || '' === input ) {
+			if ( null === input || '' === input || undefined === input ) {
 				filtered += '';
 			} else {
 				var tags = input.split(', ');
