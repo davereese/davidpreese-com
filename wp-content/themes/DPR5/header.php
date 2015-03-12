@@ -18,8 +18,6 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <?php if( is_page('checkbook') ) { ?>
     <html <?php language_attributes(); ?> ng-app="checkbook">
-<?php } else if ( is_page('checkbook2') ) { ?>
-    <html <?php language_attributes(); ?> ng-app="checkbook2">
 <?php } else { ?>
     <html <?php language_attributes(); ?>>
 <?php } ?>

@@ -8,7 +8,7 @@
 		loadTransData();
 
 		// TODO - when filtering with text search, add sum of showing transactions
-		// TODO - Parse tags, display as pills
+		// TODO - do not filter student loan totals, get sum from other filters
 		// TODO - load and parse all trackers from json
 		// TODO - possibly reverse order so newest transaction is first?
 
@@ -68,6 +68,7 @@
         function applyRemoteData( newTrans ) {
 			var i = 0;
 			for (i = 0; i < newTrans.length; i++) {
+				// Parse data
 				if ( '0' === newTrans[i].check_number ) {
 					newTrans[i].check_number = '';
 				}
@@ -244,7 +245,7 @@
 			}
 			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
 
-			$scope.transFilterTotals = 'Student Loan';
+			$scope.transFilterTotals = 'Student Loan Totals';
 			$scope.loanAmountTotals = Math.round((parseFloat($scope.loanAmount1)+parseFloat($scope.loanAmount3)+parseFloat($scope.loanAmount2))*100)/100;
 			var loanPaymentsTotals = [];
 			var loanTransactionsTotals = $filter('filter')(newTrans, $scope.transFilterTotals);
@@ -398,6 +399,23 @@
             return( response.data );
         }
 	});
+
+	// display tags as pills
+	app.filter('tagSplit', function() {
+		return function(input) {
+			var filtered = '';
+			if ( null === input || '' === input ) {
+				filtered += '';
+			} else {
+				var tags = input.split(', ');
+				for (var i = 0; i < tags.length; i++) {
+					var tag = tags[i];
+					filtered += '<span>'+tag+'</span>';
+				}
+			}
+			return filtered;
+        };
+    });
 
 	angular.module('checkbook').config(function($datepickerProvider) {
 		angular.extend($datepickerProvider.defaults, {

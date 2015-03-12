@@ -62,7 +62,7 @@ if(is_user_logged_in()) { ?>
 				<div class="row">
 					<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
 					<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
-					<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags}}" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
+					<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags | tagSplit}}" data-html="true" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
 					<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
 				</div>
 			</div>
@@ -91,7 +91,7 @@ if(is_user_logged_in()) { ?>
 				<div class="col-sm-4 col-xs-12 col-sm-push-3">
 					<div class="row">
 						<div class="col-xs-11">{{newTrans.desc}}</div>
-						<div class="col-xs-1 tags" ng-class="{ 'has-tags': newTrans.transtags }"><i class="fa fa-tag" data-placement="top" data-title="{{newTrans.transtags}}" bs-tooltip></i></div>
+						<div class="col-xs-1 tags" ng-class="{ 'has-tags': newTrans.transtags }"><i class="fa fa-tag" data-placement="top" data-title="{{newTrans.transtags | tagSplit}}" data-html="true" bs-tooltip></i></div>
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-5 col-sm-pull-4">
@@ -160,25 +160,25 @@ if(is_user_logged_in()) { ?>
 	<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
 			<div class="col-lg-3 col-md-6 col-sm-6">
-				<h4><i class="fa fa-bar-chart"></i> {{transFilter1}} - ${{loanAmount1}}</h4>
+				<h4><i class="fa fa-graduation-cap"></i> {{transFilter1}} - ${{loanAmount1}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum1}}%;" data-placement="bottom" data-title="${{payments1}}" bs-tooltip></div>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6">
-				<h4><i class="fa fa-area-chart"></i> {{transFilter2}} - ${{loanAmount2}}</h4>
+				<h4><i class="fa fa-graduation-cap"></i> {{transFilter2}} - ${{loanAmount2}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum2}}%;" data-placement="bottom" data-title="${{payments2}}" bs-tooltip></div>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6">
-				<h4><i class="fa fa-pie-chart"></i> {{transFilter3}} - ${{loanAmount3}}</h4>
+				<h4><i class="fa fa-graduation-cap"></i> {{transFilter3}} - ${{loanAmount3}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSum3}}%;" data-placement="bottom" data-title="${{payments3}}" bs-tooltip></div>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-6">
-				<h4><i class="fa fa-line-chart"></i> {{transFilterTotals}} - ${{loanAmountTotals}}</h4>
+				<h4><i class="fa fa-graduation-cap"></i> {{transFilterTotals}} - ${{loanAmountTotals}}</h4>
 				<div class="tracker-bg">
 					<div class="tracker-fill" style="width:{{loanPaymentSumTotals}}%;" data-placement="bottom" data-title="${{paymentsTotals}}" bs-tooltip></div>
 				</div>
