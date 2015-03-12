@@ -9,9 +9,14 @@
 
 		// TODO - when filtering with text search, add sum of showing transactions
 		// TODO - Parse tags, display as pills
-		// TODO - Add tags to list of tags, display in dropdown with typeahead filtering
 		// TODO - load and parse all trackers from json
 		// TODO - possibly reverse order so newest transaction is first?
+
+		//--------------- Long term goals --------------//
+		// - Add tags to list of tags, display in dropdown with typeahead filtering
+		// - add button to create a tracker from current search filters
+		// - monthly/yearly spending graphs
+		//----------------------------------------------//
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -32,6 +37,7 @@
             $scope.newTrans.transtags = null;
             $scope.newTrans.payment = null;
             $scope.newTrans.deposit = null;
+            $scope.transactionForm.$setPristine(true);
         };
 
         // Remove the given transaction from the current collection.

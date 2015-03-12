@@ -1193,8 +1193,8 @@ Template: twentythirteen
 }
 
 /* ---------------------Checkbook Register-------------------- */
-@green: #00D991;
-@gray: #3F3F3F;
+@green: #3ECB72;
+@gray: #393F3A;
 @white: #f3efe0;
 
 html.ng-scope {
@@ -1324,7 +1324,7 @@ html.ng-scope {
 		}
 	}
 	.trans.highlighted {
-		background-color: lighten(@green, 4%);
+		background-color: spin(lighten(@green, 7%), -1%);
 		z-index: 200;
 		.tags {
 			i {
@@ -1352,8 +1352,8 @@ html.ng-scope {
 			}
 		}
 		&:hover {
-			background-color: lighten(@green, 8%);
-			box-shadow: 0 3px 20px darken(fadeout(@green, 90%), 35%);
+			background-color: spin(lighten(@green, 12%), -1%);
+			box-shadow: 0 3px 20px darken(fadeout(@green, 80%), 35%);
 			z-index: 300;
 			position: relative;
 			.tags {
@@ -1756,7 +1756,7 @@ html.ng-scope {
 			color: #fff;
 			float: left;
 			&:hover {
-				background: fadeOut(darken(@green, 40%), 45%) !important;
+				background: fadeOut(darken(@green, 50%), 45%) !important;
 				color: lighten(@green, 10%) !important;
 			}
 		}

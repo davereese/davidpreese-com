@@ -20,6 +20,7 @@ function scripts() {
 		wp_enqueue_script('main');
 	}
 	if( is_page('checkbook') ) {
+		wp_enqueue_script('main');
 		wp_enqueue_script('angular');
 		wp_enqueue_script('angularPagination');
 		wp_enqueue_script('angularanimatejs');
