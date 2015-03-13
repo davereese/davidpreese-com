@@ -1326,13 +1326,17 @@ html.ng-scope {
 			background-color: darken(#FFF, 60%);
 			color: darken(#FFF, 25%);
 			margin: 0 2px;
-			padding: 1px 6px 1px 5px;
+			padding: 1px 6px 1px 16px;
 			border-radius: 3px;
 			white-space: nowrap;
+			position: relative;
 			&:before {
 				content: '\f02b';
 				font-family: FontAwesome;
-				padding-right: 3px;
+				position: absolute;
+				left: 5px;
+				top: 3px;
+				display: inline-block;
 				color: darken(#FFF, 70%);
 				font-size: .75em;
 			}

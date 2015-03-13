@@ -8,9 +8,7 @@
 		loadTransData();
 
 		// TODO - when filtering with text search, add sum of showing transactions
-		// TODO - do not filter student loan totals, get sum from other filters
 		// TODO - load and parse all trackers from json
-		// TODO - possibly reverse order so newest transaction is first?
 
 		//--------------- Long term goals --------------//
 		// - Add tags to list of tags, display in dropdown with typeahead filtering

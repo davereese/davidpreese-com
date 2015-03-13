@@ -49,7 +49,7 @@ if(is_user_logged_in()) { ?>
 					<div class="col-sm-11 col-xs-12">
 						<div class="col-xs-4">Pay<span class="hidden-xs">ment</span> -</div>
 						<div class="col-xs-4">Dep<span class="hidden-xs">osit</span> +</div>
-						<div class="col-xs-4">Bal<span class="hidden-xs">ance</span></div>
+						<div class="col-xs-4" ng-class="{ 'hidden': q }">Bal<span class="hidden-xs">ance</span></div>
 					</div>
 					<div class="col-sm-1 hidden-xs">
 						<div class="col-sm-12"></div>
@@ -78,7 +78,7 @@ if(is_user_logged_in()) { ?>
 					<div class="col-sm-11 col-xs-12">
 						<div class="col-xs-4">{{transaction.payment | currency}}</div>
 						<div class="col-xs-4">{{transaction.deposit | currency}}</div>
-						<div class="col-xs-4">{{transaction.balance | currency}}</div>
+						<div class="col-xs-4" ng-class="{ 'hidden': q }">{{transaction.balance | currency}}</div>
 					</div>
 					<div class="col-xs-1 hidden-xs hilighter">
 						<div class="col-xs-12"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
