@@ -247,19 +247,7 @@
 
 			$scope.transFilterTotals = 'Student Loan Totals';
 			$scope.loanAmountTotals = Math.round((parseFloat($scope.loanAmount1)+parseFloat($scope.loanAmount3)+parseFloat($scope.loanAmount2))*100)/100;
-			var loanPaymentsTotals = [];
-			var loanTransactionsTotals = $filter('filter')(newTrans, $scope.transFilterTotals);
-			for (i = 0; i < loanTransactionsTotals.length; i++) {
-				loanPaymentsTotals.push(parseFloat(loanTransactionsTotals[i].payment));
-			}
-			$scope.paymentsTotals = $scope.loanAmountTotals;
-			if (0 < loanPaymentsTotals.length) {
-				$scope.paymentsTotals = Math.round(($scope.loanAmountTotals-loanPaymentsTotals.reduce(function(prev, cur) {
-					return prev + cur;
-				}))*100)/100;
-			} else {
-				$scope.paymentsTotals = $scope.loanAmountTotals;
-			}
+			$scope.paymentsTotals = Math.round((parseFloat($scope.payments1)+parseFloat($scope.payments2)+parseFloat($scope.payments3))*100)/100;
 			$scope.loanPaymentSumTotals = $scope.paymentsTotals/$scope.loanAmountTotals*100;
         }
 
