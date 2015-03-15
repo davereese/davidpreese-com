@@ -20,7 +20,7 @@ if(is_user_logged_in()) { ?>
 		<div class="row filters">
 			<div class="col-sm-4 col-sm-offset-2 col-xs-6">
 	        	<label for="search">Search:</label>
-	        	<input type="text" autocomplete="off" ng-model="q" id="search" class="form-control" placeholder="Check, desc, tag etc.">
+	        	<input type="text" autocomplete="off" ng-model="q" ng-change="change()" id="search" class="form-control" placeholder="Check, desc, tag etc.">
 	        </div>
 	        <div class="col-sm-2 col-xs-3">
 				<label for="search">Year:</label>
@@ -82,6 +82,23 @@ if(is_user_logged_in()) { ?>
 					</div>
 					<div class="col-xs-1 hidden-xs hilighter">
 						<div class="col-xs-12"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row trans details totals" ng-class="{ 'visible': q }">
+			<div class="col-sm-7 col-xs-5">
+				<div class="row">
+					<div class="col-xs-9 col-xs-offset-3">
+						<span class="headers">TOTAL</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5 col-xs-7">
+				<div class="row">
+					<div class="col-sm-11 col-xs-12">
+						<div class="col-xs-4"><span ng-class="{ 'hidden': paymentSum == '0.00' }">{{paymentSum | currency}}</span></div>
+						<div class="col-xs-4"><span ng-class="{ 'hidden': depositSum == '0.00' }">{{depositSum | currency}}</span></div>
 					</div>
 				</div>
 			</div>

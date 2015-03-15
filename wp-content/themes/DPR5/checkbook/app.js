@@ -2,12 +2,11 @@
 (function() {
 	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination']);
 
-	app.controller('RegisterController', function($scope, getTransDataService, $modal) {
+	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter) {
 		$scope.transactions = [];
 
 		loadTransData();
 
-		// TODO - when filtering with text search, add sum of showing transactions
 		// TODO - load and parse all trackers from json
 
 		//--------------- Long term goals --------------//
@@ -75,6 +74,7 @@
 				} else {
 					newTrans[i].balance = parseFloat(newTrans[i - 1].balance)+parseFloat(newTrans[i].deposit)-parseFloat(newTrans[i].payment);
 				}
+
 			}
 
 			var pageSize = '';
@@ -130,10 +130,9 @@
 					);
 		};
 
+		// open edit transaction modal
 		$scope.showModal = function( trans ) {
 			$scope.transaction = trans;
-
-			// Show a basic modal from a controller
 			var myModal = $modal({
 				animation: 'am-fade-and-slide-bottom',
 				title: 'Edit '+trans.description+'',
@@ -143,7 +142,25 @@
 			});
 				myModal.$promise.then(myModal.show);
 		};
+
+		// when typing in the search box, add up filtered payments and deposits
+		$scope.change = function() {
+			var transactions = $scope.transactions;
+			var theFilter = $scope.q;
+			var transFiltered = $filter('filter')(transactions, theFilter);
+			$scope.paymentSum = 0;
+			$scope.depositSum = 0;
+			for (i = 0; i < transFiltered.length; i++) {
+				$scope.paymentSum += parseFloat(transFiltered[i].payment);
+				$scope.depositSum += parseFloat(transFiltered[i].deposit);
+			}
+			$scope.paymentSum = Math.round($scope.paymentSum*100)/100;
+			$scope.depositSum = Math.round($scope.depositSum*100)/100;
+		};
 	});
+
+	// --------------------------------- / RegisterController --------------------------------- //
+	// ---------------------------------------------------------------------------------------- //
 
 	app.controller('pagiController', function($scope) {
 		$scope.pageChangeHandler = function(num) {
@@ -265,6 +282,9 @@
         }
 	});
 
+	// ---------------------------------- / TrackerController --------------------------------- //
+	// ---------------------------------------------------------------------------------------- //
+
 	app.directive('styleRepeater', function() {
 		return function(scope, element, attr) {
 			if ( undefined !== scope.transaction ) {
@@ -385,6 +405,9 @@
             return( response.data );
         }
 	});
+
+	// --------------------------------- / getTransDataService -------------------------------- //
+	// ---------------------------------------------------------------------------------------- //
 
 	// display tags as pills
 	app.filter('tagSplit', function() {

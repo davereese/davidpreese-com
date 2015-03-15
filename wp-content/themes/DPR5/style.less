@@ -1411,6 +1411,19 @@ html.ng-scope {
 			padding: 0;
 		}
 	}
+	.totals {
+		font-weight: bold;
+		display: none;
+		.headers {
+			font-size: 1.2em;
+			line-height: 1.6;
+			margin-bottom: 0;
+			color: darken(@green, 28%);
+		}
+	}
+	.totals.visible {
+		display: block;
+	}
 	form {
 		.inputs {
 			padding-top: 30px;
@@ -1819,6 +1832,14 @@ html.ng-scope {
 		}
 		.headers {
 			font-size: 1em;
+		}
+		.totals {
+			.headers {
+				float: right;
+				color: darken(@green, 15%);
+				font-size: .9em;
+				line-height: 1.6;
+			}
 		}
 		form {
 			.inputs {
