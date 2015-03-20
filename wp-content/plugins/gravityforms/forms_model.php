@@ -103,7 +103,13 @@ class GFFormsModel {
 
 		$where_clause = 'WHERE ' . join( ' AND ', $where_arr );
 		$sort_keyword = $sort_dir == 'ASC' ? 'ASC' : 'DESC';
-		$sort_column  = ESC_SQL( $sort_column );
+
+		$db_columns = self::get_form_db_columns();
+
+		if ( ! in_array( strtolower( $sort_column ), $db_columns ) ) {
+			$sort_column = 'title';
+		}
+
 		$order_by     = ! empty( $sort_column ) ? "ORDER BY $sort_column $sort_keyword" : '';
 
 		$sql = "SELECT f.id, f.title, f.date_created, f.is_active, 0 as lead_count, 0 view_count
@@ -140,6 +146,10 @@ class GFFormsModel {
 		}
 
 		return $forms;
+	}
+
+	public static function get_form_db_columns() {
+		return array( 'id', 'title', 'date_created', 'is_active', 'is_trash' );
 	}
 
 	public static function get_forms_by_id( $ids ) {
@@ -1560,7 +1570,7 @@ class GFFormsModel {
 	 *
 	 * @param array    $form         Form object.
 	 * @param GF_Field $field        Field object.
-	 * @param array    $field_values Default field values for this form. Used when form has not yet been submitted. Pass an array if no default field values are avilable/required.
+	 * @param array    $field_values Default field values for this form. Used when form has not yet been submitted. Pass an array if no default field values are available/required.
 	 * @param array    $lead         Optional, default is null. If lead object is available, pass the lead.
 	 *
 	 * @return mixed
@@ -2975,10 +2985,12 @@ class GFFormsModel {
 	}
 
 	public static function get_upload_path( $form_id ) {
+		$form_id = absint( $form_id );
 		return self::get_upload_root() . $form_id . '-' . wp_hash( $form_id );
 	}
 
 	public static function get_upload_url( $form_id ) {
+		$form_id = absint( $form_id );
 		$dir = wp_upload_dir();
 
 		return $dir['baseurl'] . "/gravity_forms/$form_id" . '-' . wp_hash( $form_id );
@@ -2989,6 +3001,8 @@ class GFFormsModel {
 		if ( get_magic_quotes_gpc() ) {
 			$file_name = stripslashes( $file_name );
 		}
+
+		$form_id = absint( $form_id );
 
 		// Where the file is going to be placed
 		// Generate the yearly and monthly dirs
@@ -3726,6 +3740,7 @@ class GFFormsModel {
 				default :
 					$field = self::get_field( $form, $field_id );
 					if ( $field ) {
+						$input_label_only = apply_filters( 'gform_entry_list_column_input_label_only', $input_label_only, $form, $field );
 						$columns[strval( $field_id )] = array( 'label' => self::get_label( $field, $field_id, $input_label_only ), 'type' => $field->type, 'inputType' => $field->inputType );
 					}
 			}
@@ -4181,8 +4196,8 @@ class GFFormsModel {
 		global $wpdb;
 
 		if ( is_array( $form_id ) ) {
-			$in_str_arr    = array_fill( 0, count( $form_id ), '%s' );
-			$in_str        = esc_sql( join( ',', $in_str_arr ) );
+			$in_str_arr    = array_fill( 0, count( $form_id ), '%d' );
+			$in_str        = join( ',', $in_str_arr );
 			$form_id_where = $wpdb->prepare( "l.form_id IN ($in_str)", $form_id );
 		} else {
 			$form_id_where = $form_id > 0 ? $wpdb->prepare( 'l.form_id=%d', $form_id ) : '';
@@ -4269,8 +4284,8 @@ class GFFormsModel {
 		$lead_details_table_name = GFFormsModel::get_lead_details_table_name();
 		$lead_meta_table_name    = GFFormsModel::get_lead_meta_table_name();
 		if ( is_array( $form_id ) ) {
-			$in_str_arr    = array_fill( 0, count( $form_id ), '%s' );
-			$in_str        = esc_sql( join( ',', $in_str_arr ) );
+			$in_str_arr    = array_fill( 0, count( $form_id ), '%d' );
+			$in_str        = join( ',', $in_str_arr );
 			$form_id_where = $wpdb->prepare( "AND form_id IN ($in_str)", $form_id );
 		} else {
 			$form_id_where = $form_id > 0 ? $wpdb->prepare( 'AND form_id=%d', $form_id ) : '';
@@ -4324,7 +4339,23 @@ class GFFormsModel {
 						}
 					}
 
-					$search_term_format = rgar( $search, 'is_numeric' ) || $is_number_field ? '%f' : '%s';
+					$search_term_placeholder = rgar( $search, 'is_numeric' ) || $is_number_field ? '%f' : '%s';
+
+					if ( is_array( $search_term ) ) {
+						if ( in_array( $operator, array( '=', 'in' ) ) ) {
+							$operator = 'IN'; // Override operator
+							// Format in SQL and sanitize the strings in the list
+							$search_terms = array_fill( 0, count( $search_term ), '%s' );
+							$search_term_placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
+							$search_term = ''; // Set to blank, still gets passed to wpdb::prepare below but isn't used
+						} elseif ( in_array( $operator, array( '!=', '<>', 'not in' ) ) ) {
+							$operator = 'NOT IN'; // Override operator
+							// Format in SQL and sanitize the strings in the list
+							$search_terms = array_fill( 0, count( $search_term ), '%s' );
+							$search_term_placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
+							$search_term = ''; // Set to blank, still gets passed to wpdb::prepare below but isn't used
+						}
+					}
 
 					$upper_field_number_limit = (string) (int) $key === $key ? (float) $key + 0.9999 : (float) $key + 0.0001;
 					/* doesn't support "<>" for checkboxes */
@@ -4335,7 +4366,7 @@ class GFFormsModel {
                         SELECT
                         lead_id
                         from {$lead_details_table_name}
-                        WHERE (field_number BETWEEN %s AND %s AND value {$operator} {$search_term_format})
+                        WHERE (field_number BETWEEN %s AND %s AND value {$operator} {$search_term_placeholder})
                         {$form_id_where}
                         )", (float) $key - 0.0001, $upper_field_number_limit, $search_term
 					);
@@ -4797,7 +4828,7 @@ function gform_get_meta( $entry_id, $meta_key ) {
 	$table_name                   = RGFormsModel::get_lead_meta_table_name();
 	$results                      = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM {$table_name} WHERE lead_id=%d AND meta_key=%s", $entry_id, $meta_key ) );
 	$value                        = isset( $results[0] ) ? $results[0]->meta_value : null;
-	$meta_value                   = $value == null ? false : maybe_unserialize( $value );
+	$meta_value                   = $value === null ? false : maybe_unserialize( $value );
 	$_gform_lead_meta[ $cache_key ] = $meta_value;
 
 	return $meta_value;
@@ -4811,8 +4842,6 @@ function gform_get_meta_values_for_entries( $entry_ids, $meta_keys ) {
 	}
 
 	$table_name            = RGFormsModel::get_lead_meta_table_name();
-	$meta_value_array      = array();
-	$select_meta_keys      = join( ',', $meta_keys );
 	$meta_key_select_array = array();
 
 	foreach ( $meta_keys as $meta_key ) {
@@ -4833,7 +4862,7 @@ function gform_get_meta_values_for_entries( $entry_ids, $meta_keys ) {
 
 	foreach ( $results as $result ) {
 		foreach ( $meta_keys as $meta_key ) {
-			$result->$meta_key = $result->$meta_key == null ? false : maybe_unserialize( $result->$meta_key );
+			$result->$meta_key = $result->$meta_key === null ? false : maybe_unserialize( $result->$meta_key );
 		}
 	}
 

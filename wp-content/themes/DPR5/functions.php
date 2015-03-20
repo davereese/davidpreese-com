@@ -10,6 +10,8 @@ remove_action('wp_head', 'adjacent_posts_rel_link');
 function scripts() {
 	wp_register_script('main', get_stylesheet_directory_uri() . '/js/main.js', array(), null, true);
 	wp_register_script('angular', get_stylesheet_directory_uri() . '/js/angular.min.js', array(), null, true);
+	wp_register_script('angularsanitize', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js', array(), null, true);
+	wp_register_script('select', get_stylesheet_directory_uri() . '/js/select.js', array(), null, true);
 	wp_register_script('angularPagination', get_stylesheet_directory_uri() . '/js/angular-pagination/dirPagination.js', array(), null, true);
 	wp_register_script('app', get_stylesheet_directory_uri() . '/checkbook/app.js', array(), null, true);
 	wp_register_script('angularanimatejs', 'http://code.angularjs.org/1.2.23/angular-animate.min.js', array(), null, true);
@@ -22,6 +24,8 @@ function scripts() {
 	if( is_page('checkbook') ) {
 		wp_enqueue_script('main');
 		wp_enqueue_script('angular');
+		wp_enqueue_script('angularsanitize');
+		wp_enqueue_script('select');
 		wp_enqueue_script('angularPagination');
 		wp_enqueue_script('angularanimatejs');
 		wp_enqueue_script('angularstrapjs');
@@ -29,6 +33,8 @@ function scripts() {
 		wp_enqueue_script('app');
 		wp_enqueue_style('angularMotion', get_stylesheet_directory_uri() . '/css/angular-motion.min.css', false, null);
 		wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', false, null);
+		wp_enqueue_style('select2', 'http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css', false, null);
+		wp_enqueue_style('selectize', 'http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css', false, null);
 		wp_enqueue_style('lato', 'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', false, null);
 	}
 }

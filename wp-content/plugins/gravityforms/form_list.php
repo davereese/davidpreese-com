@@ -99,11 +99,17 @@ class GFFormList {
 					break;
 			}
 
-			if ( isset( $message ) )
+			if ( isset( $message ) ) {
 				$message = sprintf( $message, $form_count );
-
+			}
 		}
 		$sort_column    = empty( $_GET['sort'] ) ? 'title' : $_GET['sort'];
+		$db_columns = GFFormsModel::get_form_db_columns();
+
+		if ( ! in_array( strtolower( $sort_column ), $db_columns ) ) {
+			$sort_column = 'title';
+		}
+
 		$sort_direction = empty( $_GET['dir'] ) ? 'ASC' : $_GET['dir'];
 		$active         = RGForms::get( 'active' ) == '' ? null : RGForms::get( 'active' );
 		$trash          = RGForms::get( 'trash' ) == '' ? false : RGForms::get( 'trash' );
@@ -296,15 +302,15 @@ class GFFormList {
 
 		<ul class="subsubsub">
 			<li>
-				<a class="<?php echo ( $active === null ) ? 'current' : '' ?>" href="?page=gf_edit_forms"><?php _e( 'All', 'gravityforms' ); ?>
+				<a class="<?php echo ( $active === null ) ? 'current' : '' ?>" href="?page=gf_edit_forms"><?php _ex( 'All', 'Form List', 'gravityforms' ); ?>
 					<span class="count">(<span id="all_count"><?php echo $form_count['total'] ?></span>)</span></a> |
 			</li>
 			<li>
-				<a class="<?php echo $active == '1' ? 'current' : '' ?>" href="?page=gf_edit_forms&active=1"><?php _e( 'Active', 'gravityforms' ); ?>
+				<a class="<?php echo $active == '1' ? 'current' : '' ?>" href="?page=gf_edit_forms&active=1"><?php _ex( 'Active', 'Form List', 'gravityforms' ); ?>
 					<span class="count">(<span id="active_count"><?php echo $form_count['active'] ?></span>)</span></a> |
 			</li>
 			<li>
-				<a class="<?php echo $active == '0' ? 'current' : '' ?>" href="?page=gf_edit_forms&active=0"><?php _e( 'Inactive', 'gravityforms' ); ?>
+				<a class="<?php echo $active == '0' ? 'current' : '' ?>" href="?page=gf_edit_forms&active=0"><?php _ex( 'Inactive', 'Form List', 'gravityforms' ); ?>
 					<span class="count">(<span id="inactive_count"><?php echo $form_count['inactive'] ?></span>)</span></a> |
 			</li>
 			<li>

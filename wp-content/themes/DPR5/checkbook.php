@@ -151,7 +151,8 @@ if(is_user_logged_in()) { ?>
 						<div class="col-xs-12">
 							<div class="col-sm-4 col-xs-6"><input type="text" class="form-control" placeholder="Payment" ng-model="newTrans.payment" tabindex=4></div>
 							<div class="col-sm-4 col-xs-6"><input type="text" class="form-control" placeholder="Deposit" ng-model="newTrans.deposit" tabindex=5></div>
-							<div class="col-sm-4 col-xs-12"><input type="submit" class="form-control" value="Submit" tabindex=6></div>
+							<div class="col-sm-4 col-xs-12"><input type="submit" class="form-control" value="Submit" tabindex=6>
+							</div>
 						</div>
 					</div>
 				</div>

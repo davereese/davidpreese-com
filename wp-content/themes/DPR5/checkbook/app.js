@@ -1,6 +1,6 @@
 /* global angular:false */
 (function() {
-	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination']);
+	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ngSanitize', 'ui.select']);
 
 	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter) {
 		$scope.transactions = [];
@@ -157,6 +157,11 @@
 			$scope.paymentSum = Math.round($scope.paymentSum*100)/100;
 			$scope.depositSum = Math.round($scope.depositSum*100)/100;
 		};
+
+		$scope.tagList = [
+			"mortgage", "San Diego", "Test", "Dave"
+		];
+		$scope.chosenTags = {};
 	});
 
 	// --------------------------------- / RegisterController --------------------------------- //
@@ -260,7 +265,7 @@
 			}
 			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
 
-			$scope.transFilterTotals = 'Student Loan Totals';
+			$scope.transFilterTotals = 'D Student Loan Totals';
 			$scope.loanAmountTotals = Math.round((parseFloat($scope.loanAmount1)+parseFloat($scope.loanAmount3)+parseFloat($scope.loanAmount2))*100)/100;
 			$scope.paymentsTotals = Math.round((parseFloat($scope.payments1)+parseFloat($scope.payments2)+parseFloat($scope.payments3))*100)/100;
 			$scope.loanPaymentSumTotals = $scope.paymentsTotals/$scope.loanAmountTotals*100;
