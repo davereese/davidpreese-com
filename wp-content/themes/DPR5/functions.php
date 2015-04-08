@@ -33,8 +33,6 @@ function scripts() {
 		wp_enqueue_script('app');
 		wp_enqueue_style('angularMotion', get_stylesheet_directory_uri() . '/css/angular-motion.min.css', false, null);
 		wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', false, null);
-		wp_enqueue_style('select2', 'http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css', false, null);
-		wp_enqueue_style('selectize', 'http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css', false, null);
 		wp_enqueue_style('lato', 'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', false, null);
 	}
 }

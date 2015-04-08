@@ -1,0 +1,27 @@
+<div class="col-sm-4 col-xs-12 col-sm-push-3">
+	<div class="row">
+		<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
+		<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
+		<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags | tagSplit}}" data-html="true" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
+		<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
+	</div>
+</div>
+<div class="col-sm-3 col-xs-5 col-sm-pull-4">
+	<div class="row">
+		<div class="col-xs-1 hidden-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
+		<div class="col-sm-4 col-xs-4">{{transaction.check_number}}</div>
+		<div class="col-sm-7 col-xs-8">{{transaction.date}}</div>
+	</div>
+</div>
+<div class="col-sm-5 col-xs-7">
+	<div class="row">
+		<div class="col-sm-11 col-xs-12">
+			<div class="col-xs-4">{{transaction.payment | currency}}</div>
+			<div class="col-xs-4">{{transaction.deposit | currency}}</div>
+			<div class="col-xs-4" ng-class="{ 'hidden': q }">{{transaction.balance | currency}}</div>
+		</div>
+		<div class="col-xs-1 hidden-xs hilighter">
+			<div class="col-xs-12"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
+		</div>
+	</div>
+</div>

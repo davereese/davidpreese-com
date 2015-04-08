@@ -2,18 +2,21 @@
 (function() {
 	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ngSanitize', 'ui.select']);
 
-	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter) {
-		$scope.transactions = [];
-
-		loadTransData();
-
-		// TODO - load and parse all trackers from json
+	// TODO - load and parse all trackers from json
 
 		//--------------- Long term goals --------------//
 		// - Add tags to list of tags, display in dropdown with typeahead filtering
 		// - add button to create a tracker from current search filters
 		// - monthly/yearly spending graphs
 		//----------------------------------------------//
+
+
+	// ---------------------------------- RegisterController ---------------------------------- //
+
+	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter) {
+		$scope.transactions = [];
+
+		loadTransData();
 
 		// broadcast that event happened
 		$scope.showCtrl1 = function () {
@@ -113,7 +116,8 @@
                 .then(function( trans ) {
 					$scope.showCtrl1();
                     applyRemoteData( trans );
-                });
+                }
+            );
         }
 
         $scope.highlightTrans = function(trans, entries) {
@@ -124,10 +128,10 @@
 				entries[transIndex].highlight = 0;
 			}
 			getTransDataService.updateData( entries[transIndex].id, entries[transIndex].highlight )
-						.then( loadTransData, function( errorMessage ) {
-							console.warn( errorMessage );
-						}
-					);
+				.then( loadTransData, function( errorMessage ) {
+					console.warn( errorMessage );
+				}
+			);
 		};
 
 		// open edit transaction modal
@@ -140,7 +144,7 @@
 				template: '../wp-content/themes/DPR5/checkbook/editModal.tpl.html',
 				show: false
 			});
-				myModal.$promise.then(myModal.show);
+			myModal.$promise.then(myModal.show);
 		};
 
 		// when typing in the search box, add up filtered payments and deposits
@@ -161,29 +165,13 @@
 		$scope.tagList = [
 			"mortgage", "San Diego", "Test", "Dave"
 		];
-		$scope.chosenTags = {};
+		$scope.chosenTags = [];
 	});
 
 	// --------------------------------- / RegisterController --------------------------------- //
 	// ---------------------------------------------------------------------------------------- //
 
-	app.controller('pagiController', function($scope) {
-		$scope.pageChangeHandler = function(num) {
-		};
-	});
-
-	app.controller('loginController', function($scope, $modal) {
-			// Show a basic modal from a controller
-			var loginModal = $modal({
-				animation: 'am-fade',
-				title: 'Login',
-				scope: $scope,
-				container: 'section',
-				template: '../wp-content/themes/DPR5/checkbook/loginModal.tpl.html',
-				show: false
-			});
-			loginModal.$promise.then(loginModal.show);
-	});
+	// ----------------------------------- TrackerController ---------------------------------- //
 
 	app.controller('trackerController', function($scope, getTransDataService, $filter, $http) {
 		$scope.transTrackers = [];
@@ -191,28 +179,6 @@
 		$scope.$on("transEvent", function (event, args) {
 			loadTransData();
 		});
-
-		// TODO - Figure this out
-		function applyRemoteData2( trackers, newTrans ) {
-			var count = 1;
-			for (count = 1; count < trackers.length; count++) {
-				// $scope[transFilter+count] = trackers[count-1]['Transaction Filter'];
-				// $scope[loanAmount+count] = trackers[count-1]['Tracker Ammount'];
-				// var loanPayments[count] = [];
-				// var loanTransactions[count] = $filter('filter')(newTrans, $scope.transFilter[count]);
-
-	   //          for (i = 0; i < loanTransactions[count].length; i++) {
-				// 	loanPayments[count].push(parseFloat(loanTransactions[count][i].payment));
-				// }
-				// $scope.payments[count] = $scope.loanAmount[count];
-				// if (0 < loanPayments[count].length) {
-				// 	$scope.payments[count] = $scope.loanAmount[count]-loanPayments[count].reduce(function(prev, cur) {
-				// 		return prev + cur;
-				// 	});
-				// }
-				// $scope.loanPaymentSum[count] = $scope.payments[count]/$scope.loanAmount[count]*100;
-			}
-		}
 
         function applyRemoteData( trackers, newTrans ) {
 			$scope.transFilter1 = trackers[0]['Transaction Filter'];
@@ -290,6 +256,8 @@
 	// ---------------------------------- / TrackerController --------------------------------- //
 	// ---------------------------------------------------------------------------------------- //
 
+	// --------------------------------------- Directives ------------------------------------- //
+
 	app.directive('styleRepeater', function() {
 		return function(scope, element, attr) {
 			if ( undefined !== scope.transaction ) {
@@ -299,6 +267,46 @@
 			}
 		};
 	});
+
+	app.directive('search', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/search.html'
+		};
+	});
+
+	app.directive('addform', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/addform.html'
+		};
+	});
+
+	app.directive('transrepeater', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/transactions.html'
+		};
+	});
+
+	app.directive('transaction', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/transaction.html'
+		};
+	});
+
+	app.directive('totals', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/totals.html'
+		};
+	});
+
+	// ------------------------------------- / Directives ------------------------------------- //
+	// ---------------------------------------------------------------------------------------- //
+
+	// ---------------------------------- getTransDataService --------------------------------- //
 
 	app.service('getTransDataService', function($http, $q) {
 		return({
@@ -413,6 +421,25 @@
 
 	// --------------------------------- / getTransDataService -------------------------------- //
 	// ---------------------------------------------------------------------------------------- //
+
+	app.controller('pagiController', function($scope) {
+		$scope.pageChangeHandler = function(num) {
+		};
+	});
+
+	app.controller('loginController', function($scope, $modal) {
+		// Show a basic modal from a controller
+		var loginModal = $modal({
+			animation: 'am-fade',
+			title: 'Login',
+			scope: $scope,
+			container: 'section',
+			template: '../wp-content/themes/DPR5/checkbook/loginModal.tpl.html',
+			show: false
+		});
+		loginModal.$promise.then(loginModal.show);
+	});
+
 
 	// display tags as pills
 	app.filter('tagSplit', function() {

@@ -17,20 +17,7 @@ if(is_user_logged_in()) { ?>
 <a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="logout-btn">Logout</a>
 <div class="checkbook container">
 	<div ng-controller="RegisterController as register" repeater-directive class="checkbook-content">
-		<div class="row filters">
-			<div class="col-sm-4 col-sm-offset-2 col-xs-6">
-	        	<label for="search">Search:</label>
-	        	<input type="text" autocomplete="off" ng-model="q" ng-change="change()" id="search" class="form-control" placeholder="Check, desc, tag etc.">
-	        </div>
-	        <div class="col-sm-2 col-xs-3">
-				<label for="search">Year:</label>
-				<input type="text" id="yearpicker" class="form-control" placeholder="Date" ng-model="transYear" bs-datepicker data-placement="bottom" data-date-format="yyyy" data-min-view="2">
-			</div>
-			<div class="col-sm-2 col-xs-3">
-	        	<label for="search"> Per page:</label>
-	        	<input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-			</div>
-		</div>
+		<search></search>
 		<div class="row details headers">
 			<div class="col-sm-4 col-sm-push-3 hidden-xs">
 				<div class="row">
@@ -57,107 +44,9 @@ if(is_user_logged_in()) { ?>
 				</div>
 			</div>
 		</div>
-		<div class="row details trans" dir-paginate="transaction in transactions | filter:q | filter:transYear | itemsPerPage: pageSize" current-page="currentPage" id="row_{{transaction.transnum}}" style-repeater>
-			<div class="col-sm-4 col-xs-12 col-sm-push-3">
-				<div class="row">
-					<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
-					<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
-					<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags | tagSplit}}" data-html="true" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
-					<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
-				</div>
-			</div>
-			<div class="col-sm-3 col-xs-5 col-sm-pull-4">
-				<div class="row">
-					<div class="col-xs-1 hidden-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
-					<div class="col-sm-4 col-xs-4">{{transaction.check_number}}</div>
-					<div class="col-sm-7 col-xs-8">{{transaction.date}}</div>
-				</div>
-			</div>
-			<div class="col-sm-5 col-xs-7">
-				<div class="row">
-					<div class="col-sm-11 col-xs-12">
-						<div class="col-xs-4">{{transaction.payment | currency}}</div>
-						<div class="col-xs-4">{{transaction.deposit | currency}}</div>
-						<div class="col-xs-4" ng-class="{ 'hidden': q }">{{transaction.balance | currency}}</div>
-					</div>
-					<div class="col-xs-1 hidden-xs hilighter">
-						<div class="col-xs-12"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row trans details totals" ng-class="{ 'visible': q }">
-			<div class="col-sm-7 col-xs-5">
-				<div class="row">
-					<div class="col-xs-9 col-xs-offset-3">
-						<span class="headers">TOTAL</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-5 col-xs-7">
-				<div class="row">
-					<div class="col-sm-11 col-xs-12">
-						<div class="col-xs-4"><span ng-class="{ 'hidden': paymentSum == '0.00' }">{{paymentSum | currency}}</span></div>
-						<div class="col-xs-4"><span ng-class="{ 'hidden': depositSum == '0.00' }">{{depositSum | currency}}</span></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<form name="transactionForm" ng-submit="transactionForm.$valid && addData(transactions)" novalidate>
-			<div class="row details draft">
-				<div class="col-sm-4 col-xs-12 col-sm-push-3">
-					<div class="row">
-						<div class="col-xs-11">{{newTrans.desc}}</div>
-						<div class="col-xs-1 tags" ng-class="{ 'has-tags': newTrans.transtags }"><i class="fa fa-tag" data-placement="top" data-title="{{newTrans.transtags | tagSplit}}" data-html="true" bs-tooltip></i></div>
-					</div>
-				</div>
-				<div class="col-sm-3 col-xs-5 col-sm-pull-4">
-					<div class="row">
-						<div class="col-xs-1"></div>
-						<div class="col-sm-4 col-xs-4">{{newTrans.check_number}}</div>
-						<div class="col-sm-7 col-xs-7">{{newTrans.date}}</div>
-					</div>
-				</div>
-				<div class="col-sm-5 col-xs-7">
-					<div class="row">
-						<div class="col-xs-11">
-							<div class="col-xs-4">{{newTrans.payment | currency}}</div>
-							<div class="col-xs-4">{{newTrans.deposit | currency}}</div>
-							<div class="col-xs-4">{{newTrans.balance | currency}}</div>
-						</div>
-						<div class="col-xs-1">
-							<div class="col-xs-12"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row details inputs">
-				<div class="col-sm-4 col-xs-12 col-sm-push-3">
-					<div class="row">
-						<div class="col-xs-11"><input type="text" class="form-control description_input" placeholder="Transaction Description" ng-model="newTrans.desc" required tabindex=3>
-						<input type="text" class="form-control tags_input" placeholder="Tags (separate by comma)" ng-model="newTrans.transtags" tabindex=3>
-						</div>
-						<div class="col-xs-1 tags"><i class="fa fa-tags" title="Tags"></i></div>
-					</div>
-				</div>
-				<div class="col-sm-3 col-xs-6 col-sm-pull-4">
-					<div class="row">
-						<div class="col-sm-5 col-xs-5"><input type="text" class="form-control" placeholder="Check" ng-model="newTrans.check_number" tabindex=1></div>
-						<div class="col-sm-7 col-xs-7"><input type="text" id="datepicker" class="form-control" placeholder="Date" ng-model="newTrans.date" bs-datepicker required tabindex=2></div>
-					</div>
-				</div>
-				<div class="col-sm-5 col-xs-6">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="col-sm-4 col-xs-6"><input type="text" class="form-control" placeholder="Payment" ng-model="newTrans.payment" tabindex=4></div>
-							<div class="col-sm-4 col-xs-6"><input type="text" class="form-control" placeholder="Deposit" ng-model="newTrans.deposit" tabindex=5></div>
-							<div class="col-sm-4 col-xs-12"><input type="submit" class="form-control" value="Submit" tabindex=6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
+		<transrepeater></transrepeater>
+		<totals></totals>
+		<addform></addform>
 	</div>
 	<div ng-controller="pagiController" class="other-controller">
 		<div class="text-center">
@@ -165,16 +54,6 @@ if(is_user_logged_in()) { ?>
 			<p><a href="https://secure.ally.com/allyWebClient/login.do" target="_blank">Ally Bank Login</a></p>
 		</div>
 	</div>
-	<!-- <div ng-controller="trackerController" class="tracker-controller">
-		<div class="row tracker" ng-repeat="tracker in transTrackers">
-			<div class="col-sm-4">
-				<h4><i class="fa fa-align-left"></i> {{tracker.transFilter}} - ${{tracker.loanAmount}}</h4>
-				<div class="tracker-bg">
-					<div class="tracker-fill" style="width:{{tracker.loanPaymentSum}}%;" data-placement="bottom" data-title="${{tracker.payments}}" bs-tooltip></div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 	<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
 			<div class="col-lg-3 col-md-6 col-sm-6">

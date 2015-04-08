@@ -1,0 +1,14 @@
+<div class="row filters">
+  <div class="col-sm-4 col-sm-offset-2 col-xs-6">
+    <label for="search">Search:</label>
+    <input type="text" autocomplete="off" ng-model="q" ng-change="change()" id="search" class="form-control" placeholder="Check, desc, tag etc.">
+  </div>
+  <div class="col-sm-2 col-xs-3">
+    <label for="search">Year:</label>
+    <input type="text" id="yearpicker" class="form-control" placeholder="Date" ng-model="transYear" bs-datepicker data-placement="bottom" data-date-format="yyyy" data-min-view="2">
+  </div>
+  <div class="col-sm-2 col-xs-3">
+    <label for="search"> Per page:</label>
+    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+  </div>
+</div>
