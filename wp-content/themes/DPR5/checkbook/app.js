@@ -178,7 +178,6 @@
 		});
 
         function applyRemoteData( trackers, newTrans ) {
-        	console.log(trackers);
         	var i = 0;
 			for (i = 0; i < trackers.length; i++) {
 				var payments = [];
