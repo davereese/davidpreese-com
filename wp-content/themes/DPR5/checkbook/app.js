@@ -2,14 +2,11 @@
 (function() {
 	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ngSanitize', 'ui.select']);
 
-	// TODO - load and parse all trackers from json
-
 		//--------------- Long term goals --------------//
 		// - Add tags to list of tags, display in dropdown with typeahead filtering
 		// - add button to create a tracker from current search filters
 		// - monthly/yearly spending graphs
 		//----------------------------------------------//
-
 
 	// ---------------------------------- RegisterController ---------------------------------- //
 
@@ -181,60 +178,27 @@
 		});
 
         function applyRemoteData( trackers, newTrans ) {
-			$scope.transFilter1 = trackers[0]['Transaction Filter'];
-			$scope.loanAmount1 = trackers[0]['Tracker Ammount'];
-			var loanPayments1 = [];
-			var loanTransactions1 = $filter('filter')(newTrans, $scope.transFilter1);
+        	var i = 0;
+			for (i = 0; i < trackers.length; i++) {
+				var payments = [];
+				var transactions = $filter('filter')(newTrans, trackers[i].Filter);
 
-            for (i = 0; i < loanTransactions1.length; i++) {
-				loanPayments1.push(parseFloat(loanTransactions1[i].payment));
-			}
-			$scope.payments1 = $scope.loanAmount1;
-			if (0 < loanPayments1.length) {
-				$scope.payments1 = $scope.loanAmount1-loanPayments1.reduce(function(prev, cur) {
-					return prev + cur;
-				});
-			}
-			$scope.loanPaymentSum1 = $scope.payments1/$scope.loanAmount1*100;
+	            for (count = 0; count < transactions.length; count++) {
+					payments.push(parseFloat(transactions[count].payment));
+				}
+				var filterPayments = trackers[i].Amount;
+				if (0 < payments.length) {
+					filterPayments = trackers[i].Amount-payments.reduce(function(prev, cur) {
+						return prev + cur;
+					});
+				}
+				var loanPaymentSum = filterPayments/trackers[i].Amount*100;
 
-			$scope.transFilter2 = trackers[1]['Transaction Filter'];
-			$scope.loanAmount2 = trackers[1]['Tracker Ammount'];
-			var loanPayments2 = [];
-			var loanTransactions2 = $filter('filter')(newTrans, $scope.transFilter2);
-			for (i = 0; i < loanTransactions2.length; i++) {
-				loanPayments2.push(parseFloat(loanTransactions2[i].payment));
-			}
-			$scope.payments2 = $scope.loanAmount2;
-			if (0 < loanPayments2.length) {
-				$scope.payments2 = $scope.loanAmount2-loanPayments2.reduce(function(prev, cur) {
-					return prev + cur;
-				});
-			} else {
-				$scope.payments2 = $scope.loanAmount2;
-			}
-			$scope.loanPaymentSum2 = $scope.payments2/$scope.loanAmount2*100;
+				trackers[i].Payments = filterPayments;
+				trackers[i].Sum = loanPaymentSum;
 
-			$scope.transFilter3 = trackers[2]['Transaction Filter'];
-			$scope.loanAmount3 = trackers[2]['Tracker Ammount'];
-			var loanPayments3 = [];
-			var loanTransactions3 = $filter('filter')(newTrans, $scope.transFilter3);
-			for (i = 0; i < loanTransactions3.length; i++) {
-				loanPayments3.push(parseFloat(loanTransactions3[i].payment));
 			}
-			$scope.payments3 = $scope.loanAmount3;
-			if (0 < loanPayments3.length) {
-				$scope.payments3 = $scope.loanAmount3-loanPayments3.reduce(function(prev, cur) {
-					return prev + cur;
-				});
-			} else {
-				$scope.payments3 = $scope.loanAmount3;
-			}
-			$scope.loanPaymentSum3 = $scope.payments3/$scope.loanAmount3*100;
-
-			$scope.transFilterTotals = 'D Student Loan Totals';
-			$scope.loanAmountTotals = Math.round((parseFloat($scope.loanAmount1)+parseFloat($scope.loanAmount3)+parseFloat($scope.loanAmount2))*100)/100;
-			$scope.paymentsTotals = Math.round((parseFloat($scope.payments1)+parseFloat($scope.payments2)+parseFloat($scope.payments3))*100)/100;
-			$scope.loanPaymentSumTotals = $scope.paymentsTotals/$scope.loanAmountTotals*100;
+			$scope.transTrackers = trackers;
         }
 
         function loadFilters(trans) {
@@ -248,7 +212,6 @@
             getTransDataService.getData()
                 .then(function( trans ) {
                     loadFilters(trans);
-                    //applyRemoteData(trans);
                 });
         }
 	});
@@ -300,6 +263,13 @@
 		return {
 			restrict: 'E',
 			templateUrl: '../wp-content/themes/DPR5/checkbook/totals.html'
+		};
+	});
+
+	app.directive('tracker', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../wp-content/themes/DPR5/checkbook/tracker.html'
 		};
 	});
 
