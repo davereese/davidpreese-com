@@ -12,17 +12,7 @@
 ?>
 
 <footer class="dpr_footer">
-	<div class="onward_to_awesome">
-		<div class="onward">
-			On<span class="contract">w</span><span class="expand">a</span><span class="expand">r</span>d
-		</div><!--/.onward-->
-		<div class="awesome">
-			<div class="to">
-				to
-			</div><!--/.to-->
-			<span class="contract">A</span>w<span class="expand">e</span>some
-		</div><!--/.awesome-->
-	</div><!--/.onward-->
+	
 </footer><!-- .dpr_footer -->
 </div> <!-- end the color div -->
 		

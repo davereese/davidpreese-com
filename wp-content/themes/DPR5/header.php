@@ -46,84 +46,11 @@
 </head>
 
 <body>
-<?php switch($wp_query->post->ID) {
-case '6':
-case '99': 
-case '27':
-case '113':?>
 	<div id="red"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-1/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-1/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '101':
-case '116': ?>
-    <div id="orange"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-2/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-2/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '103':
-case '118': ?>
-    <div id="yellow"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-3/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-3/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '105':
-case '120': ?>
-    <div id="green"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-4/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-4/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '107':
-case '122': ?>
-    <div id="blue"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-5/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-5/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '109':
-case '124': ?>
-    <div id="purple"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-6/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-6/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-case '111':
-case '126': ?>
-    <div id="brown"> <!-- the color div -->
-    <div id="body_container"></div><!-- #body_container -->
-    <header class="dpr_header">
-        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
-        <nav>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>/work-7/">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about-7/">ABOUT</a>
-        </nav>
-    </header><!-- .dpr_header -->
-<?php break;
-} ?>
+        <div id="body_container"></div><!-- #body_container -->
+        <header class="dpr_header">
+            <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
+            <nav>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about/">ABOUT</a>
+            </nav>
+        </header><!-- .dpr_header -->

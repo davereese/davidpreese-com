@@ -16,12 +16,6 @@ Template: twentythirteen
 @font_georgia: Georgia, "Times New Roman", Times, serif;
 
 @color_red: #E94000;
-@color_orange: #EA7616;
-@color_yellow: #E9D500;
-@color_green: #9BC700;
-@color_blue: #0C88E9;
-@color_purple: #970DE9;
-@color_brown: #9C7246;
 
 /* --------------------------------------------------------------------- MIXINS ------------------------------------------------------------------------- */
 
@@ -52,25 +46,19 @@ Template: twentythirteen
 	background:#FFF;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: 0 3px 10px 0 #999;
-  	box-shadow: 0 3px 10px 0 #999;
 	line-height:0px;
 	text-align:center;
+	border:fadeout(#CCC, 35%) 1px solid;
 
 	img, .videoWrapper, .center {
 		-webkit-border-radius: 3px;
 		border-radius: 3px;
-		-webkit-box-shadow: 0 0 5px 0 #CCC;
-  		box-shadow: 0 0 5px 0 #CCC;
   		border:fadeout(#CCC, 35%) 1px solid;
 
   		img {
   			-webkit-border-radius: 0;
   			-moz-border-radius: 0;
   			border-radius: 0;
-  			-webkit-box-shadow: 0 0 0 #000;
-  			-moz-box-shadow: 0 0 0 #000;
-  			box-shadow: 0 0 0 #000;
   			border: none;
   		}
 	}
@@ -115,12 +103,6 @@ Template: twentythirteen
 }
 
 #red { .color(#ff4900, #b92d00); }
-#orange { .color(#ff881f, #b94e00); }
-#yellow { .color(#ecdf00, #e2be00); }
-#green { .color(#add200, #71ae00); }
-#blue { .color(#009cff, #285bb9); }
-#purple { .color(#ac00ff, #682bb9); }
-#brown { .color(#ac8255, #784e24); }
 
 .main {
 	width:100%;
@@ -139,18 +121,6 @@ Template: twentythirteen
 	
 	#red .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
 	#red .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
-	#green .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
 
 	  .dpr {
 		color:white;
@@ -178,61 +148,6 @@ Template: twentythirteen
   	}
 }
 
-.main .onward_to_awesome .onward, .main .onward_to_awesome .awesome, .dpr_footer .onward_to_awesome .onward, .dpr_footer .onward_to_awesome .awesome {
-	font-family: @font_openSans;
-	font-weight:800;
-	color:white;
-	text-align:center;
-	z-index:10;
-	position:relative;
-	text-transform:uppercase;
-}
-
-.main .onward_to_awesome .awesome, .dpr_footer .onward_to_awesome .awesome {	
-	.to {
-		font-family:@font_georgia;
-		font-style:italic;
-		font-weight:bold;
-		position:absolute;
-		font-size:.55em;
-		letter-spacing:-3px;
-		left:50%;
-		top:6px;
-		margin-left:-352px;
-		text-transform:lowercase;
-	  }
-}
-
-.main .onward_to_awesome .onward, .dpr_footer .onward_to_awesome .onward {
-	font-size:9.7em;
-	/*letter-spacing:-7px;*/
-	letter-spacing:-.055em;
-	margin-top:-34px;
-	
-	.contract {
-    letter-spacing:-.1em;
-  }
-  
-  .expand {
-    letter-spacing:-0.03em;
-  }
-}
-
-.main .onward_to_awesome .awesome, .dpr_footer .onward_to_awesome .awesome {
-	font-size:9em;
-	/*letter-spacing:-7px;*/
-	letter-spacing:-.055em;
-	margin-top:-30px;
-	
-	.contract {
-    letter-spacing:-.1em;
-  }
-  
-  .expand {
-    letter-spacing:-0.03em;
-  }
-}
-
 /* ----------------------------------- SECONDARY PAGE ----------------------------------- */
 
 #body_container {
@@ -243,26 +158,18 @@ Template: twentythirteen
 	margin-top:0px;
 	top:0px;
 }
-#red, #orange, #yellow, #green, #blue, #purple, #brown {
+#red {
 	width:100%;
 	height:100%;
 }
 
 #red .dpr_header { .color(#fd4800, #d53800); }
-#orange .dpr_header { .color(#fe871f, #db6b0f); }
-#yellow .dpr_header { .color(#ebde00, #e5c700); }
-#green .dpr_header { .color(#abd000, #8cbe00); }
-#blue .dpr_header { .color(#009bfe, #1875d5); }
-#purple .dpr_header { .color(#a405f7, #7f1dd0); }
-#brown .dpr_header { .color(#ab8154, #8d6338); }
 
 .dpr_header {
 	height:41px;
 	position:fixed;
 	top:0px;
 	width:100%;
-	-webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, .5);
-    box-shadow:  0 0 10px 0 rgba(0, 0, 0, .5);
 	z-index:4;
 	
 	h1 {
@@ -546,17 +453,11 @@ Template: twentythirteen
 					border:none;
 					-webkit-border-radius: 5px;
 					border-radius: 5px;
-					-webkit-box-shadow: 0 3px 10px 0 #999;
-		      		box-shadow: 0 3px 10px 0 #999;
-		      		-webkit-transition: color .5s;
-		      		-moz-transition: color .5s;
-		      		-ms-transition: color .5s;
-		      		-o-transition: color .5s;
-		      		transition: color .5s;
+		      		.transition1(background-color, .5s);
 		      	}
 			}
 			.gform_footer input[type="submit"]:hover {
-				color: #333;
+				background-color: #333;
 			}
 		}
 }
@@ -626,43 +527,13 @@ Template: twentythirteen
 
 #red, #orange, #yellow, #green, #blue, #purple, #brown { 
 	.project_wrap, .project_wrap_about p a:hover { color:#333; }
-	.gform_footer input[type="submit"]:hover { color: #333; }
+	.gform_footer input[type="submit"]:hover { background-color: #333; }
 }
 
 #red {
 	.dpr_header h1 { text-shadow: 0 2px 0 #E83F00; filter: dropshadow(color=#E83F00, offx=0, offy=2); }
 	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_red; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#fd4800, #d53800); }
-}
-#orange {
-	.dpr_header h1 { text-shadow: 0 2px 0 #EB7816; filter: dropshadow(color=#EB7816, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_orange; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#fe871f, #db6b0f); }
-}
-#yellow {
-	.dpr_header h1 { text-shadow: 0 2px 0 #E8D100; filter: dropshadow(color=#E8D100, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:#E0B502; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#ebde00, #e5c700); }
-}
-#green {
-	.dpr_header h1 { text-shadow: 0 2px 0 #9BC700; filter: dropshadow(color=#9BC700, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_green; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#abd000, #8cbe00); }
-}
-#blue {
-	.dpr_header h1 { text-shadow: 0 2px 0 #0D86E7; filter: dropshadow(color=#0D86E7, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_blue; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#009bfe, #1875d5); }
-}
-#purple {
-	.dpr_header h1 { text-shadow: 0 2px 0 #9112E3; filter: dropshadow(color=#9112E3, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_purple; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#a405f7, #7f1dd0); }
-}
-#brown {
-	.dpr_header h1 { text-shadow: 0 2px 0 #9B7145; filter: dropshadow(color=#9B7145, offx=0, offy=2); }
-	.project_wrap, .project_wrap_about p { a, a:link, a:visited { color:@color_brown; }}
-	.project_wrap_about .resume, .gform_footer input[type="submit"] { .color(#ab8154, #8d6338); }
+	.project_wrap_about .resume, .gform_footer input[type="submit"] { background-color: #d53800); }
 }
 
 /* =Media queries
@@ -672,41 +543,12 @@ Template: twentythirteen
 @media screen and (min-width: 320px) {	
 	#red .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=1); }
 	#red .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=1); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=1); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=1); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=1); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=1); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0 1px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=1); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
 
   .main .onward_to_awesome {
     .dpr {
       font-size:1.5em;
       top:-13%;
       margin-left:-64px;
-    }
-
-    .onward {
-		  font-size:4.2em;
-		  margin-top:-10px;
-    }
-    
-    .awesome {
-		  font-size:4em;
-		  margin-top:-12px;
-	
-      .to {
-        font-size:.46em;
-		    letter-spacing:-1px;
-		    top:5px;
-		    margin-left:-150px;
-		  }
     }
   }
   
@@ -852,25 +694,8 @@ Template: twentythirteen
 @media screen and (min-width: 600px) {	
 	.main .onward_to_awesome {
 		.dpr {
-			  font-size:2.4em;		
-			  margin-left:-101px;
-			}
-		
-		.onward {
-			  font-size:6.7em;
-			  margin-top:0px;
-		  }
-		  
-		.awesome {
-			  font-size:6.3em;
-			  margin-top:-21px;
-	
-		  .to {
-			font-size:.5em;
-				letter-spacing:-2px;
-				top:5px;
-				margin-left:-239px;
-			  }
+			font-size:2.4em;		
+			margin-left:-101px;
 		}
 	}
 	
@@ -1017,42 +842,13 @@ Template: twentythirteen
 @media screen and (min-width: 960px) {
 	#red .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=2); }
 	#red .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_red; filter: dropshadow(color=@color_red, offx=0, offy=3); }
-	#orange .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=2); }
-	#orange .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_orange; filter: dropshadow(color=@color_orange, offx=0, offy=3); }
-	#yellow .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=2); }
-	#yellow .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_yellow; filter: dropshadow(color=@color_yellow, offx=0, offy=3); }
-	#green .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=2); }
-	#green .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_green; filter: dropshadow(color=@color_green, offx=0, offy=3); }
-	#blue .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=2); }
-	#blue .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_blue; filter: dropshadow(color=@color_blue, offx=0, offy=3); }
-	#purple .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=2); }
-	#purple .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_purple; filter: dropshadow(color=@color_purple, offx=0, offy=3); }
-	#brown .onward_to_awesome .dpr { text-shadow: 0 2px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=2); }
-	#brown .onward_to_awesome .dpr .cap { text-shadow: 0 3px 0 @color_brown; filter: dropshadow(color=@color_brown, offx=0, offy=3); }
 
   .main .onward_to_awesome {
     .dpr {
       font-size:3.4em;
       margin-left:-143px;
     }
-
-    .onward {
-		  font-size:9.7em;
-		  margin-top:-34px;
-    }
-
-    .awesome {
-		  font-size:9em;
-		  margin-top:-30px;
-		
-      .to {
-		    font-size:.55em;
-		    letter-spacing:-3px;
-		    top:6px;
-		    margin-left:-352px;
-		  }
-		}
-	}
+  }
 	
 	#content {
 		height:800px;

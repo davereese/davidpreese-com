@@ -14,7 +14,7 @@
 get_header(); ?>
 
 <?php switch($wp_query->post->post_title) {
-	case 'Work': ?>
+	case 'Home': ?>
     
     <div id="content">
 	
