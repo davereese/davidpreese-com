@@ -1,4 +1,43 @@
 -------------------------------------------------------------------------------------------------------------------
+Version 1.9.5
+    - Added JS filter: 'gform_form_editor_can_field_be_added' allowing developers to prevent custom field types being added to the form if the conditions they define, such as a Product field being present, are not met.
+          gform.addFilter('gform_form_editor_can_field_be_added', function (canFieldBeAdded, type) {
+              // return false to prevent a field being added.
+              return canFieldBeAdded;
+          });
+    - Added gf_invisible CSS class for use hiding product fields that should not be visible but count towards the total.
+    - Added the placeholder setting to the Post Tags field.
+    - Added JS action hook: 'gform_post_conditional_logic_field_action' to allow performing custom actions when a field is displayed or hidden by conditional logic on frontend.
+        gform.addAction('gform_post_conditional_logic_field_action', function (formId, action, targetId, defaultValues, isInit) {
+            // do stuff
+        });
+	- Added Sint Marteen to the country list.
+    - Added logging of notification routing rule evaluation.
+    - Added entry id to some of the notification related logging statements.
+    - Added the 'gform_include_thousands_sep_pre_format_number' filter to allow users to disable inclusion of the thousands separator when the Number field value is formatted.
+        add_filter( 'gform_include_thousands_sep_pre_format_number', function ( $include_thousands_sep, $field ) {
+            return $field->id == 5 ? false : $include_thousands_sep;
+        }, 10, 2 );
+	- Updated Finish translation.
+    - Fixed an issue with the form submission process where inactive and trashed forms could still be processed.
+	- Fixed issue with single quote in a localized string.
+	- Fixed issue with the Cancel Subscription button on entry page where the message displayed to the user was always unsuccessful even though the subscription was successfully canceled.
+	- Fixed issue with post content containing extra <br/> tags.
+    - Fixed an issue with the quantity input of the Single Product field not having the disabled attribute in the form editor.
+	- Fixed issue with spinner icon not hiding when viewing the latest changes on the plugins page.
+    - Fixed a low severity security vulnerability in the admin area which could be exploited by users with form editor permissions.
+    - Fixed issue introduced in Chrome 40 where AJAX-enabled forms did not correctly scroll back to the form.
+	- Fixed issue with conditional logic and date fields causing a Javascript error.
+	- Fixed issue with conditional logic when showing fields with inline ready classes.
+	- Fixed issue with conditional logic when hiding date fields.
+
+    - AF: Added support for single submission feed add-ons (like User Registration).
+    - AF: Added support for GFAddon::delay_feed() method so add-ons can do something when feed is delayed.
+    - AF: Updated GFFeedAddon::is_delayed_payment, GFAddon::get_base_url, and GFAddon::get_base_path methods to be public (instead of protected).
+
+    - API: Fixed a potential security vulnerability in the object locking API for add-ons and custom code.
+
+-------------------------------------------------------------------------------------------------------------------
 Version 1.9.4
     - Added 2 new helper styles to the readyclass.css file
     	1. "gf_simple_horizontal" - when applied to main form will create a very simple horizontal form layout (think simple email address field and inline form button)
@@ -534,7 +573,7 @@ Version 1.8.20
 	- Updated notification's From Name so that it is sanitized before being used.
 	- Fixed conflict with WP-reCAPTCHA plugin.
 	- Fixed an issue with the multi-file upload field where the paths to the uploaded files can get removed from the entry if a third party add-on processes the entry before Gravity Forms. This fixes a compatibility issue with the Gravity Perks Conditional Logic Perk.
-	- Fixed a security issue with the file upload field.
+	- Fixed a security issue with the file upload field. Credit: Charlie Clark.
 	- Fixed issue with outdated cached version of total field not getting refreshed.
 	- Fixed notice message.
 	- Fixed issue with {ip} merge tag replacing "wrong" IP when resending notifications.

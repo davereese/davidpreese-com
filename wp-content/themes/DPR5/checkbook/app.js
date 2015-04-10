@@ -92,7 +92,7 @@
 
 			pageSize = $scope.pageSize;
 			if ( undefined === pageSize ) {
-				pageSize = 20;
+				pageSize = 29;
 			}
 			lastPage = Math.ceil(entriesNum / pageSize);
 			$scope.transactions = newTrans;
@@ -173,7 +173,7 @@
 	app.controller('trackerController', function($scope, getTransDataService, $filter, $http) {
 		$scope.transTrackers = [];
 
-		$scope.$on("transEvent", function (event, args) {
+		$scope.$on("transEvent", function (event) {
 			loadTransData();
 		});
 
