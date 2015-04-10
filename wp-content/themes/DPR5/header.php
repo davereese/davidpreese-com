@@ -46,6 +46,7 @@
 </head>
 
 <body>
+    <?php if( !is_page('checkbook') ) { ?>
 	<div id="red"> <!-- the color div -->
         <div id="body_container"></div><!-- #body_container -->
         <header class="dpr_header">
@@ -54,3 +55,4 @@
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about/">ABOUT</a>
             </nav>
         </header><!-- .dpr_header -->
+<?php } ?>

@@ -11,10 +11,12 @@
  */
 ?>
 
-<footer class="dpr_footer">
+ <?php if( !is_page('checkbook') ) { ?>
+ <footer class="dpr_footer">
 	
 </footer><!-- .dpr_footer -->
 </div> <!-- end the color div -->
+<?php } ?>
 		
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

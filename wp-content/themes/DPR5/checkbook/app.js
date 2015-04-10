@@ -92,7 +92,7 @@
 
 			pageSize = $scope.pageSize;
 			if ( undefined === pageSize ) {
-				pageSize = 29;
+				pageSize = 20;
 			}
 			lastPage = Math.ceil(entriesNum / pageSize);
 			$scope.transactions = newTrans;
