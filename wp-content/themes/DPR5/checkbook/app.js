@@ -194,7 +194,7 @@
 				}
 				var loanPaymentSum = filterPayments/trackers[i].Amount*100;
 
-				trackers[i].Payments = filterPayments;
+				trackers[i].Payments = Math.round(filterPayments*100)/100;
 				trackers[i].Sum = loanPaymentSum;
 
 			}

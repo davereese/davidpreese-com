@@ -56,7 +56,7 @@ if(is_user_logged_in()) { ?>
 	</div>
 	<div ng-controller="trackerController" class="tracker-controller">
 		<div class="row tracker">
-			<div ng-repeat="tracker in transTrackers"><tracker></tracker</div>
+			<div ng-repeat="tracker in transTrackers"><tracker></tracker></div>
 		</div>
 	</div>
 </div>
