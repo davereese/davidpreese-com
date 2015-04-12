@@ -159,9 +159,7 @@
 			$scope.depositSum = Math.round($scope.depositSum*100)/100;
 		};
 
-		$scope.tagList = [
-			"mortgage", "San Diego", "Test", "Dave"
-		];
+		$scope.tagList = [];
 		$scope.chosenTags = [];
 	});
 
