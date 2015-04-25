@@ -1,16 +1,15 @@
 /* global angular:false */
 (function() {
-	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ngSanitize', 'ui.select']);
+	var app = angular.module('checkbook', ['mgcrea.ngStrap', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ngSanitize', 'ngTagsInput']);
 
 		//--------------- Long term goals --------------//
-		// - Add tags to list of tags, display in dropdown with typeahead filtering
 		// - add button to create a tracker from current search filters
 		// - monthly/yearly spending graphs
 		//----------------------------------------------//
 
 	// ---------------------------------- RegisterController ---------------------------------- //
 
-	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter) {
+	app.controller('RegisterController', function($scope, getTransDataService, $modal, $filter, $http) {
 		$scope.transactions = [];
 
 		loadTransData();
@@ -21,8 +20,20 @@
 		};
 
 		// Process the transactionForm form.
+		function listTags(tags) {
+			var tagList = '';
+        	for (i = 0; i < tags.length; i++) {
+        		if ( i > 0 ) {
+        			tagList += ', ';
+        		}
+        		tagList += tags[i].text;
+        	}
+        	return tagList
+        }
         $scope.addData = function(entries) {
-            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, $scope.newTrans.transtags, $scope.newTrans.payment, $scope.newTrans.deposit)
+        	var transTags = $scope.newTrans.transtags;
+        	var tagList = listTags(transTags);
+            getTransDataService.addData( $scope.newTrans.check_number, $scope.newTrans.date, $scope.newTrans.desc, tagList, $scope.newTrans.payment, $scope.newTrans.deposit)
                 .then( loadTransData, function( errorMessage ) {
                     console.warn( errorMessage );
                 }
@@ -48,10 +59,10 @@
 		};
 
 		// Edit the given transaction from the current collection.
-        $scope.editData = function( trans, entries, thisModal ) {
+        $scope.editData = function( trans, tags, thisModal ) {
 			thisModal.$hide();
-
-			getTransDataService.editData( trans.id, trans.check_number, trans.date, trans.description, trans.tags, trans.payment, trans.deposit)
+        	var tagList = listTags(tags);
+			getTransDataService.editData( trans.id, trans.check_number, trans.date, trans.description, tagList, trans.payment, trans.deposit)
                 .then( loadTransData, function( errorMessage ) {
                     console.warn( errorMessage );
                 }
@@ -63,7 +74,6 @@
 
 		// Apply the remote data to the local scope.
         function applyRemoteData( newTrans ) {
-			var i = 0;
 			for (i = 0; i < newTrans.length; i++) {
 				// Parse data
 				if ( '0' === newTrans[i].check_number ) {
@@ -134,6 +144,15 @@
 		// open edit transaction modal
 		$scope.showModal = function( trans ) {
 			$scope.transaction = trans;
+			var savedTags = trans.tags.split(", ");
+			$scope.transTags = [];
+			if( trans.tags.length ) {
+				for (i = 0; i < savedTags.length; i++) {
+					$scope.transTags.push(savedTags[i]);
+				}
+			} else {
+				$scope.transTags = '';
+			}
 			var myModal = $modal({
 				animation: 'am-fade-and-slide-bottom',
 				title: 'Edit '+trans.description+'',
@@ -159,8 +178,56 @@
 			$scope.depositSum = Math.round($scope.depositSum*100)/100;
 		};
 
+		// load tags for typeahead
 		$scope.tagList = [];
-		$scope.chosenTags = [];
+		$scope.allTags = [];
+		function loadTagData() {
+			$scope.tagList = [];
+			getTransDataService.getTags()
+                .then(function( tags ) {
+					for (i = 0; i < tags.length; i++) {
+						$scope.tagList.push(tags[i].tag);
+						$scope.allTags.push(tags[i].tag);
+					}
+					// $scope.tagList = tags;
+					return $scope.tagList;
+                }
+            );
+        };
+		loadTagData();
+		$scope.loadItems = function($query) {
+			//return $scope.tagList;
+			var tags = $scope.tagList;
+			return tags.filter(function(tag) {
+				return tag.toLowerCase().indexOf($query.toLowerCase()) !== -1;
+			});
+		};
+
+		// loop through tags to see if any are new
+		$scope.compareTags = function(currTags) {
+			var transTags = '';
+			if( undefined !== currTags ) {
+				transTags = currTags;
+			} else {
+				transTags = $scope.newTrans.transtags;
+			}
+			var tagList = $scope.allTags;
+			for (i = 0; i < transTags.length; i++) {
+				var newTag = transTags[i].text;
+				var check = 0;
+				for (t = 0; t < tagList.length; t++) {
+					var currentTag = tagList[t];
+					if( newTag === currentTag ) {
+						check++;
+					}
+				}
+				if( 0 === check) {
+					getTransDataService.addTag(newTag).then(function() {
+						loadTagData();
+					});
+				}
+			}
+		};
 	});
 
 	// --------------------------------- / RegisterController --------------------------------- //
@@ -282,13 +349,15 @@
 			getData: getData,
 			removeData: removeData,
 			editData: editData,
-			updateData: updateData
+			updateData: updateData,
+			getTags: getTags,
+			addTag: addTag
 		});
 		// Add data with the given name to the remote collection.
         function addData( check_number, date, desc, transtags, payment, deposit ) {
             var request = $http({
                 method: 'post',
-                url: '../wp-content/themes/DPR5/checkbook/insertTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/php/insertTrans.php',
                 params: {
 					check_number: check_number,
                     date: date,
@@ -305,7 +374,7 @@
 		function getData() {
 			var request = $http({
 				method: 'get',
-				url: '../wp-content/themes/DPR5/checkbook/getTrans.php',
+				url: '../wp-content/themes/DPR5/checkbook/php/getTrans.php',
 				params: {
 					action: 'get'
 				}
@@ -316,7 +385,7 @@
         function removeData( id ) {
             var request = $http({
                 method: 'delete',
-                url: '../wp-content/themes/DPR5/checkbook/removeTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/php/removeTrans.php',
                 params: {
                     action: 'delete',
                     id: id
@@ -331,7 +400,7 @@
         function editData( id, check_number, date, desc, transtags, payment, deposit ) {
             var request = $http({
                 method: 'update',
-                url: '../wp-content/themes/DPR5/checkbook/editTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/php/editTrans.php',
                 params: {
 					action: 'set',
 					id: id,
@@ -358,7 +427,7 @@
         function updateData( id, highlight ) {
             var request = $http({
                 method: 'update',
-                url: '../wp-content/themes/DPR5/checkbook/updateTrans.php',
+                url: '../wp-content/themes/DPR5/checkbook/php/updateTrans.php',
                 params: {
                     action: 'set',
                     id: id,
@@ -371,12 +440,35 @@
             });
             return( request.then( handleSuccess, handleError ) );
         }
+        // Get all of the tags from the database
+		function getTags() {
+			var request = $http({
+				method: 'get',
+				url: '../wp-content/themes/DPR5/checkbook/php/getTags.php',
+				params: {
+					action: 'get'
+				}
+			});
+			return( request.then( handleSuccess, handleError ) );
+		}
+		// Add a new tag to the list
+		function addTag( tag ) {
+            var request = $http({
+                method: 'post',
+                url: '../wp-content/themes/DPR5/checkbook/php/insertTag.php',
+                params: {
+					tag: tag
+                },
+                responseType: 'json'
+            });
+            return( request.then( handleSuccess, handleError ) );
+        }
 
 		// Transform the error response, unwrapping the application dta from
         // the API response payload.
 		function handleError( response ) {
             if ( ! angular.isObject( response.data ) || ! response.data.message ) {
-                return( $q.reject( "An unknown error occurred." ) );
+                return( $q.reject( 'An unknown error occurred.' ) );
             }
             return( $q.reject( response.data.message ) );
         }
@@ -413,13 +505,23 @@
 	app.filter('tagSplit', function() {
 		return function(input) {
 			var filtered = '';
-			if ( null === input || '' === input || undefined === input ) {
+			if ( undefined === input || null === input ) {
+				filtered += '';
+			} else if ( 0 === input.length ) {
 				filtered += '';
 			} else {
-				var tags = input.split(', ');
-				for (var i = 0; i < tags.length; i++) {
-					var tag = tags[i];
-					filtered += '<span>'+tag+'</span>';
+				var transTag = '';
+				if ( 'object' === typeof(input) ) {
+					for (var i = 0; i < input.length; i++) {
+						transTag = input[i].text;
+						filtered += '<span>'+transTag+'</span>';
+					}
+				} else {
+					var transTags = input.split(', ');
+					for (var c = 0; c < transTags.length; c++) {
+						transTag = transTags[c];
+						filtered += '<span>'+transTag+'</span>';
+					}
 				}
 			}
 			return filtered;

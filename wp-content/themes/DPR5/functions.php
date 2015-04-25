@@ -8,6 +8,7 @@ remove_action('wp_head', 'index_rel_link');
 remove_action('wp_head', 'adjacent_posts_rel_link');
 
 function scripts() {
+	wp_register_script('easing', get_stylesheet_directory_uri() . '/js/easing.js', array(), null, true);
 	wp_register_script('main', get_stylesheet_directory_uri() . '/js/main.js', array(), null, true);
 	wp_register_script('angular', get_stylesheet_directory_uri() . '/js/angular.min.js', array(), null, true);
 	wp_register_script('angularsanitize', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js', array(), null, true);
@@ -17,12 +18,13 @@ function scripts() {
 	wp_register_script('angularanimatejs', 'http://code.angularjs.org/1.2.23/angular-animate.min.js', array(), null, true);
 	wp_register_script('angularstrapjs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.js', array(), null, true);
 	wp_register_script('angularstraptpljs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.tpl.js', array(), null, true);
+	wp_register_script('tags', get_stylesheet_directory_uri() . '/bower_components/ng-tags-input/ng-tags-input.js', array(), null, true);
 
+	wp_enqueue_script('easing');
 	if( !is_page('checkbook') ) {
 		wp_enqueue_script('main');
 	}
 	if( is_page('checkbook') ) {
-		wp_enqueue_script('main');
 		wp_enqueue_script('angular');
 		wp_enqueue_script('angularsanitize');
 		wp_enqueue_script('select');
@@ -30,9 +32,11 @@ function scripts() {
 		wp_enqueue_script('angularanimatejs');
 		wp_enqueue_script('angularstrapjs');
 		wp_enqueue_script('angularstraptpljs');
+		wp_enqueue_script('tags');
 		wp_enqueue_script('app');
 		wp_enqueue_style('angularMotion', get_stylesheet_directory_uri() . '/css/angular-motion.min.css', false, null);
 		wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', false, null);
+		wp_enqueue_style('tags-css', get_stylesheet_directory_uri() . '/bower_components/ng-tags-input/ng-tags-input.min.css', false, null);
 		wp_enqueue_style('lato', 'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic', false, null);
 	}
 }

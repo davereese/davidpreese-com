@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-1 visible-xs"><a ng-click="showModal(transaction)"><i class="fa fa-pencil"></i></a></div>
 		<div class="col-xs-9 col-sm-11 description">{{transaction.description}}</div>
-		<div class="col-xs-1 tags"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags | tagSplit}}" data-html="true" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
+		<div class="col-xs-1 tags-icon"><i class="fa fa-tag" data-placement="top" data-title="{{transaction.tags | tagSplit}}" data-html="true" bs-tooltip ng-class="{ 'has-tags': transaction.tags }"></i></div>
 		<div class="col-xs-1 visible-xs hilighter"><a ng-click="highlightTrans(transaction, transactions)"><i class="fa fa-check"></i></a></div>
 	</div>
 </div>

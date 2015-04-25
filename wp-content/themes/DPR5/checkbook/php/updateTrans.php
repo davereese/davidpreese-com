@@ -1,9 +1,9 @@
 <?php
 $ID = $_GET['id'];
-$hilite = $_GET['hilite'];
+$hilite = $_GET['highlight'];
 
 // ...Call the database connection settings
-require_once '../../../../wp-config.php';
+require_once '../../../../../wp-config.php';
 
 // ...Connect to WP database
 $dbc = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -12,7 +12,7 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		UPDATE checkbook SET Hilight = $hilite
+		UPDATE checkbook SET Highlight = $hilite
 		WHERE ID = $ID
 SQL;
 if(!$result = $dbc->query($query)){

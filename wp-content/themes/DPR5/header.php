@@ -33,9 +33,11 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.js" type="text/javascript"></script>
-	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/easing.js" type="text/javascript"></script>
+    <?php if( is_page('checkbook') ) { ?>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <?php } else { ?>
+        <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.js" type="text/javascript"></script>
+    <?php } ?>
 <!--[if gte IE 9]>
   <style type="text/css">
     .gradient {

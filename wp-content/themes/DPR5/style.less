@@ -1113,7 +1113,7 @@ html.ng-scope {
 		font-size: .7em;
 		margin-bottom: 10px;
 	}
-	.tags {
+	.tags-icon {
 		i {
 			.transition1(color, .5s);
 			color: darken(@green, 3%);
@@ -1141,7 +1141,7 @@ html.ng-scope {
 	.trans.highlighted {
 		background-color: lighten(@green, 8%);
 		z-index: 200;
-		.tags {
+		.tags-icon {
 			i {
 				color: @green;
 			}
@@ -1171,7 +1171,7 @@ html.ng-scope {
 			box-shadow: 0 3px 20px darken(fadeout(@green, 80%), 35%);
 			z-index: 300;
 			position: relative;
-			.tags {
+			.tags-icon {
 				i {
 					color: lighten(@green, 1%);
 				}
@@ -1221,9 +1221,35 @@ html.ng-scope {
 		display: block;
 	}
 	form {
+		.host {
+			padding: 0 !important;
+			margin: 0;
+			float: right;
+			width: 0;
+			.transition1(all, .5s);
+		}
+		.tags {
+			background-color: @green;
+			border: darken(@green, 15%) 3px solid;
+			border-left: darken(@green, 15%) 0 solid;
+			border-right: darken(@green, 15%) 0 solid;
+			height: auto;
+			color: darken(@green, 15%);
+			padding: 6px 0 !important;
+			line-height: 1;
+			box-shadow: 0 0 0 @green;
+			border-radius: 4px;
+			padding: 10px;
+			.transition1(all, .3s);
+			&.focused {
+				box-shadow: 0 0 0 #000;
+				border: darken(@green, 15%) 3px solid;
+				background-color: lighten(@green, 15%);
+			}
+		}
 		.inputs {
 			padding-top: 30px;
-			.tags {
+			.tags-icon {
 				padding-top: 11px;
 				text-align: center;
 				i {
@@ -1272,20 +1298,28 @@ html.ng-scope {
 		.description_input.tags-on {
 			width: 10%;
 		}
-		.tags_input.tags-on {
+		.tags-on .host {
 			width: 87%;
-			padding: 10px;
-			border-left: darken(@green, 15%) 3px solid;
-			border-right: darken(@green, 15%) 3px solid;
+			.tags {
+				padding: 6px !important;
+				border-left: darken(@green, 15%) 3px solid;
+				border-right: darken(@green, 15%) 3px solid;
+			}
+		}
+		.ng-invalid.tags-on .host {
+			.tags {
+				border-left: @gray 3px solid !important;
+				border-right: @gray 3px solid !important;
+			}
 		}
 		.draft {
-			.tags {
+			.tags-icon {
 				display: none;
 				i {
 					color: darken(@green, 25%);
 				}
 			}
-			.tags.has-tags {
+			.tags-icon.has-tags {
 				display: block;
 			}
 		}
@@ -1353,6 +1387,9 @@ html.ng-scope {
 			.transition1(width, 1.5s);
 		}
 	}
+}
+.checkbook .details .row div.autocomplete {
+	padding: 0;
 }
 .datepicker.am-fade  {
 	opacity: 1;
@@ -1522,6 +1559,50 @@ html.ng-scope {
 			margin: 0;
 			padding: 0 10px;
 		}
+		.host {
+			.transition1(all, .5s);
+		}
+		.tags {
+			background-color: darken(@gray, 2%);
+			border: none;
+			color: @green;
+			padding: 3px 0 !important;
+			box-shadow: none;
+			border-radius: 4px;
+			padding: 10px;
+			input {
+				margin-bottom: 0;
+				color: @green;
+				&::-webkit-input-placeholder {
+				   color: @green;
+				}
+				&:-moz-placeholder { /* Firefox 18- */
+				   color: @green;
+				}
+				&::-moz-placeholder {  /* Firefox 19+ */
+				   color: @green;
+				}
+				&:-ms-input-placeholder {  
+				   color: @green;
+				}
+			}
+		}
+		tags-input .tags .tag-item {
+			height: 22px;
+			line-height: 21px;
+			background-color: darken(@gray, 10%);
+		}
+		.autocomplete {
+			box-shadow: 0 8px 20px fadeOut(#000, 75%);
+			padding: 0;
+			background-color: darken(@gray, 10%);
+			ul li {
+				background-color: darken(@gray, 10%);
+				&.selected {
+					background: lighten(@green, 15%)
+				}
+			}
+		}
 	}
 	.login-body {
 		width: 100%;
@@ -1647,7 +1728,7 @@ html.ng-scope {
 		form {
 			.inputs {
 				padding-top: 30px;
-				.tags {
+				.tags-icon {
 					padding-top: 13px;
 					i {
 						font-size: 1.15em;

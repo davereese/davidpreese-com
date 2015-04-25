@@ -1,6 +1,8 @@
 <?php
+$ID = $_GET['id'];
+
 // ...Call the database connection settings
-require_once '../../../../wp-config.php';
+require_once '../../../../../wp-config.php';
 
 // ...Connect to WP database
 $dbc = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -9,23 +11,16 @@ if($dbc->connect_errno > 0){
 }
 
 $query=<<<SQL
-		SELECT id, check_number, date, description, tags, payment, deposit, highlight 
-		FROM checkbook
-		WHERE id > 0
-		ORDER BY ID ASC
+		DELETE FROM checkbook
+		WHERE id = $ID
 SQL;
 if(!$result = $dbc->query($query)){
     die('There was an error running the query [' . $dbc->error . ']');
 }
-
-$arr = array();
-if($result->num_rows > 0) {
- while($row = $result->fetch_assoc()) {
- $arr[] = $row;
- }
+$query=<<<SQL
+		ALTER TABLE checkbook AUTO_INCREMENT = 1
+SQL;
+if(!$result = $dbc->query($query)){
+    die('There was an error running the query [' . $dbc->error . ']');
 }
- 
-# JSON-encode the response
-echo $json_response = json_encode($arr);
-
 ?>

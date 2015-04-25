@@ -30,12 +30,15 @@
             </div>
             <div class="col-xs-12">
               <label for="tags">Tags</label>
-              <input type="text" name="tags" ng-model="transaction.tags">
+              <!-- <input type="text" name="tags" ng-model="transaction.tags"> -->
+              <tags-input ng-model="transTags" tabindex=3 ng-click="loadTagData($query)" placeholder="Tags" min-length="2" replace-spaces-with-dashes="false">
+                <auto-complete source="loadItems($query)" min-length="1" debounce-delay="0" load-on-down-arrow="true" max-results-to-show="50" select-first-match="false"></auto-complete>
+              </tags-input>
             </div>
           </div>
         </div>
         <div class="modal-footer edit-remove">
-          <button type="button" class="btn btn-default delete" ng-click="removeData(transaction, transactions, this)"><i class="fa fa-trash"></i> Delete</button> <button type="button" class="btn btn-default" ng-click="editData(transaction, transactions, this)"><i class="fa fa-send"></i> Update</button>
+          <button type="button" class="btn btn-default delete" ng-click="removeData(transaction, transactions, this)"><i class="fa fa-trash"></i> Delete</button> <button type="button" class="btn btn-default" ng-click="compareTags(transTags); editData(transaction, transTags, this)"><i class="fa fa-send"></i> Update</button>
         </div>
       </form>
       <div class="clearfix"></div>
