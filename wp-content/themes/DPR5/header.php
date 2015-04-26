@@ -28,7 +28,7 @@
 	<title>David P. Reese | Onward to Awesome</title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/images/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Allura|Open+Sans:400italic,700italic,800italic,300italic,600italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
@@ -52,7 +52,7 @@
 	<div id="red"> <!-- the color div -->
         <div id="body_container"></div><!-- #body_container -->
         <header class="dpr_header">
-            <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">D<span class="expand">P</span>R</a></h1>
+            <h1>DPR.</h1>
             <nav>
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about/">ABOUT</a>
             </nav>
