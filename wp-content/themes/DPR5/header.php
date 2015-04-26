@@ -52,7 +52,7 @@
 	<div id="red"> <!-- the color div -->
         <div id="body_container"></div><!-- #body_container -->
         <header class="dpr_header">
-            <h1>DPR.</h1>
+            <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">DPR.</a></h1>
             <nav>
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">WORK</a> / <a href="<?php echo esc_url( home_url( '/' ) ); ?>/about/">ABOUT</a>
             </nav>

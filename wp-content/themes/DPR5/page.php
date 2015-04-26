@@ -74,15 +74,12 @@ get_header(); ?>
         <?php /* The loop */ ?>
 		<?php while ( have_posts() ) : the_post(); ?>
         	<?php echo '<div class="float_right"><div class="featured"></div>'; ?>
-        		<script>
-        		var picUrl = 'https://graph.facebook.com/23508050/picture?width=300';
-$('.featured').html('<div class="center"><img src="' + picUrl + '" class="attachment-full wp-post-image" /></div>');
-				</script>
-				<?php //$call = new WP_Query("page_id=27"); while($call->have_posts()) : $call->the_post(); the_post_thumbnail( 'full' ); endwhile; wp_reset_query();
-			echo '<!--</div><div class="resume"><a href="';
-			//echo esc_url( home_url( "/" ) );
-			echo 'wp-content/uploads/2013/11/David_Reese_Resume.pdf" class="resume_link" target="_blank">RÉSUMÉ</a><div class="arrow"><img src="'.get_stylesheet_directory_uri().'/images/resume_arrow.png" class="attachment-full wp-post-image"></div></div>--></div>'; ?>
-    		<?php $call = new WP_Query("page_id=27"); while($call->have_posts()) : $call->the_post(); the_content(); endwhile; wp_reset_query(); ?>
+    		<script>
+    			var picUrl = 'https://graph.facebook.com/23508050/picture?width=300';
+				$('.featured').html('<div class="center"><img src="' + picUrl + '" class="attachment-full wp-post-image" /></div>');
+			</script>
+			<?php echo '</div>'; ?>
+			<?php $call = new WP_Query("page_id=27"); while($call->have_posts()) : $call->the_post(); the_content(); endwhile; wp_reset_query(); ?>
         <?php endwhile; ?>
         </div><!-- .project_wrap -->
     
