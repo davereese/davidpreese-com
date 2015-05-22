@@ -16,8 +16,8 @@ function scripts() {
 	wp_register_script('angularPagination', get_stylesheet_directory_uri() . '/js/angular-pagination/dirPagination.js', array(), null, true);
 	wp_register_script('app', get_stylesheet_directory_uri() . '/checkbook/app.js', array(), null, true);
 	wp_register_script('angularanimatejs', 'http://code.angularjs.org/1.2.23/angular-animate.min.js', array(), null, true);
-	wp_register_script('angularstrapjs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.js', array(), null, true);
-	wp_register_script('angularstraptpljs', 'http://mgcrea.github.io/angular-strap/dist/angular-strap.tpl.js', array(), null, true);
+	wp_register_script('angularstrapjs', '//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.min.js', array(), null, true);
+	wp_register_script('angularstraptpljs', '//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.tpl.min.js', array(), null, true);
 	wp_register_script('tags', get_stylesheet_directory_uri() . '/bower_components/ng-tags-input/ng-tags-input.js', array(), null, true);
 
 	wp_enqueue_script('easing');
