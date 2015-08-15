@@ -1,16 +1,13 @@
 {
 	"Trackers": [
 		{ "Filter": "SAF Student Loan",
-		"Amount": "10148.94",
+		"Amount": "10373.09",
 		"Icon": "fa-graduation-cap" },
 		{ "Filter": "GL Student Loan",
-		"Amount": "3929.21",
+		"Amount": "3980.65",
 		"Icon": "fa-graduation-cap" },
 		{ "Filter": "CP Student Loan",
-		"Amount": "1696.16",
-		"Icon": "fa-graduation-cap" },
-		{ "Filter": "Citi",
-		"Amount": "2945.11",
-		"Icon": "fa-credit-card" }
+		"Amount": "1737.14",
+		"Icon": "fa-graduation-cap" }
 	]
 }
