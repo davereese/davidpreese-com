@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.0.4
+Version: 2.0.7
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 Text Domain: gravityforms
@@ -96,7 +96,7 @@ define( 'GF_SUPPORTED_WP_VERSION', version_compare( get_bloginfo( 'version' ), G
  * Defines the minimum version of WordPress that will be officially supported
  * @var string GF_MIN_WP_VERSION_SUPPORT_TERMS The version number
  */
-define( 'GF_MIN_WP_VERSION_SUPPORT_TERMS', '4.4' );
+define( 'GF_MIN_WP_VERSION_SUPPORT_TERMS', '4.5' );
 
 if ( ! defined( 'GRAVITY_MANAGER_URL' ) ) {
 	define( 'GRAVITY_MANAGER_URL', 'https://www.gravityhelp.com/wp-content/plugins/gravitymanager' );
@@ -139,6 +139,7 @@ if ( is_admin() && ( RGForms::is_gravity_page() || RGForms::is_gravity_ajax_acti
 
 add_action( 'plugins_loaded', array( 'GFForms', 'loaded' ) );
 
+register_activation_hook( __FILE__, array( 'GFForms', 'activation_hook' ) );
 register_deactivation_hook( __FILE__, array( 'GFForms', 'deactivation_hook' ) );
 
 /**
@@ -155,8 +156,7 @@ class GFForms {
 	 * @static
 	 * @var string $version The version number
 	 */
-	public static $version = '2.0.4';
-
+	public static $version = '2.0.7';
 
 	/**
 	 * Runs after Gravity Forms is loaded.
@@ -211,7 +211,7 @@ class GFForms {
 		GF_Download::maybe_process();
 
 		//load text domains
-		GFCommon::load_gf_text_domain( 'gravityforms' );
+		GFCommon::load_gf_text_domain();
 
 		add_filter( 'gform_logging_supported', array( 'RGForms', 'set_logging_supported' ) );
 		add_action( 'admin_head', array( 'GFCommon', 'maybe_output_gf_vars' ) );
@@ -404,13 +404,24 @@ class GFForms {
 	}
 
 	/**
-	 * Flushes cache on Gravity Forms deactivation
+	 * Performs Gravity Forms deactivation tasks.
 	 * @access public
 	 * @static
 	 * @see GFCache
 	 */
 	public static function deactivation_hook() {
 		GFCache::flush( true );
+		delete_option( 'gravityforms_rewrite_rules_flushed' );
+		flush_rewrite_rules();
+	}
+
+	/**
+	 * Performs Gravity Forms activation tasks.
+	 * @access public
+	 * @static
+	 */
+	public static function activation_hook() {
+		update_option( 'gravityforms_rewrite_rules_flushed', false );
 	}
 
 	/**
@@ -574,6 +585,8 @@ class GFForms {
 			}
 
 			update_option( 'rg_form_version', GFCommon::$version );
+
+			update_option( 'gravityforms_rewrite_rules_flushed', false );
 
 			GFCommon::log_debug( "GFForms::setup(): Blog {$blog_id} - End of setup." );
 		}
@@ -801,7 +814,41 @@ class GFForms {
 		// The gform_longtext_upgraded option was added by the Upgrade Wizard Support Tool used to help debug upgrade issues.
 		$upgraded = (bool) get_option( 'gform_longtext_upgraded' );
 
-		if ( $upgraded  ) {
+		if ( $upgraded ) {
+			return false;
+		}
+
+		// Check the length of the value column in the lead detail table to make sure it's now longtext.
+
+		$lead_detail_table_name = GFFormsModel::get_lead_details_table_name();
+
+		$is_longtext = self::check_column( $lead_detail_table_name, 'value', 'longtext' );
+
+		$first_entry_value = $wpdb->get_results( "SELECT value FROM $lead_detail_table_name LIMIT 1" );
+
+		$col_type = $wpdb->get_col_info( 'type', 0 ); // Get type of column from the last wpdb query.
+
+		if ( ! $is_longtext ) {
+			// check_column() might fail - try a different approach.
+			if ( $col_type == '252' || $col_type == 'blob' ) {
+				$is_longtext = true;
+			}
+		}
+
+		if ( ! $is_longtext ) {
+
+			// Something's wrong with the lead detail value column. Log, add a dismissible admin message and bail.
+
+			GFCommon::log_debug( __METHOD__ . '(): lead detail value column issue' );
+
+			GFCommon::add_dismissible_message( esc_html__( 'There appears to be an issue with one of the Gravity Forms database tables. Please get in touch with support.', 'gravityforms' ), 'gform_long_table_upgrade', 'error', 'gform_full_access', true );
+
+			return false;
+		}
+
+		if ( empty( $first_entry_value ) ) {
+			// Make sure previous upgrade failure admin message is removed for sites with no entries.
+			GFCommon::remove_dismissible_message( 'gform_long_table_upgrade' );
 			return false;
 		}
 
@@ -811,10 +858,31 @@ class GFForms {
 		     || ( version_compare( $previous_version, '2.0.2.6', '<' ) && ! method_exists( $wpdb, 'get_col_length' ) )          // $wpdb->get_col_length() was introduced in WP 4.2.1. Attempts to upgrade will have caused a fatal error.
 		     || ( version_compare( $previous_version, '2.0.2.6', '<' )  // Some upgrades prior to 2.0.2.6 failed because $wpdb->get_col_length() returned false. e.g. installations using HyperDB
 		          && method_exists( $wpdb, 'get_col_length' )
-		          && $wpdb->get_col_length( $wpdb->prefix . 'rg_lead_detail', 'value' ) === false
-		     )
+		          && $wpdb->get_col_length( $wpdb->prefix . 'rg_lead_detail', 'value' ) === false )
+			|| ( version_compare( $previous_version, '2.0.4.6', '<' ) // Upgrades failed where db layers returned 'blob' as longtext column type.
+				&& $col_type == 'blob' )
 		) {
-			$can_upgrade = self::verify_lead_detail_longtext_upgrade_prerequisites();
+
+			// Check that all IDs in the detail table are unique.
+
+			$results = $wpdb->get_results("
+SELECT id
+FROM {$wpdb->prefix}rg_lead_detail
+GROUP BY id
+HAVING count(*) > 1;");
+
+			if ( count( $results ) == 0 ) {
+
+				$can_upgrade = true;
+
+			} else {
+
+				// IDs are not unique - log, add a dismissible admin message.
+
+				GFCommon::log_debug( __METHOD__ . '(): lead detail IDs issue' );
+
+				GFCommon::add_dismissible_message( esc_html__( 'There appears to be an issue with the data in the Gravity Forms database tables. Please get in touch with support.', 'gravityforms' ), 'gform_long_table_upgrade', 'error', 'gform_full_access', true );
+			}
 		}
 
 		GFCommon::log_debug( __METHOD__ . '(): can_upgrade: ' . $can_upgrade );
@@ -823,67 +891,13 @@ class GFForms {
 	}
 
 	/**
-	 * Verifies the prerequisites for copying the long values over to the detail detail table.
-	 *
-	 * @since 2.0.2.5
-	 *
-	 * @return bool Returns TRUE if the prerequisites are met, FALSE otherwise.
-	 */
-	private static function verify_lead_detail_longtext_upgrade_prerequisites() {
-		global $wpdb;
-
-		// Check the length of the value column in the lead detail table to make sure it's now longtext.
-
-		$lead_detail_table_name = GFFormsModel::get_lead_details_table_name();
-
-		$is_longtext = self::check_column( $lead_detail_table_name, 'value', 'longtext' );
-
-		if ( ! $is_longtext ) {
-
-			// Something's wrong with the lead detail value column. Log, add a dismissible admin message and bail.
-
-			GFCommon::log_debug( __METHOD__ . '(): lead detail value column issue' );
-
-			GFCommon::add_dismissible_message( esc_html__( 'There appears to be an issue with the upgrade of the Gravity Forms database tables. Please get in touch with support.', 'gravityforms' ), 'gform_long_table_upgrade', 'error', 'gform_full_access', true );
-
-			return false;
-		}
-
-		$first_entry_value = $wpdb->get_results( "SELECT value FROM $lead_detail_table_name LIMIT 1" );
-
-		if ( empty( $first_entry_value ) ) {
-			// There are no entry values so no need to copy anything.
-			return false;
-		}
-
-		// Check that all IDs in the detail table are unique.
-
-		$results = $wpdb->get_results("
-SELECT id
-FROM {$wpdb->prefix}rg_lead_detail
-GROUP BY id
-HAVING count(*) > 1;");
-
-		if ( count( $results ) > 0 ) {
-
-			// IDs are not unique - log, add a dismissible admin message and bail.
-
-			GFCommon::log_debug( __METHOD__ . '(): lead detail IDs issue' );
-
-			GFCommon::add_dismissible_message( esc_html__( 'There appears to be an issue with the data in the Gravity Forms database tables. Please get in touch with support.', 'gravityforms' ), 'gform_long_table_upgrade', 'error', 'gform_full_access', true );
-
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Check column matches criteria.
 	 *
 	 * Based on the WordPress check_column() function.
 	 *
 	 * @since 2.0.2.6
+	 *
+	 * @static
 	 *
 	 * @global wpdb $wpdb WordPress database abstraction object.
 	 *
@@ -896,7 +910,7 @@ HAVING count(*) > 1;");
 	 * @param mixed  $extra      Optional. Extra value.
 	 * @return bool True, if matches. False, if not matching.
 	 */
-	private function check_column( $table_name, $col_name, $col_type, $is_null = null, $key = null, $default = null, $extra = null ) {
+	private static function check_column( $table_name, $col_name, $col_type, $is_null = null, $key = null, $default = null, $extra = null ) {
 		global $wpdb;
 		$diffs   = 0;
 		$results = $wpdb->get_results( "DESC $table_name" );
@@ -1710,7 +1724,7 @@ SET d.value = l.value"
 
 		//Gravity Forms pages
 		$current_page = trim( strtolower( self::get( 'page' ) ) );
-		$gf_pages     = array( 'gf_edit_forms', 'gf_new_form', 'gf_entries', 'gf_settings', 'gf_export', 'gf_help' );
+		$gf_pages     = array( 'gf_edit_forms', 'gf_new_form', 'gf_entries', 'gf_settings', 'gf_export', 'gf_addons', 'gf_help' );
 
 		return in_array( $current_page, $gf_pages );
 	}
@@ -3809,6 +3823,7 @@ SET d.value = l.value"
 							var title = jQuery( '#edit-title-input' ).val();
 							jQuery( '#gform_settings_page_title' ).text( title );
 							jQuery( '#form_title_input').val( title );
+							<?php echo GFCommon::is_form_editor() ? 'form.title = title;' : ''; ?>
 						}
 
 						GF_CloseEditTitle();

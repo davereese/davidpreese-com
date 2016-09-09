@@ -433,7 +433,7 @@ function gformGetProductQuantity(formId, productFieldId) {
             var htmlId = quantityInput.attr('id'),
                 fieldId = gf_get_input_id_by_html_id(htmlId);
 
-            numberFormat = gf_global.number_formats[formId][fieldId];
+            numberFormat = gf_get_field_number_format( fieldId, formId, 'value' );
         }
 
     }
@@ -930,7 +930,7 @@ var GFCalc = function(formId, formulaFields){
         // allow result to be custom formatted
         var formattedResult = gform.applyFilters( 'gform_calculation_format_result', false, result, formulaField, formId, calcObj );
 
-        var numberFormat = gf_global.number_formats[formId][formulaField.field_id];
+        var numberFormat = gf_get_field_number_format(formulaField.field_id, formId);
 
         //formatting number
         if( formattedResult !== false) {
@@ -1063,9 +1063,9 @@ var GFCalc = function(formId, formulaFields){
 
             }
 
-            var numberFormat = gf_global.number_formats[formId][fieldId];
+            var numberFormat = gf_get_field_number_format( fieldId, formId );
             if( ! numberFormat )
-                numberFormat = gf_global.number_formats[formId][formulaField.field_id];
+                numberFormat = gf_get_field_number_format( formulaField.field_id, formId );
 
             var decimalSeparator = gformGetDecimalSeparator(numberFormat);
 
@@ -1130,6 +1130,24 @@ function getMatchGroups(expr, patt) {
     }
 
     return matches;
+}
+
+function gf_get_field_number_format(fieldId, formId, context) {
+
+    var fieldNumberFormats = rgars(window, 'gf_global/number_formats/{0}/{1}'.format(formId, fieldId)),
+        format = false;
+
+    if (fieldNumberFormats === '') {
+        return format;
+    }
+
+    if (typeof context == 'undefined') {
+        format = fieldNumberFormats.price !== false ? fieldNumberFormats.price : fieldNumberFormats.value;
+    } else {
+        format = fieldNumberFormats[context];
+    }
+
+    return format;
 }
 
 
@@ -1234,11 +1252,45 @@ function renderRecaptcha() {
 
         grecaptcha.render( this.id, parameters );
 
+        gform.doAction( 'gform_post_recaptcha_render', $elem );
+
     } );
 
 }
 
+//----------------------------------------
+//----- SINGLE FILE UPLOAD FUNCTIONS -----
+//----------------------------------------
 
+function gformValidateFileSize( field, max_file_size ) {
+	
+	// Get validation message element.
+	var validation_element = jQuery( field ).siblings( '.validation_message' );
+	
+	// Reset field validation.
+	validation_element.html( '' );
+	
+	// If file API is not supported within browser, return.
+	if ( ! window.FileReader || ! window.File || ! window.FileList || ! window.Blob ) {
+		return;
+	}
+	
+	// Get selected file.
+	var file = field.files[0];
+	
+	// If selected file is larger than maximum file size, set validation message and unset file selection.
+	if ( file.size > max_file_size ) {
+		
+		// Set validation message.
+		validation_element.html( file.name + " - " + gform_gravityforms.strings.file_exceeds_limit );
+		
+		// Unset file selection.
+		var input = jQuery( field );
+		input.replaceWith( input.val( '' ).clone( true ) );
+		
+	}
+	
+}
 
 //----------------------------------------
 //------ MULTIFILE UPLOAD FUNCTIONS ------
